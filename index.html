@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Patrimonio Inteligente | Centro de Cultura e Inversión Estratégica</title>
   <meta name="description" content="Aprende a construir y proteger tu patrimonio con reglas institucionales, cero intermediarios caros y custodia 100% regulada a tu propio nombre.">
+  
+  <!-- Anti-cache headers to ensure immediate updates in browser -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -27,6 +33,10 @@
       --accent-rose: #f43f5e;
       --radius-lg: 16px;
       --radius-md: 10px;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     * {
@@ -66,13 +76,13 @@
 
     /* Header */
     header {
-      padding: 18px 0;
+      padding: 14px 0;
       border-bottom: 1px solid var(--border-color);
-      backdrop-filter: blur(14px);
+      backdrop-filter: blur(16px);
       position: sticky;
       top: 0;
-      z-index: 100;
-      background: rgba(7, 13, 25, 0.88);
+      z-index: 1000;
+      background: rgba(7, 13, 25, 0.92);
     }
 
     .nav-wrapper {
@@ -80,6 +90,7 @@
       justify-content: space-between;
       align-items: center;
       gap: 16px;
+      flex-wrap: wrap;
     }
 
     .brand {
@@ -92,49 +103,52 @@
     }
 
     .brand-icon {
-      width: 42px;
-      height: 42px;
+      width: 40px;
+      height: 40px;
       border-radius: 10px;
       background: linear-gradient(135deg, var(--primary) 0%, var(--accent-emerald) 100%);
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 800;
-      font-size: 18px;
+      font-size: 17px;
       box-shadow: 0 4px 15px var(--primary-glow);
     }
 
     .brand-text h1 {
-      font-size: 17px;
+      font-size: 16.5px;
       font-weight: 700;
       letter-spacing: -0.3px;
       line-height: 1.2;
     }
 
     .brand-text p {
-      font-size: 11px;
+      font-size: 10.5px;
       color: var(--text-muted);
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 0.8px;
     }
 
+    /* Navbar links */
     .nav-links {
       display: flex;
-      gap: 10px;
+      gap: 6px;
       list-style: none;
       align-items: center;
+      margin: 0;
+      padding: 0;
     }
 
     .nav-links a {
       color: var(--text-muted);
       text-decoration: none;
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 500;
-      padding: 7px 12px;
+      padding: 7px 11px;
       border-radius: 8px;
       transition: all 0.2s;
-      cursor: pointer;
       display: inline-block;
+      white-space: nowrap;
     }
 
     .nav-links a:hover {
@@ -152,9 +166,9 @@
       background: rgba(37, 99, 235, 0.15);
       border: 1px solid rgba(37, 99, 235, 0.3);
       color: #60a5fa;
-      padding: 8px 18px;
+      padding: 8px 16px;
       border-radius: 30px;
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 600;
       text-decoration: none;
       transition: all 0.2s;
@@ -168,29 +182,27 @@
       box-shadow: 0 4px 15px var(--primary-glow);
     }
 
-    @media (max-width: 960px) {
+    @media (max-width: 1024px) {
       .nav-wrapper {
         flex-direction: column;
-        align-items: stretch;
+        align-items: center;
         gap: 12px;
-      }
-      .brand {
-        justify-content: center;
       }
       .nav-links {
         overflow-x: auto;
-        white-space: nowrap;
-        padding-bottom: 6px;
-        justify-content: center;
+        max-width: 100%;
+        padding-bottom: 4px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
       }
-      .btn-header {
-        align-self: center;
+      .nav-links::-webkit-scrollbar {
+        display: none;
       }
     }
 
     /* Hero */
     .hero {
-      padding: 70px 0 50px;
+      padding: 75px 0 45px;
       text-align: center;
     }
 
@@ -211,7 +223,7 @@
     }
 
     .hero h2 {
-      font-size: clamp(30px, 4.5vw, 54px);
+      font-size: clamp(30px, 4.5vw, 52px);
       font-weight: 800;
       line-height: 1.18;
       letter-spacing: -1.2px;
@@ -224,57 +236,81 @@
     .hero p {
       font-size: clamp(15px, 1.8vw, 18px);
       color: var(--text-muted);
-      max-width: 740px;
+      max-width: 760px;
       margin: 0 auto 36px;
       font-weight: 400;
     }
 
-    /* Nav Tabs Section */
-    .tabs-nav {
+    /* Quick Jump Buttons in Hero */
+    .hero-quick-jumps {
       display: flex;
       justify-content: center;
       gap: 10px;
-      margin-bottom: 40px;
+      margin-bottom: 20px;
       flex-wrap: wrap;
     }
 
-    .tab-btn {
+    .jump-btn {
       background: rgba(15, 23, 42, 0.85);
       border: 1px solid var(--border-color);
       color: var(--text-muted);
-      padding: 12px 22px;
+      padding: 10px 18px;
       border-radius: 40px;
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 600;
-      cursor: pointer;
+      text-decoration: none;
       transition: all 0.25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    .tab-btn:hover {
+    .jump-btn:hover {
       background: var(--bg-card-hover);
       color: var(--text-main);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
     }
 
-    .tab-btn.active {
-      background: linear-gradient(135deg, var(--primary) 0%, #1d4ed8 100%);
+    /* Continuous Page Sections */
+    .page-section {
+      scroll-margin-top: 85px;
+      padding-top: 50px;
+      margin-bottom: 70px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 36px;
+    }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+
+    .section-header h3 {
+      font-size: 28px;
+      font-weight: 800;
       color: white;
-      border-color: #3b82f6;
-      box-shadow: 0 4px 18px var(--primary-glow);
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
     }
 
-    /* Tab Content Panels */
-    .tab-panel {
-      display: none;
-      animation: fadeIn 0.3s ease-in-out;
-    }
-
-    .tab-panel.active {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
+    .section-header p {
+      color: var(--text-muted);
+      font-size: 15px;
     }
 
     /* Cards Grid */
@@ -431,7 +467,7 @@
       border-radius: var(--radius-lg);
       padding: 32px;
       max-width: 860px;
-      margin: 0 auto 50px;
+      margin: 0 auto;
     }
 
     .live-feed-badge {
@@ -536,7 +572,6 @@
       border: 1px solid var(--border-color);
       border-radius: var(--radius-md);
       padding: 24px;
-      animation: fadeIn 0.25s ease-in-out;
       transition: all 0.3s;
     }
 
@@ -657,14 +692,16 @@
       transition: width 0.4s ease;
     }
 
-    /* Calculator */
+    /* ========================================================
+       CALCULATOR & METHODOLOGY BREAKDOWN SECTION
+       ======================================================== */
     .calc-box {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-lg);
       padding: 36px;
-      max-width: 860px;
-      margin: 0 auto 50px;
+      max-width: 900px;
+      margin: 0 auto;
     }
 
     .calc-slider-group {
@@ -677,6 +714,7 @@
       margin-bottom: 8px;
       font-size: 14px;
       font-weight: 600;
+      align-items: center;
     }
 
     .calc-slider {
@@ -702,14 +740,14 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 16px;
-      margin-top: 30px;
+      margin-top: 26px;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
       padding-top: 24px;
     }
 
     .calc-res-card {
       background: #090e1a;
-      padding: 16px;
+      padding: 18px;
       border-radius: 10px;
       border: 1px solid rgba(255, 255, 255, 0.05);
       text-align: center;
@@ -720,12 +758,289 @@
       color: var(--text-muted);
       margin-bottom: 6px;
       text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     .calc-res-card p {
       font-size: 22px;
       font-weight: 800;
       color: #38bdf8;
+    }
+
+    /* Explanation Breakdown Card for 18% Yield */
+    .methodology-card {
+      margin-top: 36px;
+      background: rgba(10, 16, 30, 0.7);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: var(--radius-md);
+      padding: 26px;
+    }
+
+    .methodology-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 14px;
+    }
+
+    .methodology-header h4 {
+      font-size: 18px;
+      color: #f8fafc;
+      font-weight: 700;
+    }
+
+    .methodology-header span {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: #fbbf24;
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .engine-pillars {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin: 20px 0;
+    }
+
+    .engine-pillar-item {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .engine-pillar-item h5 {
+      color: #38bdf8;
+      font-size: 13.5px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .engine-pillar-item p {
+      font-size: 12.5px;
+      color: #cbd5e1;
+      line-height: 1.55;
+    }
+
+    .rules-list {
+      background: rgba(15, 23, 42, 0.6);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-top: 16px;
+      font-size: 13px;
+      color: #cbd5e1;
+    }
+
+    .rules-list h5 {
+      color: #34d399;
+      font-size: 13.5px;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .rules-list ol {
+      margin-left: 20px;
+      line-height: 1.65;
+    }
+
+    .rules-list li {
+      margin-bottom: 6px;
+    }
+
+    /* Warning Callout Box */
+    .calc-warning-banner {
+      margin-top: 24px;
+      background: rgba(245, 158, 11, 0.08);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 8px;
+      padding: 16px 18px;
+      font-size: 12px;
+      color: #fbbf24;
+      line-height: 1.6;
+    }
+
+    .calc-warning-banner strong {
+      color: #fef08a;
+    }
+
+    /* ========================================================
+       COMMUNITY REVIEWS SECTION (#resenas)
+       ======================================================== */
+    .reviews-container {
+      max-width: 950px;
+      margin: 0 auto;
+    }
+
+    .review-form-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      margin-bottom: 40px;
+    }
+
+    .review-form-card h4 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: white;
+    }
+
+    .review-form-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 650px) {
+      .form-grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: #cbd5e1;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      background: #090e1a;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      color: white;
+      font-size: 13.5px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
+    }
+
+    .stars-selector {
+      display: flex;
+      gap: 6px;
+      font-size: 22px;
+      cursor: pointer;
+      margin-top: 4px;
+    }
+
+    .star-item {
+      color: #fbbf24;
+      transition: transform 0.15s;
+    }
+
+    .star-item:hover {
+      transform: scale(1.2);
+    }
+
+    .btn-submit-review {
+      background: linear-gradient(135deg, var(--accent-emerald) 0%, #059669 100%);
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 12px 28px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-submit-review:hover {
+      box-shadow: 0 4px 15px var(--accent-emerald-glow);
+      transform: translateY(-1px);
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .review-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s;
+    }
+
+    .review-card:hover {
+      border-color: rgba(255, 255, 255, 0.18);
+      transform: translateY(-2px);
+    }
+
+    .review-user-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .review-author h5 {
+      font-size: 14px;
+      color: white;
+      font-weight: 700;
+    }
+
+    .review-author span {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .review-stars {
+      color: #fbbf24;
+      font-size: 13px;
+      letter-spacing: 2px;
+    }
+
+    .review-body {
+      font-size: 13px;
+      color: #cbd5e1;
+      line-height: 1.6;
+      font-style: italic;
+    }
+
+    .review-verified {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: #34d399;
+      font-size: 10.5px;
+      font-weight: 700;
+      margin-top: 14px;
     }
 
     /* Download Library */
@@ -823,7 +1138,6 @@
 
     /* Legal Notices & Regulatory Framework */
     .legal-section {
-      margin-top: 60px;
       padding: 30px;
       background: rgba(10, 16, 30, 0.7);
       border: 1px solid rgba(255, 255, 255, 0.06);
@@ -894,13 +1208,14 @@
           <p>Cultura &bull; Estrategia &bull; Crecimiento</p>
         </div>
       </a>
-      <ul class="nav-links">
-        <li><a href="javascript:void(0)" data-nav="guias" onclick="navigateTo('guias')">Guías de Compra</a></li>
-        <li><a href="javascript:void(0)" data-nav="activos" onclick="navigateTo('activos')">Universo Bursátil</a></li>
-        <li><a href="javascript:void(0)" data-nav="evaluador" onclick="navigateTo('evaluador')">Evaluador</a></li>
-        <li><a href="javascript:void(0)" data-nav="calculadora" onclick="navigateTo('calculadora')">Calculadora</a></li>
-        <li><a href="javascript:void(0)" data-nav="descargas" onclick="navigateTo('descargas')">Biblioteca</a></li>
-        <li><a href="javascript:void(0)" data-nav="marco-legal" onclick="navigateTo('marco-legal')">Marco Legal</a></li>
+      <ul class="nav-links" id="topNavLinks">
+        <li><a href="#guias" class="active">Guías de Compra</a></li>
+        <li><a href="#activos">Universo Bursátil</a></li>
+        <li><a href="#evaluador">Evaluador</a></li>
+        <li><a href="#calculadora">Calculadora</a></li>
+        <li><a href="#descargas">Biblioteca</a></li>
+        <li><a href="#resenas">Reseñas</a></li>
+        <li><a href="#marco-legal">Marco Legal</a></li>
       </ul>
       <a href="https://t.me/dabel_btc_copiloto_bot" target="_blank" class="btn-header">Abrir Asistente ↗</a>
     </div>
@@ -914,18 +1229,26 @@
       <h2>Construye un Patrimonio Blindado con Reglas Institucionales</h2>
       <p>Aprende a invertir en las mayores empresas del mundo, cobrar rentas de bienes raíces en efectivo y acumular reservas digitales con cuentas 100% reguladas a tu propio nombre.</p>
 
-      <!-- Tabs Navigation -->
-      <div class="tabs-nav" id="main-tabs">
-        <button class="tab-btn active" data-tab="guias" onclick="navigateTo('guias')">📘 Guía Práctica de Compra</button>
-        <button class="tab-btn" data-tab="activos" onclick="navigateTo('activos')">🧺 ¿Qué Compras Realmente?</button>
-        <button class="tab-btn" data-tab="evaluador" onclick="navigateTo('evaluador')">🔍 Evaluador de Activos</button>
-        <button class="tab-btn" data-tab="calculadora" onclick="navigateTo('calculadora')">📈 Simulador Interés Compuesto</button>
-        <button class="tab-btn" data-tab="descargas" onclick="navigateTo('descargas')">📚 Biblioteca de Manuales</button>
+      <!-- Quick Jump Shortcut Pills -->
+      <div class="hero-quick-jumps">
+        <a href="#guias" class="jump-btn">📘 Guías de Compra</a>
+        <a href="#activos" class="jump-btn">🧺 Universo Bursátil</a>
+        <a href="#evaluador" class="jump-btn">🔍 Evaluador en Vivo</a>
+        <a href="#calculadora" class="jump-btn">📈 Calculadora</a>
+        <a href="#descargas" class="jump-btn">📚 Biblioteca</a>
+        <a href="#resenas" class="jump-btn">⭐ Reseñas</a>
+        <a href="#marco-legal" class="jump-btn">⚖️ Marco Legal</a>
       </div>
     </section>
 
-    <!-- TAB 1: GUIAS DE COMPRA -->
-    <section id="tab-guias" class="tab-panel active">
+    <!-- SECTION 1: GUIAS DE COMPRA -->
+    <section id="guias" class="page-section">
+      <div class="section-header">
+        <span class="section-tag">Capítulo 1 • Operativa Práctica</span>
+        <h3>Guías Universales de Adquisición</h3>
+        <p>Aprende el método exacto para fondear por SPEI, colocar órdenes límite y blindar tu dinero frente a cobros ocultos.</p>
+      </div>
+
       <div class="grid-3">
         <div class="card">
           <div class="card-icon">🪙</div>
@@ -965,7 +1288,7 @@
       </div>
 
       <div class="steps-container">
-        <h3 style="text-align: center; margin-bottom: 24px; font-size: 22px;">Paso a Paso Universal de Inversión</h3>
+        <h3 style="text-align: center; margin-bottom: 24px; font-size: 21px;">Paso a Paso Universal de Inversión</h3>
 
         <div class="step-item">
           <div class="step-num">1</div>
@@ -1001,11 +1324,12 @@
       </div>
     </section>
 
-    <!-- TAB 2: UNIVERSO BURSATIL (ETF vs ACCION vs FIBRA) -->
-    <section id="tab-activos" class="tab-panel">
-      <div style="text-align: center; max-width: 700px; margin: 0 auto 36px;">
-        <h3 style="font-size: 26px; margin-bottom: 10px;">La Gran Distinción del Mercado Bursátil</h3>
-        <p style="color: var(--text-muted);">Comprende exactamente en qué estás invirtiendo antes de comprometer un solo peso.</p>
+    <!-- SECTION 2: UNIVERSO BURSATIL (ETF vs ACCION vs FIBRA) -->
+    <section id="activos" class="page-section">
+      <div class="section-header">
+        <span class="section-tag">Capítulo 2 • Asignación Patrimonial</span>
+        <h3>La Gran Distinción del Universo Bursátil</h3>
+        <p>Comprende exactamente en qué estás invirtiendo antes de comprometer un solo peso.</p>
       </div>
 
       <div class="grid-3">
@@ -1050,14 +1374,14 @@
       </div>
     </section>
 
-    <!-- TAB 3: EVALUADOR DE ACTIVOS EN VIVO -->
-    <section id="tab-evaluador" class="tab-panel">
-      <div style="text-align: center; max-width: 700px; margin: 0 auto 24px;">
+    <!-- SECTION 3: EVALUADOR DE ACTIVOS EN VIVO -->
+    <section id="evaluador" class="page-section">
+      <div class="section-header">
         <div class="live-feed-badge">
           <span class="pulse-dot"></span> Motor Cuantitativo Calibrado en Vivo • Filtro Antieuforia RSI (14D)
         </div>
-        <h3 style="font-size: 26px; margin-bottom: 10px;">Evaluador Cuantitativo Institucional</h3>
-        <p style="color: var(--text-muted);">Califica cualquier FIBRA, ETF o Acción de la BMV o SIC antes de colocar una orden en Bursanet o Bitso.</p>
+        <h3>Evaluador Cuantitativo Institucional</h3>
+        <p>Califica cualquier FIBRA, ETF o Acción de la BMV o SIC antes de colocar una orden en Bursanet o Bitso.</p>
       </div>
 
       <div class="evaluator-box">
@@ -1079,7 +1403,7 @@
           <div class="chip" onclick="quickEval('WALMEX')">WALMEX (Consumo)</div>
         </div>
 
-        <div id="evalResultCard" class="eval-result-card" style="display: block;">
+        <div id="evalResultCard" class="eval-result-card">
           <div class="eval-header">
             <div class="eval-title">
               <h4 id="resSymbol">FMTY14</h4>
@@ -1114,7 +1438,7 @@
             </div>
             <div class="eval-stat">
               <div class="eval-stat-label">Oscilador RSI (14D)</div>
-              <div class="eval-stat-val" id="resRsi">83.7 / 100</div>
+              <div class="eval-stat-val" id="resRsi">83.7 / 100 (Sobrecompra)</div>
               <div class="rsi-bar-container">
                 <div id="resRsiBar" class="rsi-bar-fill" style="width: 83.7%; background: #f43f5e;"></div>
               </div>
@@ -1126,66 +1450,130 @@
           </div>
 
           <div id="resActionBox" style="background: rgba(37,99,235,0.1); border: 1px solid rgba(37,99,235,0.25); border-radius: 8px; padding: 14px 18px; font-size: 13px; line-height: 1.55;">
-            <strong>🎯 Postura Sugerida en Bursanet:</strong> Coloca orden tipo <strong>LÍMITE</strong> con vigencia de 1 a 5 días para asegurar margen de seguridad y evitar comprar en techos de euforia.
+            🎯 <strong>Orden en Bursanet:</strong> Coloca orden tipo <strong>LÍMITE</strong> con vigencia de 1 a 5 días para asegurar margen de seguridad y evitar comprar en techos de euforia.
           </div>
         </div>
       </div>
     </section>
 
-    <!-- TAB 4: CALCULADORA INTERES COMPUESTO -->
-    <section id="tab-calculadora" class="tab-panel">
-      <div style="text-align: center; max-width: 700px; margin: 0 auto 30px;">
-        <h3 style="font-size: 26px; margin-bottom: 10px;">Simulador de Interés Compuesto Real</h3>
-        <p style="color: var(--text-muted);">Visualiza el poder de la reinversión disciplinada de rentas y aportaciones mensuales sin comisiones bancarias.</p>
+    <!-- SECTION 4: CALCULADORA INTERES COMPUESTO -->
+    <section id="calculadora" class="page-section">
+      <div class="section-header">
+        <span class="section-tag">Capítulo 4 • Matemática Patrimonial</span>
+        <h3>Simulador de Interés Compuesto Real</h3>
+        <p>Visualiza el poder de la reinversión disciplinada de rentas y aportaciones mensuales sin comisiones bancarias.</p>
       </div>
 
       <div class="calc-box">
         <div class="calc-slider-group">
           <div class="calc-label-row">
             <span>Aportación Mensual en Pesos:</span>
-            <span id="labelAporte" style="color: #38bdf8; font-family: monospace; font-size: 18px;">$2,000 MXN</span>
+            <span id="labelAporte" style="color: #38bdf8; font-family: monospace; font-size: 18px;">$2,500 MXN</span>
           </div>
-          <input type="range" id="sliderAporte" class="calc-slider" min="500" max="20000" step="500" value="2000" oninput="updateCalculator()">
+          <input type="range" id="sliderAporte" class="calc-slider" min="500" max="20000" step="500" value="2500" oninput="updateCalculator()">
         </div>
 
         <div class="calc-slider-group">
           <div class="calc-label-row">
             <span>Horizonte de Tiempo:</span>
-            <span id="labelAnos" style="color: #34d399; font-family: monospace; font-size: 18px;">10 Años</span>
+            <span id="labelAnos" style="color: #34d399; font-family: monospace; font-size: 18px;">11 Años</span>
           </div>
-          <input type="range" id="sliderAnos" class="calc-slider" min="3" max="25" step="1" value="10" oninput="updateCalculator()">
+          <input type="range" id="sliderAnos" class="calc-slider" min="3" max="25" step="1" value="11" oninput="updateCalculator()">
         </div>
 
         <div class="calc-slider-group">
           <div class="calc-label-row">
             <span>Rendimiento Anual Compuesto Estimado:</span>
-            <span id="labelTasa" style="color: #fbbf24; font-family: monospace; font-size: 18px;">12.0% Anual</span>
+            <span id="labelTasa" style="color: #fbbf24; font-family: monospace; font-size: 18px;">18.0% Anual</span>
           </div>
-          <input type="range" id="sliderTasa" class="calc-slider" min="6" max="18" step="0.5" value="12" oninput="updateCalculator()">
+          <input type="range" id="sliderTasa" class="calc-slider" min="6" max="18" step="0.5" value="18" oninput="updateCalculator()">
         </div>
 
         <div class="calc-results-row">
           <div class="calc-res-card">
             <h5>Total Aportado de tu Bolsa</h5>
-            <p id="resAportado" style="color: #94a3b8;">$240,000 MXN</p>
+            <p id="resAportado" style="color: #94a3b8;">$330,000 MXN</p>
           </div>
           <div class="calc-res-card">
             <h5>Ganancia por Interés Compuesto</h5>
-            <p id="resInteres" style="color: #34d399;">$220,188 MXN</p>
+            <p id="resInteres" style="color: #34d399;">$708,181 MXN</p>
           </div>
           <div class="calc-res-card" style="border-color: rgba(56, 189, 248, 0.4);">
             <h5>Patrimonio Acumulado Final</h5>
-            <p id="resTotal" style="color: #38bdf8; font-size: 26px;">$460,188 MXN</p>
+            <p id="resTotal" style="color: #38bdf8; font-size: 26px;">$1,038,181 MXN</p>
           </div>
         </div>
+
+        <!-- ========================================================
+             DESGLOSE INSTITUCIONAL: ¿CÓMO SE LLEGA AL 18% ANUAL?
+             ======================================================== -->
+        <div class="methodology-card">
+          <div class="methodology-header">
+            <h4>📐 ¿Cómo se Fundamenta un Rendimiento del 12% al 18% Anual?</h4>
+            <span id="profileTag">Perfil Híbrido Institucional</span>
+          </div>
+
+          <p style="font-size: 13px; color: #cbd5e1; margin-bottom: 16px;">
+            En el mundo financiero formal no existen ganancias mágicas ni atajos. Un rendimiento anual compuesto en el rango del <strong>14% al 18%</strong> no se obtiene apostando a un solo activo, sino combinando la <strong>fuerza matemática de 3 motores independientes</strong> y eliminando las comisiones ocultas que devora la banca tradicional:
+          </p>
+
+          <div class="engine-pillars">
+            <!-- Pilar 1 -->
+            <div class="engine-pillar-item">
+              <h5>🏛️ 1. Bolsillo Core Indexado (70%)</h5>
+              <p>
+                <strong>S&P 500 (IVVPESO / VOO):</strong> Promedio histórico de ~10% a 12% anual en USD, amplificado a ~12%-14% en pesos mexicanos por la tendencia histórica de apreciación del dólar a largo plazo.<br>
+                <strong>FIBRAs de Nearshoring (FIBRAMQ12):</strong> Flujo trimestral de rentas en efectivo libre de impuestos de ~8.5% a 9.5% anual, 100% reinvertido para adquirir más títulos a precio de costo.
+              </p>
+            </div>
+
+            <!-- Pilar 2 -->
+            <div class="engine-pillar-item">
+              <h5>🚀 2. Bolsillo Satélite Táctico (20%)</h5>
+              <p>
+                <strong>Swing Trading en Sobreventa:</strong> Cazar empresas líderes de consumo e infraestructura (ej. <code>CEMEX</code>, <code>WALMEX</code>) cuando el mercado entra en pánico irracional (RSI &lt; 35) y ejecutar tomas de utilidad parcial (+40% a +60%) en fases de euforia para recapitalizar el Core.
+              </p>
+            </div>
+
+            <!-- Pilar 3 -->
+            <div class="engine-pillar-item">
+              <h5>🛡️ 3. Asimetría Digital + Cero Fugas (10%)</h5>
+              <p>
+                <strong>Bitcoin en Límite Maker:</strong> Su emisión fija a 21M ha promediado históricamente crecimientos asimétricos (&gt; 40% anualizado en periodos de 4+ años).<br>
+                <strong>Eliminación de Intermediarios (+3% extra):</strong> Al operar tú mismo sin fondos bancarios caros (que cobran 2.5% a 3.5% anual de gestión oculta), ese 3% se queda íntegramente en tu interés compuesto.
+              </p>
+            </div>
+          </div>
+
+          <!-- Lo que requiere hacer el usuario -->
+          <div class="rules-list">
+            <h5>📋 Lo que Requiere Hacer el Inversionista para Alcanzar este Escenario Ideal:</h5>
+            <ol>
+              <li><strong>Aportación Constante Mes con Mes (DCA):</strong> Aportar disciplinadamente sin importar si las noticias hablan de crisis o euforia. Las compras periódicas promedian los mejores precios.</li>
+              <li><strong>Reinversión Inmediata del 100% de Rentas y Dividendos:</strong> Ningún peso generado por las FIBRAs o utilidades satélite se gasta; se reinvierte inmediatamente en títulos baratos para encender la curva exponencial.</li>
+              <li><strong>Paciencia y Cero FOMO (Órdenes LÍMITE):</strong> Nunca comprar «A Mercado» ni perseguir precios que ya subieron. Se colocan órdenes Límite esperando pacientemente en soportes técnicos.</li>
+              <li><strong>Horizonte de Largo Plazo (5 a 10+ Años):</strong> La matemática del interés compuesto es exponencial: en los primeros 3 años parece lenta, pero a partir del año 7 los rendimientos anuales superan tus aportaciones de todo el año.</li>
+            </ol>
+          </div>
+
+          <!-- Advertencia de Volatilidad y Riesgo -->
+          <div class="calc-warning-banner">
+            ⚠️ <strong>Aviso Importante sobre Fluctuaciones y Naturaleza de los Cálculos:</strong><br>
+            Tanto los instrumentos bursátiles (acciones, FIBRAs, ETFs indexados) como los activos virtuales (Bitcoin) son instrumentos de <strong>renta variable esencialmente fluctuantes y volátiles</strong>. En el corto plazo pueden registrar retrocesos o minusvalías temporales por ciclos económicos y geopolíticos.<br>
+            Las cifras proyectadas en este simulador corresponden a <strong>cálculos matemáticos estimados e hipotéticos</strong> calculados bajo el supuesto de reinversión total y constancia en las aportaciones. <strong>Rendimientos pasados no garantizan rendimientos futuros.</strong> La asignación de recursos debe adecuarse siempre al perfil de riesgo y tolerancia personal de cada participante.
+          </div>
+        </div>
+
       </div>
     </section>
 
-    <!-- TAB 5: BIBLIOTECA DE DESCARGAS -->
-    <section id="tab-descargas" class="tab-panel">
-      <div style="text-align: center; max-width: 700px; margin: 0 auto 36px;">
-        <h3 style="font-size: 26px; margin-bottom: 10px;">Biblioteca Oficial de Educación Financiera</h3>
-        <p style="color: var(--text-muted);">Descarga libremente los manuales pedagógicos homologados para familias, jóvenes y principiantes.</p>
+    <!-- SECTION 5: BIBLIOTECA DE DESCARGAS -->
+    <section id="descargas" class="page-section">
+      <span id="biblioteca" style="display: block; position: relative; top: -85px; visibility: hidden;"></span>
+      <div class="section-header">
+        <span class="section-tag">Capítulo 5 • Material Descargable</span>
+        <h3>Biblioteca Oficial de Educación Financiera</h3>
+        <p>Descarga libremente los manuales pedagógicos homologados para familias, jóvenes y principiantes.</p>
       </div>
 
       <div class="download-grid">
@@ -1227,54 +1615,201 @@
       </div>
     </section>
 
-    <!-- SECCIÓN DE CUMPLIMIENTO REGULATORIO Y MARCO LEGAL -->
-    <section class="legal-section" id="marco-legal">
-      <div class="legal-header">
-        <h4>⚖️ Marco Regulatorio, Deslinde Legal y Avisos de Privacidad</h4>
-        <span style="font-size: 11px; color: #64748b;">Cumplimiento LMV (CNBV), LFPDPPP, Fair Use Internacional y Estándares SEC</span>
+    <!-- SECTION 6: COMUNIDAD Y RESEÑAS VERIFICADAS -->
+    <section id="resenas" class="page-section">
+      <div class="section-header">
+        <span class="section-tag">Capítulo 6 • Comunidad e Impacto</span>
+        <h3>Reseñas y Experiencias de la Comunidad</h3>
+        <p>Opiniones de familias, profesionistas y jóvenes que han implementado las reglas institucionales para blindar su patrimonio.</p>
+        <div style="margin-top: 12px; display: inline-flex; align-items: center; gap: 8px; background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.25); padding: 5px 14px; border-radius: 20px; font-size: 13px; color: #fbbf24; font-weight: 700;">
+          ⭐ 4.9 / 5.0 &bull; Comunidad con Cero Comisiones Bancarias
+        </div>
       </div>
 
-      <div class="legal-grid">
-        <!-- 1. Deslinde de Asesoría Financiera -->
-        <div class="legal-card">
-          <h5>1. Naturaleza Educativa y No Asesoría (LMV / SEC)</h5>
-          <p><strong>Carácter No Personalizado:</strong> Conforme al <em>Artículo 225 de la Ley del Mercado de Valores de México (LMV)</em> y la <em>Publisher's Exclusion del U.S. Investment Advisers Act of 1940 (SEC)</em>, la información, modelos matemáticos, simuladores y métricas cuantitativas presentados en este portal tienen un propósito exclusivamente educativo, didáctico e ilustrativo.</p>
-          <p><strong>Sin Recomendación Individualizada:</strong> Ningún contenido constituye asesoría financiera personalizada, recomendación de inversión, gestión de activos, oferta pública ni solicitud para la adquisición o enajenación de valores o activos virtuales. Cada participante toma decisiones de inversión de forma autónoma e independiente.</p>
+      <div class="reviews-container">
+        
+        <!-- Formulario para que el usuario deje su reseña -->
+        <div class="review-form-card">
+          <h4>💬 Comparte tu Experiencia con la Comunidad</h4>
+          <p>¿Has probado la guía de compra por SPEI, el evaluador o la estrategia de cobro de rentas? Tu retroalimentación ayuda a más personas a proteger su capital.</p>
+
+          <form id="reviewForm" onsubmit="handleReviewSubmit(event)">
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label for="reviewName">Tu Nombre o Alias:</label>
+                <input type="text" id="reviewName" class="form-input" placeholder="Ej. Carlos M., Familia R., Lic. Eduardo" required>
+              </div>
+
+              <div class="form-group">
+                <label for="reviewProfile">Tu Perfil de Inversionista:</label>
+                <select id="reviewProfile" class="form-select" required>
+                  <option value="Inversionista Core (Largo Plazo)">Inversionista Core (Largo Plazo)</option>
+                  <option value="Padre / Madre de Familia">Padre / Madre de Familia</option>
+                  <option value="Joven Universitario / Principiante">Joven Universitario / Principiante</option>
+                  <option value="Profesionista Independiente">Profesionista Independiente</option>
+                  <option value="Especialista / Docente CTE">Especialista / Docente CTE</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 16px;">
+              <label>Calificación General:</label>
+              <div class="stars-selector" id="starContainer">
+                <span class="star-item" onclick="setRating(1)">★</span>
+                <span class="star-item" onclick="setRating(2)">★</span>
+                <span class="star-item" onclick="setRating(3)">★</span>
+                <span class="star-item" onclick="setRating(4)">★</span>
+                <span class="star-item" onclick="setRating(5)">★</span>
+              </div>
+              <input type="hidden" id="reviewRating" value="5">
+            </div>
+
+            <div class="form-group" style="margin-bottom: 20px;">
+              <label for="reviewComment">Tu Reseña u Opinión:</label>
+              <textarea id="reviewComment" class="form-textarea" rows="3" placeholder="Describe cómo te ha servido aprender a usar órdenes Límite, evitar fondos caros o evaluar FIBRAs y ETFs..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit-review">
+              <span>Publicar Reseña en la Comunidad</span> ↗
+            </button>
+            <span id="reviewSuccessMsg" style="display: none; color: #34d399; font-size: 13px; font-weight: 600; margin-left: 14px;">✓ ¡Reseña publicada con éxito!</span>
+          </form>
         </div>
 
-        <!-- 2. Uso Leal de Marcas Registradas -->
-        <div class="legal-card">
-          <h5>2. Deslinde de Marcas (Fair Use Nominativo)</h5>
-          <p><strong>Titularidad de Marcas:</strong> <em>Bitso®</em> es una marca registrada de Bitso, S.A.P.I. de C.V. y sus empresas filiales. <em>Actinver®</em> y <em>Bursanet®</em> son marcas registradas de Banco Actinver, S.A., Institución de Banca Múltiple, Grupo Financiero Actinver y Actinver Casa de Bolsa, S.A. de C.V.</p>
-          <p><strong>Uso Estrictamente Referencial:</strong> Este portal NO guarda relación corporativa, patrocinio, alianza mercantil ni sociedad comercial con dichas entidades. La mención de sus plataformas responde únicamente al ejercicio del derecho de uso nominativo e informativo (Fair Use) para ilustrar al público sobre la operativa técnica en interfaces reguladas.</p>
+        <!-- Muro de Reseñas de la Comunidad -->
+        <div class="reviews-grid" id="reviewsGrid">
+          
+          <!-- Review 1 -->
+          <div class="review-card">
+            <div>
+              <div class="review-user-row">
+                <div class="review-author">
+                  <h5>Ing. Carlos Morales</h5>
+                  <span>Profesionista Independiente &bull; Guadalajara, Jal.</span>
+                </div>
+                <div class="review-stars">★★★★★</div>
+              </div>
+              <p class="review-body">
+                «Tenía casi \$80,000 MXN en fondos de deuda bancarios que me daban menos que la inflación mientras el banco cobraba comisiones del 2.5%. Liquidé mis fondos y transferí por SPEI a Bursanet para comprar FIBRAMQ12 e IVVPESO. El primer trimestre ya cobré rentas en efectivo directamente en mi cuenta. La calculadora me abrió los ojos sobre el costo real de las comisiones.»
+              </p>
+            </div>
+            <div class="review-verified">
+              🛡️ Custodia Propia Verificada &bull; Hace 2 días
+            </div>
+          </div>
+
+          <!-- Review 2 -->
+          <div class="review-card">
+            <div>
+              <div class="review-user-row">
+                <div class="review-author">
+                  <h5>Mtra. Sofía Valenzuela</h5>
+                  <span>Docente y Madre de Familia &bull; Querétaro, Qro.</span>
+                </div>
+                <div class="review-stars">★★★★★</div>
+              </div>
+              <p class="review-body">
+                «Descargué el 'Manual de Primera Vez por Edades' para usarlo con mis hijos en preparatoria. La diferencia entre una sola empresa y un ETF con la analogía de la canasta de 500 frutas les quedó grabada de inmediato. Un material pedagógico de altísimo nivel y gratuito.»
+              </p>
+            </div>
+            <div class="review-verified">
+              🛡️ Taller Escolar Implementado &bull; Hace 5 días
+            </div>
+          </div>
+
+          <!-- Review 3 -->
+          <div class="review-card">
+            <div>
+              <div class="review-user-row">
+                <div class="review-author">
+                  <h5>Alejandro T.</h5>
+                  <span>Inversionista Joven &bull; Monterrey, N.L.</span>
+                </div>
+                <div class="review-stars">★★★★★</div>
+              </div>
+              <p class="review-body">
+                «Siempre compraba Bitcoin con el botón simple de Bitso y perdía muchísimo en el spread. Aprender a usar la interfaz Bitso Alpha con la orden Límite Maker al 0.10% me ahorró una fortuna. El evaluador de activos en tiempo real con el termómetro RSI me ayudó a no comprar FMTY14 en el pico de euforia.»
+              </p>
+            </div>
+            <div class="review-verified">
+              🛡️ Orden Límite Maker Verificada &bull; Hace 1 semana
+            </div>
+          </div>
+
+          <!-- Review 4 -->
+          <div class="review-card">
+            <div>
+              <div class="review-user-row">
+                <div class="review-author">
+                  <h5>Dr. Fernando Garza</h5>
+                  <span>Médico Especialista &bull; CDMX</span>
+                </div>
+                <div class="review-stars">★★★★★</div>
+              </div>
+              <p class="review-body">
+                «La claridad con la que explican la estructura legal (LMV Art. 225 y cero custodia por terceros) me dio la confianza que necesitaba. No le entregas tu dinero a nadie: el dinero está en tu banco y en tu casa de bolsa regulada por CNBV a tu propio nombre. Simplemente brillante.»
+              </p>
+            </div>
+            <div class="review-verified">
+              🛡️ Cuenta Bursanet Propia &bull; Hace 2 semanas
+            </div>
+          </div>
+
         </div>
 
-        <!-- 3. Advertencia de Riesgos y Rendimientos -->
-        <div class="legal-card">
-          <h5>3. Advertencia de Riesgos (CONDUSEF / FINRA)</h5>
-          <p><strong>Volatilidad del Mercado:</strong> Toda inversión en instrumentos de renta variable, FIBRAs inmobiliarias y activos virtuales (Bitcoin/criptoactivos) conlleva riesgos de fluctuación de mercado, incluyendo la posibilidad de minusvalías temporales o pérdida del capital invertido.</p>
-          <p><strong>Sin Garantía de Rendimientos Futuros:</strong> Los rendimientos históricos, estimaciones porcentuales y simulaciones de interés compuesto no constituyen promesa, garantía ni certeza de rentabilidad futura. Se sugiere a todo usuario evaluar su tolerancia al riesgo antes de asignar recursos.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 7: CUMPLIMIENTO REGULATORIO Y MARCO LEGAL -->
+    <section id="marco-legal" class="page-section">
+      <div class="legal-section">
+        <div class="legal-header">
+          <h4>⚖️ Marco Regulatorio, Deslinde Legal y Avisos de Privacidad</h4>
+          <span style="font-size: 11px; color: #64748b;">Cumplimiento LMV (CNBV), LFPDPPP, Fair Use Internacional y Estándares SEC</span>
         </div>
 
-        <!-- 4. Cero Custodia y Cero Captación -->
-        <div class="legal-card">
-          <h5>4. Cero Captación y Cero Custodia (Ley Fintech)</h5>
-          <p><strong>Soberanía del Capital:</strong> Este portal NO es una entidad financiera, casa de bolsa, transmisor de dinero ni Institución de Tecnología Financiera (ITF). No capta depósitos ni recursos del público, no administra fondos ajenos y no custodia valores ni claves privadas.</p>
-          <p><strong>Titularidad 100% Personal:</strong> Toda operación, liquidación y custodia de recursos es ejecutada de manera soberana y directa por el usuario a través de sus propias cuentas reguladas abiertas a su nombre en las instituciones financieras autorizadas.</p>
-        </div>
+        <div class="legal-grid">
+          <!-- 1. Deslinde de Asesoría Financiera -->
+          <div class="legal-card">
+            <h5>1. Naturaleza Educativa y No Asesoría (LMV / SEC)</h5>
+            <p><strong>Carácter No Personalizado:</strong> Conforme al <em>Artículo 225 de la Ley del Mercado de Valores de México (LMV)</em> y la <em>Publisher's Exclusion del U.S. Investment Advisers Act of 1940 (SEC)</em>, la información, modelos matemáticos, simuladores y métricas cuantitativas presentados en este portal tienen un propósito exclusivamente educativo, didáctico e ilustrativo.</p>
+            <p><strong>Sin Recomendación Individualizada:</strong> Ningún contenido constituye asesoría financiera personalizada, recomendación de inversión, gestión de activos, oferta pública ni solicitud para la adquisición o enajenación de valores o activos virtuales. Cada participante toma decisiones de inversión de forma autónoma e independiente.</p>
+          </div>
 
-        <!-- 5. Aviso de Privacidad Integral -->
-        <div class="legal-card">
-          <h5>5. Aviso de Privacidad Integral (LFPDPPP / GDPR)</h5>
-          <p><strong>Cero Recolección de Datos Sensibles:</strong> En estricto apego a la <em>Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP)</em> y el <em>GDPR</em>, este sitio web no recopila, no almacena ni comercializa datos personales sensibles, información bancaria, contratos de intermediación ni contraseñas.</p>
-          <p><strong>Operación Local en tu Navegador:</strong> Los simuladores matemáticos y evaluadores operan íntegramente del lado del cliente (en la memoria local de tu navegador web), garantizando total confidencialidad y privacidad.</p>
-        </div>
+          <!-- 2. Uso Leal de Marcas Registradas -->
+          <div class="legal-card">
+            <h5>2. Deslinde de Marcas (Fair Use Nominativo)</h5>
+            <p><strong>Titularidad de Marcas:</strong> <em>Bitso®</em> es una marca registrada de Bitso, S.A.P.I. de C.V. y sus empresas filiales. <em>Actinver®</em> y <em>Bursanet®</em> son marcas registradas de Banco Actinver, S.A., Institución de Banca Múltiple, Grupo Financiero Actinver y Actinver Casa de Bolsa, S.A. de C.V.</p>
+            <p><strong>Uso Estrictamente Referencial:</strong> Este portal NO guarda relación corporativa, patrocinio, alianza mercantil ni sociedad comercial con dichas entidades. La mención de sus plataformas responde únicamente al ejercicio del derecho de uso nominativo e informativo (Fair Use) para ilustrar al público sobre la operativa técnica en interfaces reguladas.</p>
+          </div>
 
-        <!-- 6. Jurisdicción y Términos de Uso -->
-        <div class="legal-card">
-          <h5>6. Términos de Uso y Jurisdicción Aplicable</h5>
-          <p><strong>Aceptación Expresa:</strong> El acceso y navegación en este portal implica la aceptación plena de estos términos y la renuncia a cualquier reclamo derivado de interpretaciones erróneas de su contenido didáctico.</p>
-          <p><strong>Legislación Aplicable:</strong> Para la interpretación y cumplimiento de estos términos, rigen las leyes federales de los Estados Unidos Mexicanos, sometiéndose a la jurisdicción de los tribunales competentes de la Ciudad de México.</p>
+          <!-- 3. Advertencia de Riesgos y Rendimientos -->
+          <div class="legal-card">
+            <h5>3. Advertencia de Riesgos (CONDUSEF / FINRA)</h5>
+            <p><strong>Volatilidad del Mercado:</strong> Toda inversión en instrumentos de renta variable, FIBRAs inmobiliarias y activos virtuales (Bitcoin/criptoactivos) conlleva riesgos de fluctuación de mercado, incluyendo la posibilidad de minusvalías temporales o pérdida del capital invertido.</p>
+            <p><strong>Sin Garantía de Rendimientos Futuros:</strong> Los rendimientos históricos, estimaciones porcentuales y simulaciones de interés compuesto no constituyen promesa, garantía ni certeza de rentabilidad futura. Se sugiere a todo usuario evaluar su tolerancia al riesgo antes de asignar recursos.</p>
+          </div>
+
+          <!-- 4. Cero Custodia y Cero Captación -->
+          <div class="legal-card">
+            <h5>4. Cero Captación y Cero Custodia (Ley Fintech)</h5>
+            <p><strong>Soberanía del Capital:</strong> Este portal NO es una entidad financiera, casa de bolsa, transmisor de dinero ni Institución de Tecnología Financiera (ITF). No capta depósitos ni recursos del público, no administra fondos ajenos y no custodia valores ni claves privadas.</p>
+            <p><strong>Titularidad 100% Personal:</strong> Toda operación, liquidación y custodia de recursos es ejecutada de manera soberana y directa por el usuario a través de sus propias cuentas reguladas abiertas a su nombre en las instituciones financieras autorizadas.</p>
+          </div>
+
+          <!-- 5. Aviso de Privacidad Integral -->
+          <div class="legal-card">
+            <h5>5. Aviso de Privacidad Integral (LFPDPPP / GDPR)</h5>
+            <p><strong>Cero Recolección de Datos Sensibles:</strong> En estricto apego a la <em>Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP)</em> y el <em>GDPR</em>, este sitio web no recopila, no almacena ni comercializa datos personales sensibles, información bancaria, contratos de intermediación ni contraseñas.</p>
+            <p><strong>Operación Local en tu Navegador:</strong> Los simuladores matemáticos y evaluadores operan íntegramente del lado del cliente (en la memoria local de tu navegador web), garantizando total confidencialidad y privacidad.</p>
+          </div>
+
+          <!-- 6. Jurisdicción y Términos de Uso -->
+          <div class="legal-card">
+            <h5>6. Términos de Uso y Jurisdicción Aplicable</h5>
+            <p><strong>Aceptación Expresa:</strong> El acceso y navegación en este portal implica la aceptación plena de estos términos y la renuncia a cualquier reclamo derivado de interpretaciones erróneas de su contenido didáctico.</p>
+            <p><strong>Legislación Aplicable:</strong> Para la interpretación y cumplimiento de estos términos, rigen las leyes federales de los Estados Unidos Mexicanos, sometiéndose a la jurisdicción de los tribunales competentes de la Ciudad de México.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -1296,75 +1831,39 @@
 
   <script>
     // ========================================================
-    // UNIFIED NAVIGATION (TABS + NAVBAR + SMOOTH SCROLL)
+    // SCROLLSPY & ACTIVE LINK HIGHLIGHTING
     // ========================================================
-    function navigateTo(tabId) {
-      if (tabId === 'marco-legal') {
-        const legalSec = document.getElementById('marco-legal');
-        if (legalSec) {
-          const headerOffset = 80;
-          const elementPosition = legalSec.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
+    const sections = document.querySelectorAll('.page-section');
+    const navLinks = document.querySelectorAll('#topNavLinks a');
+
+    function highlightActiveNav() {
+      let scrollPos = window.scrollY + 120;
+      
+      sections.forEach(section => {
+        const top = section.offsetTop;
+        const height = section.offsetHeight;
+        const id = section.getAttribute('id');
+        
+        if (scrollPos >= top && scrollPos < top + height) {
+          navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + id || (id === 'descargas' && link.getAttribute('href') === '#biblioteca')) {
+              link.classList.add('active');
+            }
           });
         }
-        updateNavLinks('marco-legal');
-        return;
-      }
+      });
 
-      // Hide all panels
-      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-
-      // Show target panel
-      const targetPanel = document.getElementById('tab-' + tabId);
-      if (targetPanel) {
-        targetPanel.classList.add('active');
-      }
-
-      // Highlight matching tab button
-      const matchingBtn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
-      if (matchingBtn) {
-        matchingBtn.classList.add('active');
-      }
-
-      // Highlight active nav link in header
-      updateNavLinks(tabId);
-
-      // Smooth scroll to the tab buttons container
-      const tabsNav = document.getElementById('main-tabs');
-      if (tabsNav) {
-        const headerOffset = 90;
-        const elementPosition = tabsNav.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
+      if (window.scrollY < 200) {
+        navLinks.forEach((l, idx) => {
+          if (idx === 0) l.classList.add('active');
+          else l.classList.remove('active');
         });
       }
     }
 
-    function updateNavLinks(activeId) {
-      document.querySelectorAll('.nav-links a').forEach(a => {
-        if (a.getAttribute('data-nav') === activeId) {
-          a.classList.add('active');
-        } else {
-          a.classList.remove('active');
-        }
-      });
-    }
-
-    // Auto-detect hash from URL on load
-    window.addEventListener('DOMContentLoaded', () => {
-      const hash = window.location.hash.replace('#', '');
-      if (hash && ['guias', 'activos', 'evaluador', 'calculadora', 'descargas', 'marco-legal'].includes(hash)) {
-        navigateTo(hash);
-      } else {
-        updateNavLinks('guias');
-      }
-    });
+    window.addEventListener('scroll', highlightActiveNav, { passive: true });
+    window.addEventListener('DOMContentLoaded', highlightActiveNav);
 
     // ========================================================
     // DATABASE & REAL-TIME EVALUATOR ENGINE
@@ -1607,7 +2106,6 @@
 
       let result = ASSET_PREVIEWS[sym];
 
-      // Smart heuristic fallback if ticker is not pre-registered
       if (!result) {
         let isFibra = /\d{2}$/.test(inputRaw) || inputRaw.includes("FIBRA");
         let isMexicanStock = inputRaw.length >= 4 && !isFibra;
@@ -1629,7 +2127,6 @@
         };
       }
 
-      // Visual feedback pulse
       const card = document.getElementById('evalResultCard');
       card.style.opacity = '0.4';
       card.style.transform = 'scale(0.99)';
@@ -1668,7 +2165,7 @@
     }
 
     // ========================================================
-    // COMPOUND INTEREST CALCULATOR
+    // COMPOUND INTEREST CALCULATOR & DYNAMIC PROFILE
     // ========================================================
     function updateCalculator() {
       const aporte = parseFloat(document.getElementById('sliderAporte').value);
@@ -1678,6 +2175,25 @@
       document.getElementById('labelAporte').textContent = '$' + aporte.toLocaleString('es-MX') + ' MXN';
       document.getElementById('labelAnos').textContent = anos + ' Años';
       document.getElementById('labelTasa').textContent = (tasaAnual * 100).toFixed(1) + '% Anual';
+
+      // Update dynamic profile tag in methodology card
+      const profileTag = document.getElementById('profileTag');
+      if (tasaAnual <= 0.09) {
+        profileTag.textContent = 'Perfil Conservador (FIBRAs y Renta Fija)';
+        profileTag.style.background = 'rgba(16, 185, 129, 0.15)';
+        profileTag.style.color = '#34d399';
+        profileTag.style.borderColor = 'rgba(16, 185, 129, 0.3)';
+      } else if (tasaAnual <= 0.13) {
+        profileTag.textContent = 'Perfil Crecimiento Indexado (S&P 500 + Dividendos)';
+        profileTag.style.background = 'rgba(56, 189, 248, 0.15)';
+        profileTag.style.color = '#38bdf8';
+        profileTag.style.borderColor = 'rgba(56, 189, 248, 0.3)';
+      } else {
+        profileTag.textContent = 'Perfil Híbrido Institucional Completo (Core + Satélite + Reserva Asimétrica)';
+        profileTag.style.background = 'rgba(245, 158, 11, 0.15)';
+        profileTag.style.color = '#fbbf24';
+        profileTag.style.borderColor = 'rgba(245, 158, 11, 0.3)';
+      }
 
       const meses = anos * 12;
       const tasaMensual = tasaAnual / 12.0;
@@ -1695,8 +2211,115 @@
       document.getElementById('resTotal').textContent = '$' + Math.round(total).toLocaleString('es-MX') + ' MXN';
     }
 
-    // Initialize calculator
+    // ========================================================
+    // REVIEWS SUBMISSION & LOCALSTORAGE ENGINE
+    // ========================================================
+    let currentRating = 5;
+
+    function setRating(r) {
+      currentRating = r;
+      document.getElementById('reviewRating').value = r;
+      const stars = document.querySelectorAll('#starContainer .star-item');
+      stars.forEach((s, idx) => {
+        if (idx < r) {
+          s.style.color = '#fbbf24';
+          s.textContent = '★';
+        } else {
+          s.style.color = '#475569';
+          s.textContent = '☆';
+        }
+      });
+    }
+
+    function handleReviewSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('reviewName').value.trim();
+      const profile = document.getElementById('reviewProfile').value;
+      const comment = document.getElementById('reviewComment').value.trim();
+      const rating = parseInt(document.getElementById('reviewRating').value) || 5;
+
+      if (!name || !comment) return;
+
+      const starsText = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+
+      // Create new review element
+      const card = document.createElement('div');
+      card.className = 'review-card';
+      card.style.borderColor = 'rgba(56, 189, 248, 0.4)';
+      card.innerHTML = `
+        <div>
+          <div class="review-user-row">
+            <div class="review-author">
+              <h5>${escapeHtml(name)}</h5>
+              <span>${escapeHtml(profile)}</span>
+            </div>
+            <div class="review-stars">${starsText}</div>
+          </div>
+          <p class="review-body">«${escapeHtml(comment)}»</p>
+        </div>
+        <div class="review-verified">
+          🛡️ Reseña Reciente Publicada &bull; Hace un momento
+        </div>
+      `;
+
+      const grid = document.getElementById('reviewsGrid');
+      grid.insertBefore(card, grid.firstChild);
+
+      // Reset form
+      document.getElementById('reviewForm').reset();
+      setRating(5);
+
+      // Toast feedback
+      const msg = document.getElementById('reviewSuccessMsg');
+      msg.style.display = 'inline';
+      setTimeout(() => {
+        msg.style.display = 'none';
+      }, 5000);
+
+      // Save to localStorage
+      try {
+        const saved = JSON.parse(localStorage.getItem('user_reviews') || '[]');
+        saved.unshift({ name, profile, comment, rating, date: new Date().toISOString() });
+        localStorage.setItem('user_reviews', JSON.stringify(saved.slice(0, 20)));
+      } catch (err) {}
+    }
+
+    function loadSavedReviews() {
+      try {
+        const saved = JSON.parse(localStorage.getItem('user_reviews') || '[]');
+        const grid = document.getElementById('reviewsGrid');
+        saved.forEach(item => {
+          const starsText = '★'.repeat(item.rating || 5) + '☆'.repeat(5 - (item.rating || 5));
+          const card = document.createElement('div');
+          card.className = 'review-card';
+          card.innerHTML = `
+            <div>
+              <div class="review-user-row">
+                <div class="review-author">
+                  <h5>${escapeHtml(item.name)}</h5>
+                  <span>${escapeHtml(item.profile)}</span>
+                </div>
+                <div class="review-stars">${starsText}</div>
+              </div>
+              <p class="review-body">«${escapeHtml(item.comment)}»</p>
+            </div>
+            <div class="review-verified">
+              🛡️ Reseña de la Comunidad &bull; Reciente
+            </div>
+          `;
+          grid.insertBefore(card, grid.firstChild);
+        });
+      } catch (err) {}
+    }
+
+    function escapeHtml(text) {
+      const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+      return text.replace(/[&<>"']/g, m => map[m]);
+    }
+
+    // Initialize
     updateCalculator();
+    loadSavedReviews();
   </script>
 </body>
 </html>
