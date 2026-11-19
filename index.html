@@ -1887,6 +1887,14 @@
           </div>
           <a href="./FICHA_INFOGRAFICA_BITCOIN_PARA_TODOS.pdf" target="_blank" class="btn-download">📄 Descargar PDF (410 KB)</a>
         </div>
+        <div class="doc-item">
+          <div>
+            <span class="doc-badge">COMANDOS CHATBOT</span>
+            <h4>Chuleta Rápida de Comandos del Copiloto</h4>
+            <p>Guía de referencia rápida con todos los comandos de Telegram (/estado, /precio, /evaluar, /lote, /volver_a_10) y ejemplos de uso.</p>
+          </div>
+          <a href="javascript:void(0)" onclick="openModalComandos()" class="btn-download" style="background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; color: #10b981;">📱 Ver Chuleta Interactiva</a>
+        </div>
       </div>
     </section>
 
@@ -2704,6 +2712,64 @@
     // Initialize
     updateCalculator();
     loadSavedReviews();
+  </script>
+
+  <!-- MODAL INTERACTIVO DE COMANDOS DEL CHATBOT -->
+  <div id="modalComandos" style="display:none; position:fixed; z-index:99999; left:0; top:0; width:100%; height:100%; background:rgba(10,15,30,0.85); backdrop-filter:blur(8px); align-items:center; justify-content:center; padding:16px;">
+    <div style="background:#0d1829; border:1px solid rgba(56,189,248,0.3); border-radius:16px; max-width:700px; width:100%; max-height:90vh; overflow-y:auto; padding:28px; box-shadow:0 20px 40px rgba(0,0,0,0.6); color:#f8fafc; font-family:inherit;">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:16px; margin-bottom:20px;">
+        <h3 style="margin:0; font-size:20px; color:#38bdf8; display:flex; align-items:center; gap:8px;">
+          🤖 Chuleta de Comandos del Copiloto Telegram
+        </h3>
+        <button onclick="closeModalComandos()" style="background:transparent; border:none; color:#94a3b8; font-size:24px; cursor:pointer; line-height:1;">&times;</button>
+      </div>
+
+      <p style="font-size:14px; color:#94a3b8; margin-bottom:20px;">
+        Puedes enviar cualquiera de estos comandos en tu chat privado con <b>@dabel_btc_copiloto_bot</b> para recibir respuestas instantáneas en tiempo real.
+      </p>
+
+      <div style="display:flex; flex-direction:column; gap:16px; font-size:13.5px;">
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:14px;">
+          <h4 style="margin:0 0 8px 0; color:#10b981; font-size:15px;">🔍 Diagnóstico y Control</h4>
+          <p style="margin:4px 0;"><code>/estado</code> &bull; Auditoría completa de salud, precio y régimen del bot.</p>
+          <p style="margin:4px 0;"><code>/latido</code> &bull; Prueba de vida inmediata (despacha reporte matutino).</p>
+          <p style="margin:4px 0;"><code>/web</code> &bull; Enlace directo a este portal web y sus calculadoras.</p>
+        </div>
+
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:14px;">
+          <h4 style="margin:0 0 8px 0; color:#f59e0b; font-size:15px;">🪙 Motor Bitcoin (Bitso Alpha)</h4>
+          <p style="margin:4px 0;"><code>/comprar</code> &bull; Diagnóstico en vivo de si es buen momento para acumular satoshis.</p>
+          <p style="margin:4px 0;"><code>/precio</code> &bull; Precio actual de Bitcoin en USD y MXN con spread.</p>
+          <p style="margin:4px 0;"><code>/mercado</code> &bull; Régimen macro (Bull Run vs Rango Lateral).</p>
+          <p style="margin:4px 0;"><code>/lote 50</code> &bull; Configurar cualquier presupuesto por operación (ej. $50 USD).</p>
+          <p style="margin:4px 0;"><code>/volver_a_10</code> &bull; Regresar al lote base conservador de $10 USD.</p>
+          <p style="margin:4px 0;"><code>/escalar_ahora</code> &bull; Escalar directamente tu lote a $100 USD.</p>
+        </div>
+
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:14px;">
+          <h4 style="margin:0 0 8px 0; color:#38bdf8; font-size:15px;">📈 Motor Bursátil (Actinver / Bursanet)</h4>
+          <p style="margin:4px 0;"><code>/evaluar &lt;TICKER&gt;</code> &bull; Analizar cualquier acción, ETF o FIBRA (ej. <code>/evaluar FMTY14</code> o <code>/evaluar QQQM</code>).</p>
+          <p style="margin:4px 0;"><code>/portafolio</code> &bull; Valuación, plusvalías y pesos Core vs Satélite.</p>
+          <p style="margin:4px 0;"><code>/rebalanceo</code> &bull; Órdenes tácticas sugeridas de compra de títulos.</p>
+        </div>
+      </div>
+
+      <div style="margin-top:24px; text-align:right;">
+        <a href="https://t.me/dabel_btc_copiloto_bot" target="_blank" style="display:inline-block; background:#0284c7; color:#fff; padding:10px 20px; border-radius:8px; text-decoration:none; font-weight:600; font-size:13.5px; margin-right:8px;">Abrir Chatbot en Telegram ↗</a>
+        <button onclick="closeModalComandos()" style="background:rgba(255,255,255,0.1); color:#fff; border:none; padding:10px 18px; border-radius:8px; cursor:pointer; font-size:13.5px;">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openModalComandos() {
+      var m = document.getElementById('modalComandos');
+      if (m) m.style.display = 'flex';
+    }
+    function closeModalComandos() {
+      var m = document.getElementById('modalComandos');
+      if (m) m.style.display = 'none';
+    }
   </script>
 </body>
 </html>
