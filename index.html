@@ -358,9 +358,7 @@
       line-height: 1.6;
     }
 
-    /* ========================================================
-       PERFECT CARD LIST FIX: NO FLEX COLUMNS, PURE TEXT FLOW
-       ======================================================== */
+    /* Card List */
     .card-list {
       list-style: none;
       font-size: 13.5px;
@@ -412,7 +410,7 @@
       vertical-align: baseline;
     }
 
-    /* Step-by-Step Flow */
+    /* Steps */
     .steps-container {
       display: flex;
       flex-direction: column;
@@ -458,9 +456,7 @@
       line-height: 1.5;
     }
 
-    /* ========================================================
-       EVALUATOR SECTION (REAL-TIME ENGINE STYLING)
-       ======================================================== */
+    /* Evaluator */
     .evaluator-box {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
@@ -693,15 +689,64 @@
     }
 
     /* ========================================================
-       CALCULATOR & METHODOLOGY BREAKDOWN SECTION
+       TRI-MODE WEALTH CALCULATOR (ACTINVER / BTC / HIBRIDO)
        ======================================================== */
     .calc-box {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-lg);
-      padding: 36px;
-      max-width: 900px;
+      padding: 34px;
+      max-width: 950px;
       margin: 0 auto;
+    }
+
+    /* Selector de Modo */
+    .calc-mode-selector {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+    .calc-mode-btn {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 11px 22px;
+      border-radius: 30px;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .calc-mode-btn:hover {
+      background: var(--bg-card-hover);
+      color: var(--text-main);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .calc-mode-btn.active {
+      background: linear-gradient(135deg, var(--primary) 0%, #10b981 100%);
+      color: white;
+      border-color: #10b981;
+      box-shadow: 0 4px 18px rgba(16, 185, 129, 0.35);
+    }
+
+    .calc-mode-btn[data-mode="actinver"].active {
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      border-color: #38bdf8;
+      box-shadow: 0 4px 18px rgba(56, 189, 248, 0.35);
+    }
+
+    .calc-mode-btn[data-mode="btc"].active {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      border-color: #fbbf24;
+      box-shadow: 0 4px 18px rgba(245, 158, 11, 0.35);
     }
 
     .calc-slider-group {
@@ -736,38 +781,109 @@
       box-shadow: 0 0 10px var(--accent-emerald-glow);
     }
 
-    .calc-results-row {
+    /* Sub-panels for sliders */
+    .calc-controls-card {
+      background: rgba(10, 16, 30, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+
+    /* Comparative Results Rows */
+    .calc-results-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 16px;
       margin-top: 26px;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding-top: 24px;
+      padding-top: 26px;
     }
 
-    .calc-res-card {
+    .res-column-card {
       background: #090e1a;
-      padding: 18px;
-      border-radius: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      text-align: center;
+      padding: 22px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
     }
 
-    .calc-res-card h5 {
-      font-size: 12px;
+    .res-column-card.highlight {
+      border-color: rgba(56, 189, 248, 0.4);
+      background: linear-gradient(180deg, rgba(37, 99, 235, 0.12) 0%, rgba(9, 14, 26, 0.95) 100%);
+      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.15);
+    }
+
+    .res-card-header {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+    }
+
+    .res-card-header h5 {
+      font-size: 14px;
+      color: white;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .res-card-header span {
+      font-size: 11px;
       color: var(--text-muted);
-      margin-bottom: 6px;
+    }
+
+    .res-metric-item {
+      margin-bottom: 12px;
+    }
+
+    .res-metric-label {
+      font-size: 11px;
+      color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.5px;
+      margin-bottom: 3px;
     }
 
-    .calc-res-card p {
-      font-size: 22px;
+    .res-metric-val {
+      font-size: 18px;
       font-weight: 800;
-      color: #38bdf8;
+      color: #cbd5e1;
     }
 
-    /* Explanation Breakdown Card for 18% Yield */
+    .res-metric-val.big-green {
+      color: #34d399;
+    }
+
+    .res-metric-val.big-blue {
+      color: #38bdf8;
+      font-size: 22px;
+    }
+
+    .res-metric-val.big-amber {
+      color: #fbbf24;
+    }
+
+    .sats-counter-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: #fbbf24;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-top: 4px;
+    }
+
+    /* Explanation Breakdown Card for BTC & Actinver */
     .methodology-card {
       margin-top: 36px;
       background: rgba(10, 16, 30, 0.7);
@@ -783,6 +899,7 @@
       margin-bottom: 16px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       padding-bottom: 14px;
+      flex-wrap: wrap;
     }
 
     .methodology-header h4 {
@@ -804,7 +921,7 @@
 
     .engine-pillars {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
       gap: 16px;
       margin: 20px 0;
     }
@@ -813,14 +930,13 @@
       background: rgba(15, 23, 42, 0.85);
       border: 1px solid rgba(255, 255, 255, 0.06);
       border-radius: 8px;
-      padding: 16px;
+      padding: 18px;
     }
 
     .engine-pillar-item h5 {
-      color: #38bdf8;
-      font-size: 13.5px;
+      font-size: 14px;
       font-weight: 700;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -829,21 +945,21 @@
     .engine-pillar-item p {
       font-size: 12.5px;
       color: #cbd5e1;
-      line-height: 1.55;
+      line-height: 1.6;
     }
 
     .rules-list {
       background: rgba(15, 23, 42, 0.6);
       border-radius: 8px;
-      padding: 16px 20px;
-      margin-top: 16px;
+      padding: 18px 22px;
+      margin-top: 18px;
       font-size: 13px;
       color: #cbd5e1;
     }
 
     .rules-list h5 {
       color: #34d399;
-      font-size: 13.5px;
+      font-size: 14px;
       margin-bottom: 10px;
       font-weight: 700;
     }
@@ -854,7 +970,7 @@
     }
 
     .rules-list li {
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     /* Warning Callout Box */
@@ -863,19 +979,17 @@
       background: rgba(245, 158, 11, 0.08);
       border: 1px solid rgba(245, 158, 11, 0.3);
       border-radius: 8px;
-      padding: 16px 18px;
-      font-size: 12px;
+      padding: 18px 20px;
+      font-size: 12.5px;
       color: #fbbf24;
-      line-height: 1.6;
+      line-height: 1.65;
     }
 
     .calc-warning-banner strong {
       color: #fef08a;
     }
 
-    /* ========================================================
-       COMMUNITY REVIEWS SECTION (#resenas)
-       ======================================================== */
+    /* Reviews Section */
     .reviews-container {
       max-width: 950px;
       margin: 0 auto;
@@ -1136,7 +1250,7 @@
       margin-top: 10px;
     }
 
-    /* Legal Notices & Regulatory Framework */
+    /* Legal Notices */
     .legal-section {
       padding: 30px;
       background: rgba(10, 16, 30, 0.7);
@@ -1234,7 +1348,7 @@
         <a href="#guias" class="jump-btn">📘 Guías de Compra</a>
         <a href="#activos" class="jump-btn">🧺 Universo Bursátil</a>
         <a href="#evaluador" class="jump-btn">🔍 Evaluador en Vivo</a>
-        <a href="#calculadora" class="jump-btn">📈 Calculadora</a>
+        <a href="#calculadora" class="jump-btn">📈 Simulador Patrimonial</a>
         <a href="#descargas" class="jump-btn">📚 Biblioteca</a>
         <a href="#resenas" class="jump-btn">⭐ Reseñas</a>
         <a href="#marco-legal" class="jump-btn">⚖️ Marco Legal</a>
@@ -1456,21 +1570,36 @@
       </div>
     </section>
 
-    <!-- SECTION 4: CALCULADORA INTERES COMPUESTO -->
+    <!-- SECTION 4: SIMULADOR PATRIMONIAL TRI-MODAL (ACTINVER / BTC / HIBRIDO) -->
     <section id="calculadora" class="page-section">
       <div class="section-header">
-        <span class="section-tag">Capítulo 4 • Matemática Patrimonial</span>
-        <h3>Simulador de Interés Compuesto Real</h3>
-        <p>Visualiza el poder de la reinversión disciplinada de rentas y aportaciones mensuales sin comisiones bancarias.</p>
+        <span class="section-tag">Capítulo 4 • Simulador Patrimonial Interactivo</span>
+        <h3>Calculadora de Rendimiento y Acumulación</h3>
+        <p>Compara el rendimiento generado por Actinver (Bursátil), Bitcoin (Satoshis) o la combinación de ambos en el Modelo Híbrido.</p>
       </div>
 
       <div class="calc-box">
+        
+        <!-- Selector de Modalidad -->
+        <div class="calc-mode-selector">
+          <button type="button" class="calc-mode-btn active" data-mode="hibrido" onclick="setCalcMode('hibrido')">
+            ⚡ Modelo Híbrido (Actinver + BTC)
+          </button>
+          <button type="button" class="calc-mode-btn" data-mode="actinver" onclick="setCalcMode('actinver')">
+            🏬 Solo Motor Actinver (Bursátil)
+          </button>
+          <button type="button" class="calc-mode-btn" data-mode="btc" onclick="setCalcMode('btc')">
+            🪙 Solo Motor Bitcoin (Satoshis)
+          </button>
+        </div>
+
+        <!-- Controles Comunes -->
         <div class="calc-slider-group">
           <div class="calc-label-row">
-            <span>Aportación Mensual en Pesos:</span>
+            <span>Aportación Mensual Total:</span>
             <span id="labelAporte" style="color: #38bdf8; font-family: monospace; font-size: 18px;">$2,500 MXN</span>
           </div>
-          <input type="range" id="sliderAporte" class="calc-slider" min="500" max="20000" step="500" value="2500" oninput="updateCalculator()">
+          <input type="range" id="sliderAporte" class="calc-slider" min="500" max="30000" step="500" value="2500" oninput="updateCalculator()">
         </div>
 
         <div class="calc-slider-group">
@@ -1481,66 +1610,212 @@
           <input type="range" id="sliderAnos" class="calc-slider" min="3" max="25" step="1" value="11" oninput="updateCalculator()">
         </div>
 
-        <div class="calc-slider-group">
-          <div class="calc-label-row">
-            <span>Rendimiento Anual Compuesto Estimado:</span>
-            <span id="labelTasa" style="color: #fbbf24; font-family: monospace; font-size: 18px;">18.0% Anual</span>
+        <!-- Controles Específicos: Modo Híbrido -->
+        <div id="controlsHybrid" class="calc-controls-card">
+          <div class="calc-slider-group" style="margin-bottom: 16px;">
+            <div class="calc-label-row">
+              <span>Distribución de Cartera Híbrida:</span>
+              <span id="labelSplit" style="color: #fbbf24; font-family: monospace; font-size: 15px;">80% Actinver / 20% Bitcoin</span>
+            </div>
+            <input type="range" id="sliderSplit" class="calc-slider" min="50" max="95" step="5" value="80" oninput="updateCalculator()">
+            <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); margin-top: 4px;">
+              <span>50% Bursátil / 50% BTC</span>
+              <span style="color: #10b981; font-weight: 700;">80% / 20% (Institucional Recomendado)</span>
+              <span>95% Bursátil / 5% BTC</span>
+            </div>
           </div>
-          <input type="range" id="sliderTasa" class="calc-slider" min="6" max="18" step="0.5" value="18" oninput="updateCalculator()">
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div>
+              <div class="calc-label-row" style="font-size: 12.5px;">
+                <span>Tasa Anual Actinver:</span>
+                <span id="labelTasaActHybrid" style="color: #38bdf8; font-family: monospace;">12.0%</span>
+              </div>
+              <input type="range" id="sliderTasaActHybrid" class="calc-slider" min="8" max="15" step="0.5" value="12" oninput="updateCalculator()">
+            </div>
+            <div>
+              <div class="calc-label-row" style="font-size: 12.5px;">
+                <span>Tasa Supuesta BTC (CAGR):</span>
+                <span id="labelTasaBtcHybrid" style="color: #f59e0b; font-family: monospace;">25.0%</span>
+              </div>
+              <input type="range" id="sliderTasaBtcHybrid" class="calc-slider" min="15" max="40" step="1" value="25" oninput="updateCalculator()">
+            </div>
+          </div>
         </div>
 
-        <div class="calc-results-row">
-          <div class="calc-res-card">
-            <h5>Total Aportado de tu Bolsa</h5>
-            <p id="resAportado" style="color: #94a3b8;">$330,000 MXN</p>
+        <!-- Controles Específicos: Solo Actinver -->
+        <div id="controlsActinver" class="calc-controls-card" style="display: none;">
+          <div class="calc-slider-group" style="margin-bottom: 0;">
+            <div class="calc-label-row">
+              <span>Rendimiento Anual Compuesto Bursátil:</span>
+              <span id="labelTasaActSolo" style="color: #38bdf8; font-family: monospace; font-size: 18px;">12.0% Anual</span>
+            </div>
+            <input type="range" id="sliderTasaActSolo" class="calc-slider" min="6" max="16" step="0.5" value="12" oninput="updateCalculator()">
+            <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 6px;">
+              Basado en el promedio histórico del S&P 500 (~10-12% en USD + apreciación cambiaria en pesos) y dividendos de FIBRAs industriales (~8.5%-9.5%).
+            </p>
           </div>
-          <div class="calc-res-card">
-            <h5>Ganancia por Interés Compuesto</h5>
-            <p id="resInteres" style="color: #34d399;">$708,181 MXN</p>
+        </div>
+
+        <!-- Controles Específicos: Solo Bitcoin -->
+        <div id="controlsBtc" class="calc-controls-card" style="display: none;">
+          <div class="calc-slider-group" style="margin-bottom: 0;">
+            <div class="calc-label-row">
+              <span>Tasa Supuesta de Apreciación Anualizada (CAGR):</span>
+              <span id="labelTasaBtcSolo" style="color: #f59e0b; font-family: monospace; font-size: 18px;">25.0% Anual</span>
+            </div>
+            <input type="range" id="sliderTasaBtcSolo" class="calc-slider" min="15" max="45" step="1" value="25" oninput="updateCalculator()">
+            <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 6px;">
+              Modelo hipotético de apreciación a largo plazo impulsado por los ciclos de halving cada 4 años y su emisión fija e inmutable a 21 millones.
+            </p>
           </div>
-          <div class="calc-res-card" style="border-color: rgba(56, 189, 248, 0.4);">
-            <h5>Patrimonio Acumulado Final</h5>
-            <p id="resTotal" style="color: #38bdf8; font-size: 26px;">$1,038,181 MXN</p>
+        </div>
+
+        <!-- TARJETAS DE RESULTADOS -->
+        
+        <!-- 1. Resultados Modo Híbrido (3 Columnas: Actinver | Bitcoin | Consolidado) -->
+        <div id="resultsHybrid" class="calc-results-grid">
+          
+          <!-- Columna Actinver -->
+          <div class="res-column-card">
+            <div class="res-card-header">
+              <h5>🏛️ Motor Actinver <small id="resActPctBadge" style="color: #38bdf8;">(80%)</small></h5>
+              <span>S&P 500 Indexado + Rentas Nearshoring</span>
+            </div>
+            <div>
+              <div class="res-metric-item">
+                <div class="res-metric-label">Aporte de tu bolsa</div>
+                <div class="res-metric-val" id="resActAportado">$264,000 MXN</div>
+              </div>
+              <div class="res-metric-item">
+                <div class="res-metric-label">Ganancia por Interés y Rentas</div>
+                <div class="res-metric-val big-green" id="resActGanancia">$285,230 MXN</div>
+              </div>
+            </div>
+            <div style="border-top: 1px solid rgba(255,255,255,0.06); padding-top: 10px; margin-top: 10px;">
+              <div class="res-metric-label">Subtotal Acumulado Actinver</div>
+              <div class="res-metric-val big-blue" id="resActTotal">$549,230 MXN</div>
+            </div>
+          </div>
+
+          <!-- Columna Bitcoin -->
+          <div class="res-column-card">
+            <div class="res-card-header">
+              <h5>🪙 Motor Bitcoin <small id="resBtcPctBadge" style="color: #f59e0b;">(20%)</small></h5>
+              <span>Reserva Escasa (Satoshis Maker)</span>
+            </div>
+            <div>
+              <div class="res-metric-item">
+                <div class="res-metric-label">Aporte de tu bolsa</div>
+                <div class="res-metric-val" id="resBtcAportado">$66,000 MXN</div>
+              </div>
+              <div class="res-metric-item">
+                <div class="res-metric-label">Satoshis Acumulados Proyectados</div>
+                <div class="sats-counter-badge" id="resBtcSats">⚡ 1,271,605 sats</div>
+              </div>
+            </div>
+            <div style="border-top: 1px solid rgba(255,255,255,0.06); padding-top: 10px; margin-top: 10px;">
+              <div class="res-metric-label">Subtotal Valuado en Pesos</div>
+              <div class="res-metric-val big-amber" id="resBtcTotal">$348,068 MXN</div>
+            </div>
+          </div>
+
+          <!-- Columna Consolidado Híbrido -->
+          <div class="res-column-card highlight">
+            <div class="res-card-header">
+              <h5 style="color: #38bdf8;">⚡ Patrimonio Total Híbrido</h5>
+              <span>Sinergia de Flujo + Asimetría Digital</span>
+            </div>
+            <div>
+              <div class="res-metric-item">
+                <div class="res-metric-label">Aporte Total de tu Bolsa</div>
+                <div class="res-metric-val" id="resHybAportado">$330,000 MXN</div>
+              </div>
+              <div class="res-metric-item">
+                <div class="res-metric-label">Ganancia Neta Combinada</div>
+                <div class="res-metric-val big-green" id="resHybGanancia">$567,297 MXN</div>
+              </div>
+            </div>
+            <div style="border-top: 1px solid rgba(56,189,248,0.3); padding-top: 10px; margin-top: 10px;">
+              <div class="res-metric-label">Patrimonio Acumulado Final</div>
+              <div class="res-metric-val big-blue" id="resHybTotal" style="font-size: 26px;">$897,297 MXN</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 2. Resultados Modo Individual (Solo Actinver o Solo Bitcoin) -->
+        <div id="resultsSingle" class="calc-results-grid" style="display: none;">
+          <div class="res-column-card">
+            <div class="res-card-header">
+              <h5>💼 Total Aportado de tu Bolsa</h5>
+              <span>Tu ahorro disciplinado mes con mes</span>
+            </div>
+            <div class="res-metric-val" id="resSingleAportado" style="font-size: 24px;">$330,000 MXN</div>
+          </div>
+
+          <div class="res-column-card">
+            <div class="res-card-header">
+              <h5 id="resSingleGainTitle">📈 Utilidad por Interés Compuesto</h5>
+              <span id="resSingleGainSub">Crecimiento patrimonial generado</span>
+            </div>
+            <div class="res-metric-val big-green" id="resSingleGanancia" style="font-size: 24px;">$356,537 MXN</div>
+            <div id="resSingleSatsExtra" style="display: none; margin-top: 8px;">
+              <div class="sats-counter-badge" id="resSingleSats">⚡ 6,358,025 sats</div>
+            </div>
+          </div>
+
+          <div class="res-column-card highlight">
+            <div class="res-card-header">
+              <h5 style="color: #38bdf8;" id="resSingleTotalTitle">🏆 Patrimonio Final en Actinver</h5>
+              <span id="resSingleTotalSub">Custodia 100% regulada a tu nombre</span>
+            </div>
+            <div class="res-metric-val big-blue" id="resSingleTotal" style="font-size: 28px;">$686,537 MXN</div>
           </div>
         </div>
 
         <!-- ========================================================
-             DESGLOSE INSTITUCIONAL: ¿CÓMO SE LLEGA AL 18% ANUAL?
+             DESGLOSE INSTITUCIONAL Y PEDAGÓGICO
              ======================================================== -->
         <div class="methodology-card">
           <div class="methodology-header">
-            <h4>📐 ¿Cómo se Fundamenta un Rendimiento del 12% al 18% Anual?</h4>
-            <span id="profileTag">Perfil Híbrido Institucional</span>
+            <h4>📐 ¿Cómo se Fundamenta la Ganancia en Actinver vs Bitcoin?</h4>
+            <span id="profileTag">Modelo Híbrido Institucional</span>
           </div>
 
           <p style="font-size: 13px; color: #cbd5e1; margin-bottom: 16px;">
-            En el mundo financiero formal no existen ganancias mágicas ni atajos. Un rendimiento anual compuesto en el rango del <strong>14% al 18%</strong> no se obtiene apostando a un solo activo, sino combinando la <strong>fuerza matemática de 3 motores independientes</strong> y eliminando las comisiones ocultas que devora la banca tradicional:
+            Comprender el origen matemático de la ganancia en cada plataforma es indispensable para invertir con convicción y evitar falsas expectativas:
           </p>
 
           <div class="engine-pillars">
-            <!-- Pilar 1 -->
+            <!-- Pilar 1: Actinver -->
             <div class="engine-pillar-item">
-              <h5>🏛️ 1. Bolsillo Core Indexado (70%)</h5>
+              <h5 style="color: #38bdf8;">🏬 1. Motor Actinver: Flujo y Empresas Tangibles</h5>
               <p>
-                <strong>S&P 500 (IVVPESO / VOO):</strong> Promedio histórico de ~10% a 12% anual en USD, amplificado a ~12%-14% en pesos mexicanos por la tendencia histórica de apreciación del dólar a largo plazo.<br>
-                <strong>FIBRAs de Nearshoring (FIBRAMQ12):</strong> Flujo trimestral de rentas en efectivo libre de impuestos de ~8.5% a 9.5% anual, 100% reinvertido para adquirir más títulos a precio de costo.
+                <strong>¿De dónde viene la ganancia?:</strong> Proviene de dos fuentes reales y comprobables:<br>
+                &bull; <em>Rentas de FIBRAs (FIBRAMQ12):</em> Distribución trimestral de rentas en efectivo cobradas a inquilinos corporativos de naves industriales de Nearshoring (~8.5%-9.5% anual libre de impuestos).<br>
+                &bull; <em>Crecimiento del S&P 500 (IVVPESO / VOO):</em> Ganancias de capital por las ventas y utilidades de las 500 mayores corporaciones de EE.UU. (~10-12% en USD + cobertura cambiaria en MXN).<br>
+                &bull; <em>Reinversión:</em> Cada renta cobrada se reinvierte de inmediato para comprar más títulos que a su vez pagan más rentas.
               </p>
             </div>
 
-            <!-- Pilar 2 -->
+            <!-- Pilar 2: Bitcoin -->
             <div class="engine-pillar-item">
-              <h5>🚀 2. Bolsillo Satélite Táctico (20%)</h5>
+              <h5 style="color: #f59e0b;">🪙 2. Motor Bitcoin: La Matemática de los Satoshis</h5>
               <p>
-                <strong>Swing Trading en Sobreventa:</strong> Cazar empresas líderes de consumo e infraestructura (ej. <code>CEMEX</code>, <code>WALMEX</code>) cuando el mercado entra en pánico irracional (RSI &lt; 35) y ejecutar tomas de utilidad parcial (+40% a +60%) en fases de euforia para recapitalizar el Core.
+                <strong>¿De dónde viene la ganancia?:</strong> Bitcoin <em>no paga rentas ni reparte dividendos</em>. Su utilidad radica en <strong>la cantidad de Satoshis acumulados multiplicados por la valuación de mercado que alcance la red en el futuro</strong>:<br>
+                &bull; <em>¿Qué es un Satoshi?:</em> 1 Bitcoin equivale exactamente a <strong>100,000,000 de satoshis</strong>. No necesitas comprar un bitcoin entero; compras paquetes de satoshis con órdenes Límite Maker al 0.10% en Bitso Alpha.<br>
+                &bull; <em>El Supuesto de Escasez:</em> Es un <strong>supuesto matemático de largo plazo</strong>: la oferta total mundial es inmutable (solo existirán 21 millones de monedas para siempre). Conforme más personas e instituciones adoptan la red y la emisión se reduce a la mitad cada 4 años (Halving), el valor por satoshi tiende a apreciarse frente a monedas que se devalúan.<br>
+                &bull; <em>DCA Estratégico:</em> Al aportar mes con mes, compras barato en los retrocesos y acumulas más satoshis para el siguiente ciclo.
               </p>
             </div>
 
-            <!-- Pilar 3 -->
+            <!-- Pilar 3: Sinergia Híbrida -->
             <div class="engine-pillar-item">
-              <h5>🛡️ 3. Asimetría Digital + Cero Fugas (10%)</h5>
+              <h5 style="color: #34d399;">⚡ 3. La Sinergia Híbrida y Cero Fugas</h5>
               <p>
-                <strong>Bitcoin en Límite Maker:</strong> Su emisión fija a 21M ha promediado históricamente crecimientos asimétricos (&gt; 40% anualizado en periodos de 4+ años).<br>
-                <strong>Eliminación de Intermediarios (+3% extra):</strong> Al operar tú mismo sin fondos bancarios caros (que cobran 2.5% a 3.5% anual de gestión oculta), ese 3% se queda íntegramente en tu interés compuesto.
+                <strong>Lo mejor de ambos mundos:</strong> Actinver aporta el <em>flujo de efectivo predecible, los dividendos y la estabilidad defensiva</em>, mientras que Bitcoin aporta la <em>asimetría de crecimiento de capital digital</em>.<br>
+                <strong>Eliminación de Intermediarios (+3% extra):</strong> Al operar tú mismo en cuentas a tu nombre, eliminas las comisiones de administración de fondos bancarios tradicionales (que devoran del 2.5% al 3.5% anual en cobros ocultos). Ese 3% adicional se queda íntegramente trabajando en tu interés compuesto.
               </p>
             </div>
           </div>
@@ -1559,7 +1834,7 @@
           <!-- Advertencia de Volatilidad y Riesgo -->
           <div class="calc-warning-banner">
             ⚠️ <strong>Aviso Importante sobre Fluctuaciones y Naturaleza de los Cálculos:</strong><br>
-            Tanto los instrumentos bursátiles (acciones, FIBRAs, ETFs indexados) como los activos virtuales (Bitcoin) son instrumentos de <strong>renta variable esencialmente fluctuantes y volátiles</strong>. En el corto plazo pueden registrar retrocesos o minusvalías temporales por ciclos económicos y geopolíticos.<br>
+            Tanto los instrumentos bursátiles (acciones, FIBRAs, ETFs indexados) como los activos virtuales (Bitcoin) son instrumentos de <strong>renta variable esencialmente fluctuantes y volátiles</strong>. En el corto plazo pueden registrar retrocesos o minusvalías temporales por ciclos económicos y geopolíticos (en el caso de Bitcoin, son normales caídas cíclicas de -20% a -50% antes de retomar su tendencia de largo plazo).<br>
             Las cifras proyectadas en este simulador corresponden a <strong>cálculos matemáticos estimados e hipotéticos</strong> calculados bajo el supuesto de reinversión total y constancia en las aportaciones. <strong>Rendimientos pasados no garantizan rendimientos futuros.</strong> La asignación de recursos debe adecuarse siempre al perfil de riesgo y tolerancia personal de cada participante.
           </div>
         </div>
@@ -1690,7 +1965,7 @@
                 <div class="review-stars">★★★★★</div>
               </div>
               <p class="review-body">
-                «Tenía casi \$80,000 MXN en fondos de deuda bancarios que me daban menos que la inflación mientras el banco cobraba comisiones del 2.5%. Liquidé mis fondos y transferí por SPEI a Bursanet para comprar FIBRAMQ12 e IVVPESO. El primer trimestre ya cobré rentas en efectivo directamente en mi cuenta. La calculadora me abrió los ojos sobre el costo real de las comisiones.»
+                «Tenía casi $80,000 MXN en fondos de deuda bancarios que me daban menos que la inflación mientras el banco cobraba comisiones del 2.5%. Liquidé mis fondos y transferí por SPEI a Bursanet para comprar FIBRAMQ12 e IVVPESO. El primer trimestre ya cobré rentas en efectivo directamente en mi cuenta. La calculadora me abrió los ojos sobre el costo real de las comisiones.»
               </p>
             </div>
             <div class="review-verified">
@@ -1769,42 +2044,36 @@
         </div>
 
         <div class="legal-grid">
-          <!-- 1. Deslinde de Asesoría Financiera -->
           <div class="legal-card">
             <h5>1. Naturaleza Educativa y No Asesoría (LMV / SEC)</h5>
             <p><strong>Carácter No Personalizado:</strong> Conforme al <em>Artículo 225 de la Ley del Mercado de Valores de México (LMV)</em> y la <em>Publisher's Exclusion del U.S. Investment Advisers Act of 1940 (SEC)</em>, la información, modelos matemáticos, simuladores y métricas cuantitativas presentados en este portal tienen un propósito exclusivamente educativo, didáctico e ilustrativo.</p>
             <p><strong>Sin Recomendación Individualizada:</strong> Ningún contenido constituye asesoría financiera personalizada, recomendación de inversión, gestión de activos, oferta pública ni solicitud para la adquisición o enajenación de valores o activos virtuales. Cada participante toma decisiones de inversión de forma autónoma e independiente.</p>
           </div>
 
-          <!-- 2. Uso Leal de Marcas Registradas -->
           <div class="legal-card">
             <h5>2. Deslinde de Marcas (Fair Use Nominativo)</h5>
             <p><strong>Titularidad de Marcas:</strong> <em>Bitso®</em> es una marca registrada de Bitso, S.A.P.I. de C.V. y sus empresas filiales. <em>Actinver®</em> y <em>Bursanet®</em> son marcas registradas de Banco Actinver, S.A., Institución de Banca Múltiple, Grupo Financiero Actinver y Actinver Casa de Bolsa, S.A. de C.V.</p>
             <p><strong>Uso Estrictamente Referencial:</strong> Este portal NO guarda relación corporativa, patrocinio, alianza mercantil ni sociedad comercial con dichas entidades. La mención de sus plataformas responde únicamente al ejercicio del derecho de uso nominativo e informativo (Fair Use) para ilustrar al público sobre la operativa técnica en interfaces reguladas.</p>
           </div>
 
-          <!-- 3. Advertencia de Riesgos y Rendimientos -->
           <div class="legal-card">
             <h5>3. Advertencia de Riesgos (CONDUSEF / FINRA)</h5>
             <p><strong>Volatilidad del Mercado:</strong> Toda inversión en instrumentos de renta variable, FIBRAs inmobiliarias y activos virtuales (Bitcoin/criptoactivos) conlleva riesgos de fluctuación de mercado, incluyendo la posibilidad de minusvalías temporales o pérdida del capital invertido.</p>
             <p><strong>Sin Garantía de Rendimientos Futuros:</strong> Los rendimientos históricos, estimaciones porcentuales y simulaciones de interés compuesto no constituyen promesa, garantía ni certeza de rentabilidad futura. Se sugiere a todo usuario evaluar su tolerancia al riesgo antes de asignar recursos.</p>
           </div>
 
-          <!-- 4. Cero Custodia y Cero Captación -->
           <div class="legal-card">
             <h5>4. Cero Captación y Cero Custodia (Ley Fintech)</h5>
             <p><strong>Soberanía del Capital:</strong> Este portal NO es una entidad financiera, casa de bolsa, transmisor de dinero ni Institución de Tecnología Financiera (ITF). No capta depósitos ni recursos del público, no administra fondos ajenos y no custodia valores ni claves privadas.</p>
             <p><strong>Titularidad 100% Personal:</strong> Toda operación, liquidación y custodia de recursos es ejecutada de manera soberana y directa por el usuario a través de sus propias cuentas reguladas abiertas a su nombre en las instituciones financieras autorizadas.</p>
           </div>
 
-          <!-- 5. Aviso de Privacidad Integral -->
           <div class="legal-card">
             <h5>5. Aviso de Privacidad Integral (LFPDPPP / GDPR)</h5>
             <p><strong>Cero Recolección de Datos Sensibles:</strong> En estricto apego a la <em>Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP)</em> y el <em>GDPR</em>, este sitio web no recopila, no almacena ni comercializa datos personales sensibles, información bancaria, contratos de intermediación ni contraseñas.</p>
             <p><strong>Operación Local en tu Navegador:</strong> Los simuladores matemáticos y evaluadores operan íntegramente del lado del cliente (en la memoria local de tu navegador web), garantizando total confidencialidad y privacidad.</p>
           </div>
 
-          <!-- 6. Jurisdicción y Términos de Uso -->
           <div class="legal-card">
             <h5>6. Términos de Uso y Jurisdicción Aplicable</h5>
             <p><strong>Aceptación Expresa:</strong> El acceso y navegación en este portal implica la aceptación plena de estos términos y la renuncia a cualquier reclamo derivado de interpretaciones erróneas de su contenido didáctico.</p>
@@ -2165,50 +2434,169 @@
     }
 
     // ========================================================
-    // COMPOUND INTEREST CALCULATOR & DYNAMIC PROFILE
+    // TRI-MODE WEALTH CALCULATOR LOGIC
     // ========================================================
+    let currentCalcMode = 'hibrido';
+    const BTC_BASE_PRICE = 1800000.0; // ~$90,000 USD en MXN
+
+    function setCalcMode(mode) {
+      currentCalcMode = mode;
+      
+      // Update buttons
+      document.querySelectorAll('.calc-mode-btn').forEach(btn => {
+        if (btn.getAttribute('data-mode') === mode) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      // Toggle control panels
+      const cHybrid = document.getElementById('controlsHybrid');
+      const cAct = document.getElementById('controlsActinver');
+      const cBtc = document.getElementById('controlsBtc');
+
+      const rHybrid = document.getElementById('resultsHybrid');
+      const rSingle = document.getElementById('resultsSingle');
+
+      if (mode === 'hibrido') {
+        cHybrid.style.display = 'block';
+        cAct.style.display = 'none';
+        cBtc.style.display = 'none';
+        rHybrid.style.display = 'grid';
+        rSingle.style.display = 'none';
+        document.getElementById('profileTag').textContent = 'Modelo Híbrido Institucional (Actinver + BTC)';
+      } else if (mode === 'actinver') {
+        cHybrid.style.display = 'none';
+        cAct.style.display = 'block';
+        cBtc.style.display = 'none';
+        rHybrid.style.display = 'none';
+        rSingle.style.display = 'grid';
+        document.getElementById('profileTag').textContent = 'Motor Bursátil Puro (Actinver / FIBRAs / ETFs)';
+      } else { // btc
+        cHybrid.style.display = 'none';
+        cAct.style.display = 'none';
+        cBtc.style.display = 'block';
+        rHybrid.style.display = 'none';
+        rSingle.style.display = 'grid';
+        document.getElementById('profileTag').textContent = 'Motor Digital Escaso (Bitcoin / Satoshis)';
+      }
+
+      updateCalculator();
+    }
+
     function updateCalculator() {
-      const aporte = parseFloat(document.getElementById('sliderAporte').value);
+      const aporteTotal = parseFloat(document.getElementById('sliderAporte').value);
       const anos = parseInt(document.getElementById('sliderAnos').value);
-      const tasaAnual = parseFloat(document.getElementById('sliderTasa').value) / 100.0;
-
-      document.getElementById('labelAporte').textContent = '$' + aporte.toLocaleString('es-MX') + ' MXN';
-      document.getElementById('labelAnos').textContent = anos + ' Años';
-      document.getElementById('labelTasa').textContent = (tasaAnual * 100).toFixed(1) + '% Anual';
-
-      // Update dynamic profile tag in methodology card
-      const profileTag = document.getElementById('profileTag');
-      if (tasaAnual <= 0.09) {
-        profileTag.textContent = 'Perfil Conservador (FIBRAs y Renta Fija)';
-        profileTag.style.background = 'rgba(16, 185, 129, 0.15)';
-        profileTag.style.color = '#34d399';
-        profileTag.style.borderColor = 'rgba(16, 185, 129, 0.3)';
-      } else if (tasaAnual <= 0.13) {
-        profileTag.textContent = 'Perfil Crecimiento Indexado (S&P 500 + Dividendos)';
-        profileTag.style.background = 'rgba(56, 189, 248, 0.15)';
-        profileTag.style.color = '#38bdf8';
-        profileTag.style.borderColor = 'rgba(56, 189, 248, 0.3)';
-      } else {
-        profileTag.textContent = 'Perfil Híbrido Institucional Completo (Core + Satélite + Reserva Asimétrica)';
-        profileTag.style.background = 'rgba(245, 158, 11, 0.15)';
-        profileTag.style.color = '#fbbf24';
-        profileTag.style.borderColor = 'rgba(245, 158, 11, 0.3)';
-      }
-
       const meses = anos * 12;
-      const tasaMensual = tasaAnual / 12.0;
-      let total = 0;
-      const totalAportado = aporte * meses;
 
-      for (let m = 0; m < meses; m++) {
-        total = (total + aporte) * (1 + tasaMensual);
+      document.getElementById('labelAporte').textContent = '$' + aporteTotal.toLocaleString('es-MX') + ' MXN';
+      document.getElementById('labelAnos').textContent = anos + ' Años';
+
+      if (currentCalcMode === 'hibrido') {
+        const splitAct = parseInt(document.getElementById('sliderSplit').value);
+        const splitBtc = 100 - splitAct;
+        document.getElementById('labelSplit').textContent = splitAct + '% Actinver / ' + splitBtc + '% Bitcoin';
+
+        const tasaAct = parseFloat(document.getElementById('sliderTasaActHybrid').value) / 100.0;
+        const tasaBtc = parseFloat(document.getElementById('sliderTasaBtcHybrid').value) / 100.0;
+
+        document.getElementById('labelTasaActHybrid').textContent = (tasaAct * 100).toFixed(1) + '%';
+        document.getElementById('labelTasaBtcHybrid').textContent = (tasaBtc * 100).toFixed(1) + '%';
+
+        // Monthly contributions
+        const aporteAct = aporteTotal * (splitAct / 100.0);
+        const aporteBtc = aporteTotal * (splitBtc / 100.0);
+
+        // Actinver Math
+        const rMesAct = tasaAct / 12.0;
+        let totAct = 0;
+        for (let m = 0; m < meses; m++) {
+          totAct = (totAct + aporteAct) * (1 + rMesAct);
+        }
+        const aportadoAct = aporteAct * meses;
+        const gananciaAct = totAct - aportadoAct;
+
+        // Bitcoin Math (Satoshis accumulation)
+        const rMesBtc = tasaBtc / 12.0;
+        let satsTot = 0;
+        for (let m = 0; m < meses; m++) {
+          const pm = BTC_BASE_PRICE * Math.pow(1 + rMesBtc, m);
+          satsTot += (aporteBtc / pm) * 100000000.0;
+        }
+        const pFinalBtc = BTC_BASE_PRICE * Math.pow(1 + rMesBtc, meses);
+        const totBtcMxn = (satsTot / 100000000.0) * pFinalBtc;
+        const aportadoBtc = aporteBtc * meses;
+
+        // Consolidado
+        const aportadoTotal = aportadoAct + aportadoBtc;
+        const patrimonioTotal = totAct + totBtcMxn;
+        const gananciaTotal = patrimonioTotal - aportadoTotal;
+
+        // Render Hybrid Results
+        document.getElementById('resActPctBadge').textContent = '(' + splitAct + '%)';
+        document.getElementById('resBtcPctBadge').textContent = '(' + splitBtc + '%)';
+
+        document.getElementById('resActAportado').textContent = '$' + Math.round(aportadoAct).toLocaleString('es-MX') + ' MXN';
+        document.getElementById('resActGanancia').textContent = '$' + Math.round(gananciaAct).toLocaleString('es-MX') + ' MXN';
+        document.getElementById('resActTotal').textContent = '$' + Math.round(totAct).toLocaleString('es-MX') + ' MXN';
+
+        document.getElementById('resBtcAportado').textContent = '$' + Math.round(aportadoBtc).toLocaleString('es-MX') + ' MXN';
+        document.getElementById('resBtcSats').textContent = '⚡ ' + Math.round(satsTot).toLocaleString('es-MX') + ' sats';
+        document.getElementById('resBtcTotal').textContent = '$' + Math.round(totBtcMxn).toLocaleString('es-MX') + ' MXN';
+
+        document.getElementById('resHybAportado').textContent = '$' + Math.round(aportadoTotal).toLocaleString('es-MX') + ' MXN';
+        document.getElementById('resHybGanancia').textContent = '$' + Math.round(gananciaTotal).toLocaleString('es-MX') + ' MXN';
+        document.getElementById('resHybTotal').textContent = '$' + Math.round(patrimonioTotal).toLocaleString('es-MX') + ' MXN';
+
+      } else if (currentCalcMode === 'actinver') {
+        const tasaAct = parseFloat(document.getElementById('sliderTasaActSolo').value) / 100.0;
+        document.getElementById('labelTasaActSolo').textContent = (tasaAct * 100).toFixed(1) + '% Anual';
+
+        const rMes = tasaAct / 12.0;
+        let total = 0;
+        for (let m = 0; m < meses; m++) {
+          total = (total + aporteTotal) * (1 + rMes);
+        }
+        const aportado = aporteTotal * meses;
+        const ganancia = total - aportado;
+
+        document.getElementById('resSingleAportado').textContent = '$' + Math.round(aportado).toLocaleString('es-MX') + ' MXN';
+        document.getElementById('resSingleGainTitle').textContent = '📈 Utilidad por Rentas y Crecimiento S&P 500';
+        document.getElementById('resSingleGainSub').textContent = 'Reinversión disciplinada sin comisiones bancarias';
+        document.getElementById('resSingleGanancia').textContent = '$' + Math.round(ganancia).toLocaleString('es-MX') + ' MXN';
+        document.getElementById('resSingleSatsExtra').style.display = 'none';
+
+        document.getElementById('resSingleTotalTitle').textContent = '🏆 Patrimonio Acumulado en Actinver';
+        document.getElementById('resSingleTotalSub').textContent = 'FIBRAs Industriales + Índice S&P 500 regulado';
+        document.getElementById('resSingleTotal').textContent = '$' + Math.round(total).toLocaleString('es-MX') + ' MXN';
+
+      } else { // btc solo
+        const tasaBtc = parseFloat(document.getElementById('sliderTasaBtcSolo').value) / 100.0;
+        document.getElementById('labelTasaBtcSolo').textContent = (tasaBtc * 100).toFixed(1) + '% Anual';
+
+        const rMesBtc = tasaBtc / 12.0;
+        let satsTot = 0;
+        for (let m = 0; m < meses; m++) {
+          const pm = BTC_BASE_PRICE * Math.pow(1 + rMesBtc, m);
+          satsTot += (aporteTotal / pm) * 100000000.0;
+        }
+        const pFinalBtc = BTC_BASE_PRICE * Math.pow(1 + rMesBtc, meses);
+        const totalMxn = (satsTot / 100000000.0) * pFinalBtc;
+        const aportado = aporteTotal * meses;
+        const ganancia = totalMxn - aportado;
+
+        document.getElementById('resSingleAportado').textContent = '$' + Math.round(aportado).toLocaleString('es-MX') + ' MXN';
+        document.getElementById('resSingleGainTitle').textContent = '🪙 Satoshis Acumulados Proyectados';
+        document.getElementById('resSingleGainSub').textContent = 'Fracciones soberanas adquiridas mes con mes';
+        document.getElementById('resSingleGanancia').textContent = '$' + Math.round(ganancia).toLocaleString('es-MX') + ' MXN de plusvalía';
+        document.getElementById('resSingleSatsExtra').style.display = 'block';
+        document.getElementById('resSingleSats').textContent = '⚡ ' + Math.round(satsTot).toLocaleString('es-MX') + ' Satoshis Totales';
+
+        document.getElementById('resSingleTotalTitle').textContent = '🏆 Valuación Final en Bitcoin';
+        document.getElementById('resSingleTotalSub').textContent = 'Basado en cotización futura supuesta';
+        document.getElementById('resSingleTotal').textContent = '$' + Math.round(totalMxn).toLocaleString('es-MX') + ' MXN';
       }
-
-      const gananciaInteres = total - totalAportado;
-
-      document.getElementById('resAportado').textContent = '$' + Math.round(totalAportado).toLocaleString('es-MX') + ' MXN';
-      document.getElementById('resInteres').textContent = '$' + Math.round(gananciaInteres).toLocaleString('es-MX') + ' MXN';
-      document.getElementById('resTotal').textContent = '$' + Math.round(total).toLocaleString('es-MX') + ' MXN';
     }
 
     // ========================================================
@@ -2242,7 +2630,6 @@
 
       const starsText = '★'.repeat(rating) + '☆'.repeat(5 - rating);
 
-      // Create new review element
       const card = document.createElement('div');
       card.className = 'review-card';
       card.style.borderColor = 'rgba(56, 189, 248, 0.4)';
@@ -2265,18 +2652,15 @@
       const grid = document.getElementById('reviewsGrid');
       grid.insertBefore(card, grid.firstChild);
 
-      // Reset form
       document.getElementById('reviewForm').reset();
       setRating(5);
 
-      // Toast feedback
       const msg = document.getElementById('reviewSuccessMsg');
       msg.style.display = 'inline';
       setTimeout(() => {
         msg.style.display = 'none';
       }, 5000);
 
-      // Save to localStorage
       try {
         const saved = JSON.parse(localStorage.getItem('user_reviews') || '[]');
         saved.unshift({ name, profile, comment, rating, date: new Date().toISOString() });
