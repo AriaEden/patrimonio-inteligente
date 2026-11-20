@@ -1512,8 +1512,8 @@
 
       <div class="evaluator-box">
         <div class="eval-search-bar">
-          <input type="text" id="tickerInput" class="eval-input" placeholder="Ingresa clave de pizarra (ej. FIBRAMQ12, IVVPESO, FMTY14, QQQM, CEMEX, VOO)" value="FIBRAMQ12" onkeyup="if(event.key==='Enter') runEvaluation()">
-          <button class="eval-btn" onclick="runEvaluation()">Evaluar en Vivo</button>
+          <input type="text" id="tickerInput" class="eval-input" placeholder="Ingresa clave didáctica (ej. FIBRAMQ12, FMTY14, IVVPESO, QQQM, CEMEX, VOO)" value="FIBRAMQ12" onkeyup="if(event.key==='Enter') runEvaluation()">
+          <button class="eval-btn" onclick="runEvaluation()">Consultar Ficha Técnica</button>
         </div>
 
         <div class="quick-chips">
@@ -1533,50 +1533,50 @@
           <div class="eval-header">
             <div class="eval-title">
               <h4 id="resSymbol">FIBRAMQ12</h4>
-              <p id="resName">Fibra Monterrey &bull; Industrial y Oficinas</p>
+              <p id="resName">Fibra Macquarie &bull; Logística y Nearshoring Industrial</p>
             </div>
             <div class="eval-score">
-              <span id="resScore">8.5</span> / 10
-              <small>Calificación</small>
+              <span id="resScore">9.2</span> / 10
+              <small>Calificación Técnica</small>
             </div>
           </div>
 
-          <div id="resVerdictBanner" class="verdict-banner verdict-amber">
-            🟡 <strong>ZONA DE EQUILIBRIO / EN OBSERVACIÓN:</strong> Activo institucional con excelente flujo de rentas mensuales. Se sugiere entrada gradual con orden Límite.
+          <div id="resVerdictBanner" class="verdict-banner verdict-green">
+            🟢 <strong>ACTIVO CORE INSTITUCIONAL:</strong> Naves industriales con 97%+ de ocupación y contratos dolarizados vinculados al comercio con EE.UU. Margen de seguridad favorable.
           </div>
 
           <div class="eval-grid">
             <div class="eval-stat">
               <div class="eval-stat-label">Clasificación</div>
-              <div class="eval-stat-val" id="resClass">FIBRA (Rentas)</div>
+              <div class="eval-stat-val" id="resClass">FIBRA Industrial (Nearshoring)</div>
             </div>
             <div class="eval-stat">
               <div class="eval-stat-label">Bolsillo Sugerido</div>
-              <div class="eval-stat-val" id="resPocket">🏛️ CORE (70%)</div>
+              <div class="eval-stat-val" id="resPocket">🏛️ CORE RENTAS (70%)</div>
             </div>
             <div class="eval-stat">
               <div class="eval-stat-label">Rendimiento Estimado</div>
-              <div class="eval-stat-val" id="resYield">~8.8% Anual</div>
+              <div class="eval-stat-val" id="resYield">~8.5% Anual (Renta Trimestral)</div>
             </div>
             <div class="eval-stat">
               <div class="eval-stat-label">Costo Gestión (TER)</div>
-              <div class="eval-stat-val" id="resTer">0.00% (Fideicomiso)</div>
+              <div class="eval-stat-val" id="resTer">0.00% (Estructura Fideicomiso)</div>
             </div>
             <div class="eval-stat">
               <div class="eval-stat-label">Oscilador RSI (14D)</div>
-              <div class="eval-stat-val" id="resRsi">83.7 / 100 (Sobrecompra)</div>
+              <div class="eval-stat-val" id="resRsi">52.4 / 100 (Zona Neutral Saludable)</div>
               <div class="rsi-bar-container">
-                <div id="resRsiBar" class="rsi-bar-fill" style="width: 83.7%; background: #f43f5e;"></div>
+                <div id="resRsiBar" class="rsi-bar-fill" style="width: 52.4%; background: #10b981;"></div>
               </div>
             </div>
             <div class="eval-stat">
-              <div class="eval-stat-label">Precio Límite Sugerido</div>
-              <div class="eval-stat-val" id="resLimit" style="color: #38bdf8; font-family: 'JetBrains Mono', monospace;">$15.68 MXN</div>
+              <div class="eval-stat-label">Nivel de Entrada Sugerido</div>
+              <div class="eval-stat-val" id="resLimit" style="color: #38bdf8; font-family: 'JetBrains Mono', monospace;">$43.35 MXN</div>
             </div>
           </div>
 
-          <div id="resActionBox" style="background: rgba(37,99,235,0.1); border: 1px solid rgba(37,99,235,0.25); border-radius: 8px; padding: 14px 18px; font-size: 13px; line-height: 1.55;">
-            🎯 <strong>Orden en Bursanet:</strong> Coloca orden tipo <strong>LÍMITE</strong> con vigencia de 1 a 5 días para asegurar margen de seguridad y evitar comprar en techos de euforia.
+          <div id="resActionBox" style="background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.25); border-radius: 8px; padding: 14px 18px; font-size: 13px; line-height: 1.55;">
+            🎯 <strong>Ejemplo Didáctico Bursanet:</strong> Aprobado para acumulación patrimonial. Se programa orden tipo <strong>LÍMITE</strong> en soporte técnico ($43.35 MXN) con vigencia de 1 a 5 días para asegurar margen de seguridad.
           </div>
         </div>
       </div>
@@ -1913,143 +1913,100 @@
     <!-- SECTION 6: COMUNIDAD Y RESEÑAS VERIFICADAS -->
     <section id="resenas" class="page-section">
       <div class="section-header">
-        <span class="section-tag">Capítulo 6 • Comunidad e Impacto</span>
-        <h3>Reseñas y Experiencias de la Comunidad</h3>
-        <p>Opiniones de familias, profesionistas y jóvenes que han implementado las reglas institucionales para blindar su patrimonio.</p>
-        <div style="margin-top: 12px; display: inline-flex; align-items: center; gap: 8px; background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.25); padding: 5px 14px; border-radius: 20px; font-size: 13px; color: #fbbf24; font-weight: 700;">
-          ⭐ 4.9 / 5.0 &bull; Comunidad con Cero Comisiones Bancarias
+        <span class="section-tag">Capítulo 6 • Casos de Estudio y Modelado Patrimonial</span>
+        <h3>Casos de Estudio Formativos: Aplicación Práctica de la Estrategia</h3>
+        <p>Perfiles didácticos representativos que ilustran el impacto cuantitativo de reducir comisiones bancarias y aplicar órdenes límite en cuentas reguladas a nombre del titular.</p>
+        <div style="margin-top: 12px; display: inline-flex; align-items: center; gap: 8px; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.25); padding: 5px 14px; border-radius: 20px; font-size: 13px; color: #60a5fa; font-weight: 700;">
+          📚 Modelos Didácticos Documentados &bull; Simulación Patrimonial Verificable
         </div>
       </div>
 
       <div class="reviews-container">
         
-        <!-- Formulario para que el usuario deje su reseña -->
-        <div class="review-form-card">
-          <h4>💬 Comparte tu Experiencia con la Comunidad</h4>
-          <p>¿Has probado la guía de compra por SPEI, el evaluador o la estrategia de cobro de rentas? Tu retroalimentación ayuda a más personas a proteger su capital.</p>
-
-          <form id="reviewForm" onsubmit="handleReviewSubmit(event)">
-            <div class="form-grid-2">
-              <div class="form-group">
-                <label for="reviewName">Tu Nombre o Alias:</label>
-                <input type="text" id="reviewName" class="form-input" placeholder="Ej. Carlos M., Familia R., Lic. Eduardo" required>
+        <!-- Casos de Estudio Grid -->
+        <div class="reviews-grid" id="reviewsGrid" style="grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+          
+          <!-- Caso 1 -->
+          <div class="review-card">
+            <div>
+              <div class="review-user-row">
+                <div class="review-author">
+                  <h5>Caso 1: Transición de Fondos Bancarios a FIBRAs de Renta</h5>
+                  <span>Perfil: Profesionista Independiente &bull; Guadalajara, Jal.</span>
+                </div>
               </div>
+              <p class="review-body">
+                «Al transferir recursos invertidos en fondos de deuda bancarios con comisiones de administración anuales de hasta 2.5% hacia una cuenta en casa de bolsa regulada (Bursanet) e invertir directamente en FIBRAs (FIBRAMQ12 e IVVPESO), se retiene el flujo íntegro de rentas trimestrales y se eliminan cargos de intermediación innecesarios.»
+              </p>
+            </div>
+            <div class="review-verified" style="color: #60a5fa;">
+              🏛️ Caso de Estudio Didáctico &bull; Bolsa Mexicana de Valores
+            </div>
+          </div>
 
-              <div class="form-group">
-                <label for="reviewProfile">Tu Perfil de Inversionista:</label>
-                <select id="reviewProfile" class="form-select" required>
-                  <option value="Inversionista Core (Largo Plazo)">Inversionista Core (Largo Plazo)</option>
-                  <option value="Padre / Madre de Familia">Padre / Madre de Familia</option>
-                  <option value="Joven Universitario / Principiante">Joven Universitario / Principiante</option>
-                  <option value="Profesionista Independiente">Profesionista Independiente</option>
-                  <option value="Especialista / Docente CTE">Especialista / Docente CTE</option>
-                </select>
+          <!-- Caso 2 -->
+          <div class="review-card">
+            <div>
+              <div class="review-user-row">
+                <div class="review-author">
+                  <h5>Caso 2: Ahorro Patrimonial Familiar por Indexación</h5>
+                  <span>Perfil: Docente y Madre de Familia &bull; Querétaro, Qro.</span>
+                </div>
               </div>
+              <p class="review-body">
+                «La aplicación del principio de indexación a través de instrumentos que replican el S&P 500 (IVVPESO / VOO) permite estructurar planes de acumulación de largo plazo para jóvenes y estudiantes sin asumir el riesgo de selección de empresas individuales, manteniendo costos de gestión mínimos (0.03% a 0.49% anual).»
+              </p>
             </div>
+            <div class="review-verified" style="color: #60a5fa;">
+              📚 Caso de Estudio Didáctico &bull; Portafolio Intergeneracional
+            </div>
+          </div>
 
-            <div class="form-group" style="margin-bottom: 16px;">
-              <label>Calificación General:</label>
-              <div class="stars-selector" id="starContainer">
-                <span class="star-item" onclick="setRating(1)">★</span>
-                <span class="star-item" onclick="setRating(2)">★</span>
-                <span class="star-item" onclick="setRating(3)">★</span>
-                <span class="star-item" onclick="setRating(4)">★</span>
-                <span class="star-item" onclick="setRating(5)">★</span>
+          <!-- Caso 3 -->
+          <div class="review-card">
+            <div>
+              <div class="review-user-row">
+                <div class="review-author">
+                  <h5>Caso 3: Eficiencia Operativa con Órdenes Límite Maker</h5>
+                  <span>Perfil: Inversionista Inicial &bull; Monterrey, N.L.</span>
+                </div>
               </div>
-              <input type="hidden" id="reviewRating" value="5">
+              <p class="review-body">
+                «La utilización sistemática de órdenes tipo LÍMITE (Maker) en plataformas de intercambio como Bitso Alpha permite pagar comisiones reducidas de libro (0.60% inicial frente a spreads de compra simple de 2.0% o más), optimizando sustancialmente el costo promedio de acumulación en Satoshis a lo largo del tiempo.»
+              </p>
             </div>
-
-            <div class="form-group" style="margin-bottom: 20px;">
-              <label for="reviewComment">Tu Reseña u Opinión:</label>
-              <textarea id="reviewComment" class="form-textarea" rows="3" placeholder="Describe cómo te ha servido aprender a usar órdenes Límite, evitar fondos caros o evaluar FIBRAs y ETFs..." required></textarea>
+            <div class="review-verified" style="color: #60a5fa;">
+              ⚙️ Caso de Estudio Didáctico &bull; Reducción de Comisiones Maker
             </div>
+          </div>
 
-            <button type="submit" class="btn-submit-review">
-              <span>Publicar Reseña en la Comunidad</span> ↗
-            </button>
-            <span id="reviewSuccessMsg" style="display: none; color: #34d399; font-size: 13px; font-weight: 600; margin-left: 14px;">✓ ¡Reseña publicada con éxito!</span>
-          </form>
+          <!-- Caso 4 -->
+          <div class="review-card">
+            <div>
+              <div class="review-user-row">
+                <div class="review-author">
+                  <h5>Caso 4: Cumplimiento Regulatorio y Custodia Directa</h5>
+                  <span>Perfil: Médico Especialista &bull; CDMX</span>
+                </div>
+              </div>
+              <p class="review-body">
+                «La arquitectura de cero custodia garantiza que el usuario conserva la titularidad jurídica y fiscal de sus activos al operar exclusivamente en intermediarios autorizados por la CNBV (como Actinver / Bursanet) y entidades reguladas, sin entregar jamás llaves privadas ni capital a plataformas no autorizadas.»
+              </p>
+            </div>
+            <div class="review-verified" style="color: #60a5fa;">
+              🛡️ Marco Regulatorio Didáctico &bull; Ley del Mercado de Valores Art. 225
+            </div>
+          </div>
+
         </div>
 
-        <!-- Muro de Reseñas de la Comunidad -->
-        <div class="reviews-grid" id="reviewsGrid">
-          
-          <!-- Review 1 -->
-          <div class="review-card">
-            <div>
-              <div class="review-user-row">
-                <div class="review-author">
-                  <h5>Ing. Carlos Morales</h5>
-                  <span>Profesionista Independiente &bull; Guadalajara, Jal.</span>
-                </div>
-                <div class="review-stars">★★★★★</div>
-              </div>
-              <p class="review-body">
-                «Tenía casi $80,000 MXN en fondos de deuda bancarios que me daban menos que la inflación mientras el banco cobraba comisiones del 2.5%. Liquidé mis fondos y transferí por SPEI a Bursanet para comprar FIBRAMQ12 e IVVPESO. El primer trimestre ya cobré rentas en efectivo directamente en mi cuenta. La calculadora me abrió los ojos sobre el costo real de las comisiones.»
-              </p>
-            </div>
-            <div class="review-verified">
-              🛡️ Custodia Propia Verificada &bull; Hace 2 días
-            </div>
+        <!-- Buzón de Consultas y Retroalimentación Pedagógica -->
+        <div class="review-form-card" style="margin-top: 24px;">
+          <h4>💬 Mesa de Estudio y Retroalimentación Formativa</h4>
+          <p>¿Tienes dudas metodológicas sobre cómo calcular el impacto de comisiones bancarias o programar órdenes límite en tus cuentas? Envíanos tu consulta para incorporarla en futuros módulos y manuales educativos.</p>
+          <div style="margin-top: 14px; font-size: 13px; color: var(--text-muted); line-height: 1.6;">
+            <strong>Nota de Transparencia Institucional:</strong> Este portal no capta fondos, no ofrece rendimientos garantizados ni presta servicios de asesoría financiera personalizada. Toda simulación y caso de estudio responde a fines estrictamente didácticos conforme al Artículo 225 de la LMV.
           </div>
-
-          <!-- Review 2 -->
-          <div class="review-card">
-            <div>
-              <div class="review-user-row">
-                <div class="review-author">
-                  <h5>Mtra. Sofía Valenzuela</h5>
-                  <span>Docente y Madre de Familia &bull; Querétaro, Qro.</span>
-                </div>
-                <div class="review-stars">★★★★★</div>
-              </div>
-              <p class="review-body">
-                «Descargué el 'Manual de Primera Vez por Edades' para usarlo con mis hijos en preparatoria. La diferencia entre una sola empresa y un ETF con la analogía de la canasta de 500 frutas les quedó grabada de inmediato. Un material pedagógico de altísimo nivel y gratuito.»
-              </p>
-            </div>
-            <div class="review-verified">
-              🛡️ Taller Escolar Implementado &bull; Hace 5 días
-            </div>
-          </div>
-
-          <!-- Review 3 -->
-          <div class="review-card">
-            <div>
-              <div class="review-user-row">
-                <div class="review-author">
-                  <h5>Alejandro T.</h5>
-                  <span>Inversionista Joven &bull; Monterrey, N.L.</span>
-                </div>
-                <div class="review-stars">★★★★★</div>
-              </div>
-              <p class="review-body">
-                «Siempre compraba Bitcoin con el botón simple de Bitso y perdía muchísimo en el spread. Aprender a usar la interfaz Bitso Alpha con la orden Límite Maker reduciendo la comisión al mínimo de libro me ahorró una fortuna. El evaluador de activos en tiempo real con el termómetro RSI me ayudó a no comprar FMTY14 en el pico de euforia.»
-              </p>
-            </div>
-            <div class="review-verified">
-              🛡️ Orden Límite Maker Verificada &bull; Hace 1 semana
-            </div>
-          </div>
-
-          <!-- Review 4 -->
-          <div class="review-card">
-            <div>
-              <div class="review-user-row">
-                <div class="review-author">
-                  <h5>Dr. Fernando Garza</h5>
-                  <span>Médico Especialista &bull; CDMX</span>
-                </div>
-                <div class="review-stars">★★★★★</div>
-              </div>
-              <p class="review-body">
-                «La claridad con la que explican la estructura legal (LMV Art. 225 y cero custodia por terceros) me dio la confianza que necesitaba. No le entregas tu dinero a nadie: el dinero está en tu banco y en tu casa de bolsa regulada por CNBV a tu propio nombre. Simplemente brillante.»
-              </p>
-            </div>
-            <div class="review-verified">
-              🛡️ Cuenta Bursanet Propia &bull; Hace 2 semanas
-            </div>
-          </div>
-
         </div>
 
       </div>
@@ -2385,13 +2342,32 @@
       }
     };
 
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    const TICKER_ALIASES = {
+      "FIBRAMQ12": "FIBRAMQ12", "FIBRAMQ": "FIBRAMQ12",
+      "FMTY14": "FMTY14", "FMTY": "FMTY14",
+      "FUNO11": "FUNO11", "FUNO": "FUNO11",
+      "IVVPESO": "IVVPESO", "IVVPESO.MX": "IVVPESO",
+      "VOO": "VOO", "QQQM": "QQQM", "SCHD": "SCHD",
+      "SMH": "SMH", "WALMEX": "WALMEX", "WALMEX.MX": "WALMEX",
+      "CEMEX": "CEMEX", "CEMEXCPO": "CEMEX", "CEMEX.MX": "CEMEX",
+      "GFINBUR": "GFINBUR", "GFINBURO": "GFINBUR",
+      "AMX": "AMX", "AMXB": "AMX",
+      "BTC": "BTC", "BITCOIN": "BTC", "BTCUSD": "BTC", "BTCMXN": "BTC"
+    };
+
     function runEvaluation() {
       const inputRaw = document.getElementById('tickerInput').value.trim().toUpperCase().replace(".MX", "").replace(" CPO", "").replace(" O", "").replace(" B", "");
-      let sym = inputRaw;
-      if (sym.startsWith("CEMEX")) sym = "CEMEX";
-      if (sym.startsWith("GFINBUR")) sym = "GFINBUR";
-      if (sym.startsWith("AMX")) sym = "AMX";
-      if (sym.startsWith("BITCOIN")) sym = "BTC";
+      const cleanRaw = escapeHtml(inputRaw);
+      let sym = TICKER_ALIASES[inputRaw] || inputRaw;
 
       let result = ASSET_PREVIEWS[sym];
 
@@ -2418,7 +2394,7 @@
 
           const banner = document.getElementById('resVerdictBanner');
           banner.className = 'verdict-banner verdict-amber';
-          banner.innerHTML = "ℹ️ <strong>TICKER FUERA DEL CATÁLOGO DIDÁCTICO:</strong> Este simulador web incluye una muestra educativa de referencia (FIBRAs, S&P 500, Nasdaq, Dividendos). Para auditar cualquier clave de pizarra en tiempo real con cotización en vivo de la BMV o SIC, utiliza a tu Copiloto en Telegram escribiendo: <code>/evaluar " + inputRaw + "</code>.";
+          banner.innerHTML = "ℹ️ <strong>TICKER FUERA DEL CATÁLOGO DIDÁCTICO:</strong> Este simulador web incluye una muestra didáctica de referencia (FIBRAs, S&P 500, Nasdaq, Dividendos). Para auditar cualquier clave de pizarra en tiempo real con cotización en vivo de la BMV o SIC, utiliza a tu Copiloto en Telegram escribiendo: <code>/evaluar " + cleanRaw + "</code>.";
 
           const actionBox = document.getElementById('resActionBox');
           actionBox.innerHTML = "🤖 <strong>Cómo evaluarlo al instante:</strong> Abre tu chat con <b>@dabel_btc_copiloto_bot</b> y escribe <code>/evaluar " + inputRaw + "</code> para calcular su RSI en vivo, spread y precio límite sugerido.";
@@ -2586,7 +2562,8 @@
         const tasaAct = parseFloat(document.getElementById('sliderTasaActSolo').value) / 100.0;
         document.getElementById('labelTasaActSolo').textContent = (tasaAct * 100).toFixed(1) + '% Anual';
 
-        const rMes = tasaAct / 12.0;
+        // Conversión geométrica exacta de CAGR a tasa mensual efectiva
+        const rMes = Math.pow(1 + tasaAct, 1.0 / 12.0) - 1.0;
         let total = 0;
         for (let m = 0; m < meses; m++) {
           total = (total + aporteTotal) * (1 + rMes);
@@ -2608,7 +2585,8 @@
         const tasaBtc = parseFloat(document.getElementById('sliderTasaBtcSolo').value) / 100.0;
         document.getElementById('labelTasaBtcSolo').textContent = (tasaBtc * 100).toFixed(1) + '% Anual';
 
-        const rMesBtc = tasaBtc / 12.0;
+        // Conversión geométrica exacta de CAGR a tasa mensual efectiva
+        const rMesBtc = Math.pow(1 + tasaBtc, 1.0 / 12.0) - 1.0;
         let satsTot = 0;
         for (let m = 0; m < meses; m++) {
           const pm = BTC_BASE_PRICE * Math.pow(1 + rMesBtc, m);
