@@ -1307,6 +1307,15 @@
       color: #cbd5e1;
     }
   </style>
+  <!-- METADATOS OPEN GRAPH Y TWITTER CARD (PREVISUALIZACIÓN ELEGANTE) -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ariaeden.github.io/patrimonio-inteligente/">
+  <meta property="og:title" content="Patrimonio Inteligente | Educación y Modelación Financiera">
+  <meta property="og:description" content="Aprende a invertir en FIBRAs, ETFs indexados (S&P 500) y Bitcoin con custodia propia y reducción de comisiones bancarias.">
+  <meta property="og:image" content="https://ariaeden.github.io/patrimonio-inteligente/FICHA_INFOGRAFICA_BITCOIN_PARA_TODOS.pdf">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Patrimonio Inteligente | Estrategia Core + Satélite">
+  <meta name="twitter:description" content="Inversión patrimonial con reglas institucionales, órdenes límite y copilotaje cuantitativo.">
 </head>
 <body>
 
@@ -1318,7 +1327,7 @@
       <a href="#" class="brand">
         <div class="brand-icon">PI</div>
         <div class="brand-text">
-          <h1>PATRIMONIO INTELIGENTE</h1>
+          <span class="brand-name">PATRIMONIO INTELIGENTE</span>
           <p>Cultura &bull; Estrategia &bull; Crecimiento</p>
         </div>
       </a>
@@ -1371,7 +1380,7 @@
           <ul class="card-list">
             <li><strong>Fondeo SPEI:</strong> Transferencia instantánea desde cualquier banco a tu CLABE propia.</li>
             <li><strong>Orden LÍMITE (Maker):</strong> Comisión reducida de libro (0.60% base Maker en Bitso Alpha para cuentas iniciales frente al 2.0%-2.5% de spread en compra simple; se reduce progresivamente hasta 0.10% según volumen).</li>
-            <li><strong>Ahorro Máximo:</strong> Evitas hasta 95% en comisiones frente a la compra simple.</li>
+            <li><strong>Ahorro Máximo:</strong> Ahorro del 70% al 76% en comisiones iniciales (0.60% Maker en Bitso Alpha vs 2.0%-2.5% de spread en compra simple; superior al 90% en volúmenes altos).</li>
             <li><strong>Custodia Regulada:</strong> Tus activos se encuentran en tu propia cuenta en Bitso (institución fintech regulada). El bot tiene cero custodia de claves o dinero.</li>
           </ul>
         </div>
@@ -1481,7 +1490,7 @@
           <ul class="card-list">
             <li><strong>Misión:</strong> Máquina generadora de flujo de caja continuo.</li>
             <li><strong>Ejemplos:</strong> <code>FIBRAMQ12</code> (Macquarie), <code>FUNO11</code> (Fibra Uno), <code>FMTY14</code> (Fibra Monterrey).</li>
-            <li><strong>Dividendo:</strong> 8% a 10% anual depositado en efectivo a tu cuenta.</li>
+            <li><strong>Flujo Histórico de Referencia:</strong> Rendimiento por distribución típicamente entre 7% y 9% anual en efectivo (variable según ocupación y contratos del fideicomiso; no garantizado).</li>
             <li><strong>Tratamiento Fiscal Mixto:</strong> Las distribuciones se dividen en Resultado Fiscal (con retención del 30%) y Reembolso de Capital (exento de retención hasta agotar costo fiscal).</li>
           </ul>
         </div>
@@ -1503,7 +1512,7 @@
 
       <div class="evaluator-box">
         <div class="eval-search-bar">
-          <input type="text" id="tickerInput" class="eval-input" placeholder="Ingresa clave de pizarra (ej. FMTY14, FIBRAMQ12, IVVPESO, VOO, CEMEX, SCHD)" value="FMTY14" onkeyup="if(event.key==='Enter') runEvaluation()">
+          <input type="text" id="tickerInput" class="eval-input" placeholder="Ingresa clave de pizarra (ej. FIBRAMQ12, IVVPESO, FMTY14, QQQM, CEMEX, VOO)" value="FIBRAMQ12" onkeyup="if(event.key==='Enter') runEvaluation()">
           <button class="eval-btn" onclick="runEvaluation()">Evaluar en Vivo</button>
         </div>
 
@@ -1523,7 +1532,7 @@
         <div id="evalResultCard" class="eval-result-card">
           <div class="eval-header">
             <div class="eval-title">
-              <h4 id="resSymbol">FMTY14</h4>
+              <h4 id="resSymbol">FIBRAMQ12</h4>
               <p id="resName">Fibra Monterrey &bull; Industrial y Oficinas</p>
             </div>
             <div class="eval-score">
@@ -1886,7 +1895,7 @@
           <div>
             <span class="doc-badge">INFOGRAFÍA UNIVERSAL</span>
             <h4>Ficha Infográfica: Bitcoin Para Todos</h4>
-            <p>Explicación matemática y didáctica de los 21 millones de monedas finitas, satoshis y por qué es un escudo contra la devaluación.</p>
+            <p>Explicación técnica y económica de los 21 millones de monedas finitas, emisión inmutable y tesis de valor frente a la inflación fiduciaria.</p>
           </div>
           <a href="./FICHA_INFOGRAFICA_BITCOIN_PARA_TODOS.pdf" target="_blank" class="btn-download">📄 Descargar PDF (410 KB)</a>
         </div>
@@ -2150,19 +2159,19 @@
     // ========================================================
     const ASSET_PREVIEWS = {
       "FMTY14": {
-        name: "Fibra Monterrey • Industrial y Oficinas",
-        classType: "FIBRA (Rentas)",
+        name: "Fibra Monterrey (FMTY14) • Industrial y Oficinas",
+        classType: "FIBRA Inmobiliaria (Oficinas e Industrial)",
         pocket: "🏛️ CORE (70%)",
-        yieldVal: "~8.8% Anual (Mensual)",
-        terVal: "0.00% (Fideicomiso)",
-        score: "8.5",
+        yieldVal: "~8.5% Anual Histórico (Distribución Mensual)",
+        terVal: "0.00% (Estructura de Fideicomiso)",
+        score: "6.5",
         rsi: "83.7",
-        rsiStatus: "Sobrecompra",
-        rsiColor: "#f43f5e",
-        verdict: "🟡 <strong>PRECAUCIÓN / ZONA DE EQUILIBRIO:</strong> RSI en 83.7 se ubica en zona de euforia. Espera un retroceso técnico antes de comprar para no atrapar máximos.",
-        bannerClass: "verdict-amber",
-        limitPrice: "$15.68 MXN",
-        advice: "🎯 <strong>Orden en Bursanet:</strong> Coloca orden LÍMITE en $15.68 MXN con vigencia de varios días para cazar la toma de utilidades de otros participantes."
+        rsiStatus: "Sobrecompra Extrema (Euforia)",
+        rsiColor: "#ef4444",
+        verdict: "🔴 <strong>ALERTA DE SOBRECOMPRA / NO COMPRAR EN EUFORIA:</strong> RSI en 83.7 supera el umbral crítico de 70. El modelo Antieuforia prohíbe compras a mercado en techos para evitar atrapar máximos. Esperar retroceso técnico ordenado.",
+        bannerClass: "verdict-red",
+        limitPrice: "$11.80 - $12.10 MXN",
+        advice: "🛑 <strong>Postura Táctica:</strong> Paciencia absoluta. Programar orden LÍMITE en soporte técnico ($11.90 MXN) o mantener liquidez en fondos defensivos (ACTIREN B / Deuda) mientras el precio se enfría."
       },
       "FIBRAMQ12": {
         name: "Fibra Macquarie • Logística y Nearshoring",
@@ -2387,24 +2396,37 @@
       let result = ASSET_PREVIEWS[sym];
 
       if (!result) {
-        let isFibra = /\d{2}$/.test(inputRaw) || inputRaw.includes("FIBRA");
-        let isMexicanStock = inputRaw.length >= 4 && !isFibra;
-        
-        result = {
-          name: inputRaw + " • Activo de Mercado Bursátil",
-          classType: isFibra ? "FIBRA Inmobiliaria" : (isMexicanStock ? "Acción Renta Variable (BMV)" : "Instrumento Bursátil (SIC/ETF)"),
-          pocket: isFibra ? "🏛️ CORE (70%)" : "🚀 SATÉLITE (30%)",
-          yieldVal: isFibra ? "~8.5% Anual (Rentas)" : "Variable según mercado",
-          terVal: isFibra ? "0.00% (Fideicomiso)" : (isMexicanStock ? "0.00%" : "Consultar Folleto"),
-          score: isFibra ? "8.2" : "7.5",
-          rsi: "54.2",
-          rsiStatus: "Zona Neutral",
-          rsiColor: "#10b981",
-          verdict: "🟡 <strong>EVALUACIÓN AUTOMÁTICA EN VIVO:</strong> Activo admitido para análisis. Aplica siempre la orden LÍMITE con margen de seguridad del -3% a -5% frente al precio de mercado.",
-          bannerClass: "verdict-amber",
-          limitPrice: "Margen de Descuento (-4%)",
-          advice: "🎯 <strong>Orden en Bursanet:</strong> No compres 'A Mercado'. Utiliza orden LÍMITE para que el sistema compre pasivamente a tu precio objetivo."
-        };
+        // Ticker no registrado en el catálogo didáctico: NO fabricar datos falsos
+        const card = document.getElementById('evalResultCard');
+        card.style.opacity = '0.4';
+        card.style.transform = 'scale(0.99)';
+
+        setTimeout(() => {
+          document.getElementById('resSymbol').textContent = inputRaw;
+          document.getElementById('resName').textContent = "Activo no catalogado en el simulador didáctico";
+          document.getElementById('resScore').textContent = "N/D";
+          document.getElementById('resClass').textContent = "Consulta en Tiempo Real Requerida";
+          document.getElementById('resPocket').textContent = "Auditoría Dinámica Requerida";
+          document.getElementById('resYield').textContent = "Consultar en Vivo";
+          document.getElementById('resTer').textContent = "Consultar en Vivo";
+          document.getElementById('resRsi').textContent = "N/D (Sin cotización en base estática)";
+          document.getElementById('resLimit').textContent = "Consultar en Bot";
+
+          const rsiBar = document.getElementById('resRsiBar');
+          rsiBar.style.width = '0%';
+          rsiBar.style.background = '#64748b';
+
+          const banner = document.getElementById('resVerdictBanner');
+          banner.className = 'verdict-banner verdict-amber';
+          banner.innerHTML = "ℹ️ <strong>TICKER FUERA DEL CATÁLOGO DIDÁCTICO:</strong> Este simulador web incluye una muestra educativa de referencia (FIBRAs, S&P 500, Nasdaq, Dividendos). Para auditar cualquier clave de pizarra en tiempo real con cotización en vivo de la BMV o SIC, utiliza a tu Copiloto en Telegram escribiendo: <code>/evaluar " + inputRaw + "</code>.";
+
+          const actionBox = document.getElementById('resActionBox');
+          actionBox.innerHTML = "🤖 <strong>Cómo evaluarlo al instante:</strong> Abre tu chat con <b>@dabel_btc_copiloto_bot</b> y escribe <code>/evaluar " + inputRaw + "</code> para calcular su RSI en vivo, spread y precio límite sugerido.";
+
+          card.style.opacity = '1';
+          card.style.transform = 'scale(1)';
+        }, 120);
+        return;
       }
 
       const card = document.getElementById('evalResultCard');
