@@ -1370,9 +1370,9 @@
           <p>Acumula Satoshis (fracciones de Bitcoin) para proteger tu poder de compra de la inflación sin pagar comisiones bancarias abusivas.</p>
           <ul class="card-list">
             <li><strong>Fondeo SPEI:</strong> Transferencia instantánea desde cualquier banco a tu CLABE propia.</li>
-            <li><strong>Orden LÍMITE (Maker):</strong> Comisión preferencial de sólo 0.10%.</li>
+            <li><strong>Orden LÍMITE (Maker):</strong> Comisión reducida de libro (0.60% base Maker en Bitso Alpha para cuentas iniciales frente al 2.0%-2.5% de spread en compra simple; se reduce progresivamente hasta 0.10% según volumen).</li>
             <li><strong>Ahorro Máximo:</strong> Evitas hasta 95% en comisiones frente a la compra simple.</li>
-            <li><strong>Soberanía Total:</strong> Tus activos permanecen bajo tu custodia regulada.</li>
+            <li><strong>Custodia Regulada:</strong> Tus activos se encuentran en tu propia cuenta en Bitso (institución fintech regulada). El bot tiene cero custodia de claves o dinero.</li>
           </ul>
         </div>
 
@@ -1482,7 +1482,7 @@
             <li><strong>Misión:</strong> Máquina generadora de flujo de caja continuo.</li>
             <li><strong>Ejemplos:</strong> <code>FIBRAMQ12</code> (Macquarie), <code>FUNO11</code> (Fibra Uno), <code>FMTY14</code> (Fibra Monterrey).</li>
             <li><strong>Dividendo:</strong> 8% a 10% anual depositado en efectivo a tu cuenta.</li>
-            <li><strong>Beneficio Fiscal:</strong> Gran parte de la renta es libre de impuestos (reembolso de capital).</li>
+            <li><strong>Tratamiento Fiscal Mixto:</strong> Las distribuciones se dividen en Resultado Fiscal (con retención del 30%) y Reembolso de Capital (exento de retención hasta agotar costo fiscal).</li>
           </ul>
         </div>
       </div>
@@ -1491,11 +1491,14 @@
     <!-- SECTION 3: EVALUADOR DE ACTIVOS EN VIVO -->
     <section id="evaluador" class="page-section">
       <div class="section-header">
-        <div class="live-feed-badge">
-          <span class="pulse-dot"></span> Motor Cuantitativo Calibrado en Vivo • Filtro Antieuforia RSI (14D)
+        <div class="live-feed-badge" style="background: rgba(56, 189, 248, 0.1); border-color: rgba(56, 189, 248, 0.25); color: #38bdf8;">
+          <span class="pulse-dot" style="background: #38bdf8;"></span> Simulador Educativo de Referencia • Modelo Antieuforia RSI (14D)
         </div>
-        <h3>Evaluador Cuantitativo Institucional</h3>
-        <p>Califica cualquier FIBRA, ETF o Acción de la BMV o SIC antes de colocar una orden en Bursanet o Bitso.</p>
+        <h3>Simulador Didáctico de Activos Patrimoniales</h3>
+        <p>Consulta fichas técnicas y rangos de referencia para FIBRAs, ETFs y Acciones antes de colocar una orden en Bursanet o Bitso.</p>
+        <p style="font-size: 12px; color: #94a3b8; margin-top: 6px; max-width: 780px; margin-left: auto; margin-right: auto;">
+          <em>Nota de transparencia metodológica: Las fichas mostradas en este portal web son modelos didácticos con métricas y cierres de referencia. Para análisis algorítmico dinámico conectado a cotizaciones en tiempo real, consulta directamente a tu Copiloto en Telegram.</em>
+        </p>
       </div>
 
       <div class="evaluator-box">
@@ -1804,7 +1807,7 @@
               <h5 style="color: #f59e0b;">🪙 2. Motor Bitcoin: La Matemática de los Satoshis</h5>
               <p>
                 <strong>¿De dónde viene la ganancia?:</strong> Bitcoin <em>no paga rentas ni reparte dividendos</em>. Su utilidad radica en <strong>la cantidad de Satoshis acumulados multiplicados por la valuación de mercado que alcance la red en el futuro</strong>:<br>
-                &bull; <em>¿Qué es un Satoshi?:</em> 1 Bitcoin equivale exactamente a <strong>100,000,000 de satoshis</strong>. No necesitas comprar un bitcoin entero; compras paquetes de satoshis con órdenes Límite Maker al 0.10% en Bitso Alpha.<br>
+                &bull; <em>¿Qué es un Satoshi?:</em> 1 Bitcoin equivale exactamente a <strong>100,000,000 de satoshis</strong>. No necesitas comprar un bitcoin entero; compras paquetes de satoshis con órdenes Límite Maker en el libro de Bitso Alpha (reduciendo comisiones frente a la compra simple).<br>
                 &bull; <em>El Supuesto de Escasez:</em> Es un <strong>supuesto matemático de largo plazo</strong>: la oferta total mundial es inmutable (solo existirán 21 millones de monedas para siempre). Conforme más personas e instituciones adoptan la red y la emisión se reduce a la mitad cada 4 años (Halving), el valor por satoshi tiende a apreciarse frente a monedas que se devalúan.<br>
                 &bull; <em>DCA Estratégico:</em> Al aportar mes con mes, compras barato en los retrocesos y acumulas más satoshis para el siguiente ciclo.
               </p>
@@ -2011,7 +2014,7 @@
                 <div class="review-stars">★★★★★</div>
               </div>
               <p class="review-body">
-                «Siempre compraba Bitcoin con el botón simple de Bitso y perdía muchísimo en el spread. Aprender a usar la interfaz Bitso Alpha con la orden Límite Maker al 0.10% me ahorró una fortuna. El evaluador de activos en tiempo real con el termómetro RSI me ayudó a no comprar FMTY14 en el pico de euforia.»
+                «Siempre compraba Bitcoin con el botón simple de Bitso y perdía muchísimo en el spread. Aprender a usar la interfaz Bitso Alpha con la orden Límite Maker reduciendo la comisión al mínimo de libro me ahorró una fortuna. El evaluador de activos en tiempo real con el termómetro RSI me ayudó a no comprar FMTY14 en el pico de euforia.»
               </p>
             </div>
             <div class="review-verified">
@@ -2096,12 +2099,12 @@
   <!-- Footer -->
   <footer>
     <div class="container">
-      <p><strong>Patrimonio Inteligente</strong> &copy; 2026 &bull; Iniciativa de Divulgación e Inclusión Financiera.</p>
-      <p style="font-size: 11.5px; max-width: 650px; margin: 0 auto; color: #64748b;">
-        Este portal es de carácter exclusivamente educativo y pedagógico. Toda operación bursátil y cripto se realiza mediante intermediarios financieros regulados (CNBV / Banco de México) bajo la custodia y titularidad exclusiva del inversionista.
+      <p><strong>Patrimonio Inteligente</strong> &copy; 2026 &bull; Iniciativa de Educación Financiera y Modelación Cuantitativa.</p>
+      <p style="font-size: 11.5px; max-width: 860px; margin: 8px auto; color: #94a3b8; line-height: 1.6; text-align: justify;">
+        <strong>Marco Regulatorio y Descargo de Responsabilidad (Art. 225 LMV):</strong> Este portal web, sus simuladores y su copiloto informático tienen propósitos estrictamente formativos, metodológicos y de educación financiera. No constituyen asesoría de inversión personalizada, gestión de carteras ni oferta pública de valores al amparo de la Ley del Mercado de Valores. La titularidad y custodia del patrimonio reside única y exclusivamente en las cuentas personales del usuario en instituciones supervisadas por la CNBV (Bursanet / Actinver) y plataformas FinTech reguladas (Bitso). Las proyecciones matemáticas son modelos hipotéticos que no aseguran rendimientos futuros.
       </p>
       <div class="footer-secure">
-        🔒 Infraestructura de Privacidad: Cero Acceso a Cuentas &bull; Cero Claves Privadas
+        🔒 Arquitectura de Seguridad: Cero Custodia de Fondos &bull; Cero Acceso a Claves Privadas
       </div>
     </div>
   </footer>
@@ -2208,18 +2211,18 @@
       },
       "IVVPESO": {
         name: "iShares S&P 500 Peso Hedged ETF",
-        classType: "ETF Indexado S&P 500",
+        classType: "ETF Indexado S&P 500 (Cobertura MXN)",
         pocket: "🏛️ CORE (70%)",
         yieldVal: "~1.5% Anual (Reinversión)",
-        terVal: "0.09% Anual (Ultrabajo)",
-        score: "9.9",
+        terVal: "0.49% Anual (BlackRock México)",
+        score: "9.5",
         rsi: "58.0",
         rsiStatus: "Tendencia Alcista Saludable",
         rsiColor: "#38bdf8",
-        verdict: "🟢 <strong>ESTÁNDAR CORE PARA JUBILACIÓN:</strong> Las 500 mayores empresas de EE.UU. cotizadas en pesos mexicanos con costo minúsculo.",
+        verdict: "🟢 <strong>NÚCLEO CORE INDEXADO AL PESO:</strong> Exposición al S&P 500 con cobertura cambiaria peso/dólar (neutraliza la volatilidad de la divisa). Para exposición directa en dólares con menor costo (0.03%), existen alternativas en el SIC como VOO o IVV.",
         bannerClass: "verdict-green",
         limitPrice: "Precio Límite Vigente",
-        advice: "🎯 <strong>Orden en Bursanet:</strong> Acumulación constante mes con mes. Cero intermediarios bancarios caros."
+        advice: "🎯 <strong>Orden en Bursanet:</strong> Ideal para aportaciones mensuales automáticas sin preocuparse por el tipo de cambio."
       },
       "VOO": {
         name: "Vanguard S&P 500 ETF (Dolarizado)",
@@ -2369,7 +2372,7 @@
         verdict: "🟢 <strong>RESERVA PATRIMONIAL ESCASA:</strong> El activo con mejor rendimiento histórico de la última década. Blindado contra la devaluación monetaria.",
         bannerClass: "verdict-green",
         limitPrice: "LÍMITE Maker en Bitso Alpha",
-        advice: "🎯 <strong>Orden en Bitso Alpha:</strong> Compra exclusiva en libro BTC/USD o BTC/MXN con orden LÍMITE para pagar sólo 0.10% de comisión."
+        advice: "🎯 <strong>Orden en Bitso Alpha:</strong> Compra exclusiva en libro BTC/USD o BTC/MXN con orden LÍMITE Maker para pagar comisión reducida de libro (0.60% base, reduciéndose con volumen)."
       }
     };
 
@@ -2516,8 +2519,8 @@
         const aporteAct = aporteTotal * (splitAct / 100.0);
         const aporteBtc = aporteTotal * (splitBtc / 100.0);
 
-        // Actinver Math
-        const rMesAct = tasaAct / 12.0;
+        // Actinver Math (Conversión geométrica exacta de CAGR a tasa efectiva mensual)
+        const rMesAct = Math.pow(1 + tasaAct, 1.0 / 12.0) - 1.0;
         let totAct = 0;
         for (let m = 0; m < meses; m++) {
           totAct = (totAct + aporteAct) * (1 + rMesAct);
@@ -2525,8 +2528,8 @@
         const aportadoAct = aporteAct * meses;
         const gananciaAct = totAct - aportadoAct;
 
-        // Bitcoin Math (Satoshis accumulation)
-        const rMesBtc = tasaBtc / 12.0;
+        // Bitcoin Math (Conversión geométrica exacta de CAGR a tasa efectiva mensual)
+        const rMesBtc = Math.pow(1 + tasaBtc, 1.0 / 12.0) - 1.0;
         let satsTot = 0;
         for (let m = 0; m < meses; m++) {
           const pm = BTC_BASE_PRICE * Math.pow(1 + rMesBtc, m);
@@ -2741,6 +2744,9 @@
           <p style="margin:4px 0;"><code>/comprar</code> &bull; Diagnóstico en vivo de si es buen momento para acumular satoshis.</p>
           <p style="margin:4px 0;"><code>/precio</code> &bull; Precio actual de Bitcoin en USD y MXN con spread.</p>
           <p style="margin:4px 0;"><code>/mercado</code> &bull; Régimen macro (Bull Run vs Rango Lateral).</p>
+          <p style="margin:4px 0;"><code>/modo</code> &bull; 🧭 Selector de ritmo: comparativa 4H vs 4H+1H Francotirador.</p>
+          <p style="margin:4px 0;"><code>/modo 4h</code> &bull; 🛡️ Modo 4H Patrimonial (velas 4H, ultra-conservador, retiro).</p>
+          <p style="margin:4px 0;"><code>/modo multi</code> &bull; 🎯 Modo Francotirador (gatillo 1H, 1-2 ops/mes con micro-lotes).</p>
           <p style="margin:4px 0;"><code>/lote 50</code> &bull; Configurar cualquier presupuesto por operación (ej. $50 USD).</p>
           <p style="margin:4px 0;"><code>/volver_a_10</code> &bull; Regresar al lote base conservador de $10 USD.</p>
           <p style="margin:4px 0;"><code>/escalar_ahora</code> &bull; Escalar directamente tu lote a $100 USD.</p>
