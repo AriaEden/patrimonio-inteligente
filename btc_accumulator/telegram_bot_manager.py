@@ -111,6 +111,16 @@ class TelegramBotManager:
             logger.warning(f"Aviso cargando AssetEvaluator: {e_ae}")
             self.actinver_evaluator = None
 
+        # Adaptive Platform Engine & Continuous Self-Healing
+        try:
+            from btc_accumulator.adaptive_platform_engine import AdaptivePlatformClassifier, SelfHealingManager
+            self.adaptive_engine = AdaptivePlatformClassifier(rules_path=os.path.join(self.storage_dir, "adaptive_learning_rules.json"))
+            self.self_healing = SelfHealingManager(self)
+        except Exception as e_adapt:
+            logger.warning(f"Aviso cargando AdaptivePlatformClassifier: {e_adapt}")
+            self.adaptive_engine = None
+            self.self_healing = None
+
         self._ensure_admin_registered()
         self._heal_misclassified_entries()
 
@@ -719,6 +729,14 @@ Hola <b>{sender_name}</b>, tu orden de compra en Bitso México ha sido certifica
                 return self.send_message("🚫 <b>ACCESO DENEGADO:</b> Tu acceso a este servicio ha sido revocado permanentemente por la administración.", target_chat_id=dest_chat)
             else:
                 return self.send_message("⏳ <b>SOLICITUD EN ESPERA:</b> Tu cuenta está pendiente de aprobación por la administración. Te notificaremos aquí en cuanto sea activada.", target_chat_id=dest_chat)
+
+        # Natural Language Correction & Adaptive Self-Healing ("no es bursanet, es bitso", /corregir bitso, etc.)
+        if hasattr(self, "self_healing") and self.self_healing:
+            try:
+                if self.self_healing.handle_natural_language_correction(raw_text, sender_id, sender_name, chat_id=dest_chat):
+                    return True
+            except Exception as e_nh:
+                logger.warning(f"Aviso en handle_natural_language_correction: {e_nh}")
 
         # ADMIN ACCESS & SUBSCRIPTION MANAGEMENT: /usuarios, /clientes, /aprobar, /suspender, /expulsar, /renovar, /bloquear
         if is_admin and any(term in q for term in ["/usuarios", "/clientes", "/miembros", "/whitelist", "/lista_usuarios", "usuarios"]):
@@ -2216,17 +2234,33 @@ Hola <b>{sender_name}</b>, esta misma captura ya se encontraba certificada en tu
                     if file_hash:
                         dup_hash_entry = next((e for e in journal if e.get("file_hash") == file_hash), None)
                         if dup_hash_entry:
-                            if "bursanet" in dup_hash_entry.get("filename", "") or dup_hash_entry.get("status") == "VERIFICADO_EN_BURSANET":
+                            # Adaptive Inspection: Determine if the entry was previously misclassified
+                            adaptive_eval = None
+                            if hasattr(self, "adaptive_engine") and self.adaptive_engine:
+                                try:
+                                    adaptive_eval = self.adaptive_engine.classify_document(
+                                        image_path=saved_path,
+                                        caption=caption,
+                                        raw_text_hint=f"{caption} {doc_name}",
+                                        user_message=""
+                                    )
+                                except Exception:
+                                    adaptive_eval = None
+
+                            is_real_bitso = bool(
+                                (adaptive_eval and adaptive_eval["platform"] == "BITSO")
+                                or "bitso" in dup_hash_entry.get("filename", "")
+                                or dup_hash_entry.get("type") == "ORDEN_BITSO_MXN"
+                                or "111044" in dup_hash_entry.get("filename", "")
+                            )
+
+                            if is_real_bitso:
                                 dup_hash_entry["filename"] = dup_hash_entry.get("filename", "").replace("bursanet", "bitso_mxn")
                                 dup_hash_entry["type"] = "ORDEN_BITSO_MXN"
                                 dup_hash_entry["status"] = "VERIFICADO_EN_BITSO"
                                 with open(self.journal_path, "w", encoding="utf-8") as f:
                                     json.dump(journal, f, indent=2, ensure_ascii=False)
                                 ack_message = self.format_bitso_order_confirmation(sender_name, dup_hash_entry["filename"], is_rectified=True)
-                                self.send_message(ack_message.strip(), target_chat_id=chat_id)
-                                return dup_hash_entry
-                            elif dup_hash_entry.get("type") == "ORDEN_BITSO_MXN" or "bitso" in dup_hash_entry.get("filename", ""):
-                                ack_message = self.format_bitso_order_confirmation(sender_name, dup_hash_entry.get("filename", ""), is_rectified=False)
                                 self.send_message(ack_message.strip(), target_chat_id=chat_id)
                                 return dup_hash_entry
 
@@ -2247,36 +2281,43 @@ Hola <b>{sender_name}</b>, esta misma captura ya se encontraba certificada en tu
                             self.send_message(dup_msg.strip(), target_chat_id=chat_id)
                             return dup_hash_entry
 
-                    # Classify: Bitso vs Bursanet
-                    is_bitso = False
-                    is_actinver = False
-                    if is_explicit_bitso and not is_explicit_actinver:
-                        is_bitso = True
-                    elif is_explicit_actinver and not is_explicit_bitso:
-                        is_actinver = True
-                    else:
-                        # Caption is empty or generic (e.g. forwarded screenshot)
-                        # Bitso App uses dark/black UI (#0b0e14, center brightness < 90)
-                        # Bursanet uses bright white UI (#ffffff, center brightness > 120)
-                        is_dark = False
-                        if saved_path and os.path.exists(saved_path):
+                    # Classify: Bitso vs Bursanet via Adaptive Platform Intelligence
+                    adaptive_decision = None
+                    if hasattr(self, "adaptive_engine") and self.adaptive_engine:
+                        try:
+                            adaptive_decision = self.adaptive_engine.classify_document(
+                                image_path=saved_path,
+                                caption=caption,
+                                raw_text_hint=f"{caption} {doc_name}",
+                                user_message=""
+                            )
+                        except Exception as e_ad:
+                            logger.warning(f"Aviso en adaptive_engine: {e_ad}")
+
+                    if adaptive_decision:
+                        is_bitso = (adaptive_decision["platform"] == "BITSO")
+                        is_actinver = not is_bitso
+                        # Continuous learning: automatically memorize visual signature
+                        if saved_path and os.path.exists(saved_path) and adaptive_decision.get("visual_signature"):
                             try:
-                                from PIL import Image
-                                import numpy as np
-                                with Image.open(saved_path) as img:
-                                    gray = img.convert('L')
-                                    arr = np.array(gray)
-                                    h, w = arr.shape
-                                    center_box = arr[int(h*0.25):int(h*0.75), int(w*0.1):int(w*0.9)]
-                                    mean_brightness = float(center_box.mean())
-                                    if mean_brightness < 90.0:
-                                        is_dark = True
-                            except Exception as e_br:
-                                logger.warning(f"Aviso analizando brillo de imagen: {e_br}")
-                        if is_dark:
+                                self.adaptive_engine.learn_signature(
+                                    platform=adaptive_decision["platform"],
+                                    visual_sig=adaptive_decision["visual_signature"],
+                                    reason=f"Comprobante recibido con {int(adaptive_decision['confidence']*100)}% de confianza"
+                                )
+                            except Exception as e_ls:
+                                logger.warning(f"Aviso memorizando firma visual: {e_ls}")
+                    else:
+                        # Fallback heuristic
+                        if is_explicit_bitso and not is_explicit_actinver:
                             is_bitso = True
-                        else:
+                            is_actinver = False
+                        elif is_explicit_actinver and not is_explicit_bitso:
+                            is_bitso = False
                             is_actinver = True
+                        else:
+                            is_bitso = True
+                            is_actinver = False
 
                     # Rename to final file name
                     final_prefix = "bitso_mxn" if is_bitso else "bursanet"
