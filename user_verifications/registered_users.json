@@ -14,7 +14,10 @@
     "payment_reference": "PAGO_RENOVADO",
     "suspended_reason": "",
     "currency": "MXN",
-    "lot_size_mxn": 200.0
+    "lot_size_mxn": 200.0,
+    "bitso_satoshis": 17776,
+    "bitso_invested_mxn": 200.12,
+    "average_buy_price_mxn": 1125820.0
   },
   {
     "chat_id": "123456",
