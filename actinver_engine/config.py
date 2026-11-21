@@ -35,8 +35,8 @@ TICKER_MAP = {
 
 # Snapshot Verificado del Portafolio del Usuario en Actinver (Bursanet)
 INITIAL_PORTFOLIO_SNAPSHOT = {
-    "cash_mxn": Decimal("2.50"),
-    "divisas_mxn": Decimal("632.20"),
+    "cash_mxn": Decimal("8.46"),
+    "divisas_mxn": Decimal("0.00"),
     "stocks_etfs": {
         "FIBRAMQ12": {"titles": 67, "entry_price": Decimal("44.07"), "current_price": Decimal("44.00"), "pocket": "CORE"},
         "GFINBUR O": {"titles": 29, "entry_price": Decimal("44.44"), "current_price": Decimal("47.579655"), "pocket": "SATELLITE"},
@@ -44,12 +44,12 @@ INITIAL_PORTFOLIO_SNAPSHOT = {
         "QQQM *": {"titles": 1, "entry_price": Decimal("4998.96"), "current_price": Decimal("4908.53"), "pocket": "CORE"},
     },
     "debt_funds": {
-        "ACTIREN B": {"titles": 1282, "value_mxn": Decimal("13841.18"), "price": Decimal("10.796558"), "pocket": "DEFENSIVE"},
+        "ACTIREN B": {"titles": 1340, "value_mxn": Decimal("14468.85"), "price": Decimal("10.797654"), "pocket": "DEFENSIVE"},
     },
     "equity_funds": {
-        "ACT2060 B-1": {"titles": 2261, "value_mxn": Decimal("3155.19"), "price": Decimal("1.395486"), "pocket": "CORE"},
-        "BTGALFA B1": {"titles": 1000, "value_mxn": Decimal("2499.11"), "price": Decimal("2.499116"), "pocket": "CORE"},
-        "FT-GLOB BF3": {"titles": 466, "value_mxn": Decimal("2945.11"), "price": Decimal("6.319986"), "pocket": "CORE"},
+        "ACT2060 B-1": {"titles": 2261, "value_mxn": Decimal("3044.98"), "price": Decimal("1.346746"), "pocket": "CORE"},
+        "BTGALFA B1": {"titles": 1000, "value_mxn": Decimal("2480.40"), "price": Decimal("2.480410"), "pocket": "CORE"},
+        "FT-GLOB BF3": {"titles": 466, "value_mxn": Decimal("2879.17"), "price": Decimal("6.178479"), "pocket": "CORE"},
     }
 }
 
