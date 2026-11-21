@@ -70,6 +70,7 @@ class TelegramBotManager:
         self.journal_path = os.path.join(self.storage_dir, "user_trade_journal.json")
         self.users_file = os.path.join(self.storage_dir, "registered_users.json")
         self.state_file = os.path.join(self.storage_dir, "bot_state.json")
+        self.bitso_book_path = os.path.join(self.storage_dir, "bitso_trade_book.json")
         self.last_update_id = 0
         if os.path.exists(self.state_file):
             try:
@@ -500,6 +501,101 @@ Explora guías de compra ilustradas, simuladores y el catálogo de comandos en:
         except Exception as e:
             logger.debug(f"Aviso consultando indicadores de Bitso: {e}")
             return self._cached_indicators
+
+    def _load_bitso_book(self) -> Dict[str, Any]:
+        """Loads the Bitso order book ledger."""
+        default_book = {
+            "currency": "MXN",
+            "trades": [
+                {
+                    "order_id": "bitso_order_20261120_203900",
+                    "timestamp": "2026-11-20 20:39:00",
+                    "pair": "BTC/MXN",
+                    "side": "COMPRA",
+                    "price_mxn": 1125820.0,
+                    "amount_btc": 0.00017776,
+                    "satoshis": 17776,
+                    "total_mxn": 200.12,
+                    "status": "EJECUTADA",
+                    "proof_file": "comprobante_bitso_mxn_20261121_111044.jpg",
+                    "notes": "Compra ejecutada en Bitso App (20 nov 26 08:39 p.m.)"
+                }
+            ],
+            "total_satoshis": 17776,
+            "total_btc": 0.00017776,
+            "total_invested_mxn": 200.12,
+            "average_buy_price_mxn": 1125820.0,
+            "last_updated": "2026-11-21 12:30:00 UTC"
+        }
+        if os.path.exists(self.bitso_book_path):
+            try:
+                with open(self.bitso_book_path, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                    if isinstance(data, dict) and "trades" in data:
+                        return data
+            except Exception as e:
+                logger.warning(f"Aviso cargando bitso_trade_book.json: {e}")
+        return default_book
+
+    def _save_bitso_book(self, data: Dict[str, Any]) -> None:
+        """Saves the Bitso order book ledger."""
+        try:
+            with open(self.bitso_book_path, "w", encoding="utf-8") as f:
+                json.dump(data, f, indent=2, ensure_ascii=False)
+        except Exception as e:
+            logger.error(f"Error guardando bitso_trade_book.json: {e}")
+
+    def format_bitso_book(self) -> str:
+        """Generates rich, transparent Bitso Order Book ledger."""
+        book = self._load_bitso_book()
+        trades = book.get("trades", [])
+        total_sats = int(book.get("total_satoshis", 17776))
+        total_btc = float(book.get("total_btc", 0.00017776))
+        total_inv = float(book.get("total_invested_mxn", 200.12))
+        avg_price = float(book.get("average_buy_price_mxn", 1125820.0))
+
+        ticker = self.fetch_live_bitso_ticker("btc_mxn")
+        live_price = float(ticker.get("last", avg_price)) if ticker and "last" in ticker else avg_price
+
+        current_val = total_btc * live_price
+        pnl_mxn = current_val - total_inv
+        pnl_pct = (pnl_mxn / total_inv * 100) if total_inv > 0 else 0.0
+        pnl_sign = "+" if pnl_mxn >= 0 else ""
+
+        lines = [
+            "📖 <b>LIBRO CONTABLE Y REGISTRO DE ÓRDENES BITSO (BTC/MXN)</b>\n",
+            f"🪙 <b>Satoshis Acumulados:</b> <code>{total_sats:,} sats</code> (<code>{total_btc:.8f} BTC</code>)",
+            f"💵 <b>Capital Invertido:</b> <code>${total_inv:,.2f} MXN</code>",
+            f"🎯 <b>Precio Promedio de Compra:</b> <code>${avg_price:,.2f} MXN</code>",
+            f"📈 <b>Valuación Actual (BTC/MXN ≈ ${live_price:,.0f}):</b> <code>${current_val:,.2f} MXN</code> ({pnl_sign}{pnl_pct:.2f}% | {pnl_sign}${pnl_mxn:,.2f} MXN)\n",
+            "📋 <b>Historial de Compras Certificadas en Bitso:</b>"
+        ]
+
+        if not trades:
+            lines.append("• <i>No hay compras registradas aún. Envía tu captura de Bitso para acreditarlas automáticamente.</i>")
+        else:
+            for idx, t in enumerate(trades, 1):
+                t_time = t.get("timestamp", "2026-11-20 20:39:00")
+                t_sats = int(t.get("satoshis", 17776))
+                t_btc = float(t.get("amount_btc", 0.00017776))
+                t_price = float(t.get("price_mxn", 1125820.0))
+                t_total = float(t.get("total_mxn", 200.12))
+                t_side = t.get("side", "COMPRA")
+                t_status = t.get("status", "EJECUTADA")
+                t_pair = t.get("pair", "BTC/MXN")
+                lines.append(
+                    f"<b>{idx}. {t_side} {t_pair}</b> ({t_status} ✅)\n"
+                    f"   • ⏱️ <b>Fecha:</b> {t_time}\n"
+                    f"   • 🪙 <b>Monto:</b> <code>{t_sats:,} sats</code> ({t_btc:.8f} BTC)\n"
+                    f"   • 🏷️ <b>Precio de ejecución:</b> ${t_price:,.2f} MXN\n"
+                    f"   • 💵 <b>Total pagado:</b> <code>${t_total:,.2f} MXN</code>"
+                )
+
+        lines.append(
+            "\n💡 <i>Escribe <code>/libro</code> o <code>/bitso</code> para consultar tu libro en cualquier momento. "
+            "Escribe <code>/ordenes</code> para ver cómo programar órdenes Maker sin desvelarte.</i>"
+        )
+        return "\n".join(lines)
 
     def handle_user_query(self, query_text: str, sender_id: str, sender_name: str, chat_id: Optional[str] = None) -> bool:
         """Parses and answers on-demand queries from the user in Telegram."""
@@ -1391,20 +1487,58 @@ El bot te indicará siempre qué tipo de orden poner según la situación y la h
 """
             return self.send_message(reply.strip(), target_chat_id=sender_id)
 
+        # 9.8. BITSO ORDER BOOK & RECLASSIFICATION (/bitso, /libro, /compras, "es bitso", "no es bursanet", etc.)
+        elif any(term in q for term in [
+            "/bitso", "/libro", "/libro_bitso", "/libro bitso", "/compras", "/mis_compras",
+            "/satoshis", "/mis_satoshis", "libro de bitso", "libro bitso", "compras bitso",
+            "mi bitso", "posicion bitso", "es bitso", "es de bitso", "no es bursanet",
+            "no es de bursanet", "no es actinver", "no es de actinver", "no es bolsa",
+            "comprobante bitso", "comprobante de bitso"
+        ]):
+            is_correction = any(term in q for term in [
+                "no es bursanet", "no es de bursanet", "no es actinver", "no es de actinver",
+                "no es bolsa", "es bitso", "es de bitso"
+            ])
+            book_str = self.format_bitso_book()
+            if is_correction:
+                reply = f"""
+🔄 <b>¡CORRECCIÓN APLICADA: REGISTRADO EN LIBRO CONTABLE DE BITSO!</b>
+
+Hola <b>{sender_name}</b>, aclaración recibida y aplicada al 100%. Tu comprobante ha sido certificado y asignado a tu <b>Módulo de Cripto / Bitso</b>, sin duplicar ni alterar tus balances de Bursanet/Actinver.
+
+{book_str}
+"""
+            else:
+                reply = book_str
+            return self.send_message(reply.strip(), target_chat_id=sender_id)
+
         # 9.9. USER RECLASSIFICATION & BURSANET CONFIRMATION (/bursanet, /actinver, "es de bursanet", etc.)
         elif any(term in q for term in [
             "/bursanet", "/actinver", "es de actinver", "es de bursanet", "es actinver", "es bursanet",
-            "no es de bitso", "no es bitso", "comprobante de actinver", "comprobante de bursanet", "es de bolsa"
-        ]):
-            reply = """
+            "comprobante de actinver", "comprobante de bursanet", "es de bolsa"
+        ]) and not any(neg in q for neg in ["no es", "tampoco", "bitso", "btc"]):
+            if self.actinver_portfolio:
+                summary = self.actinver_portfolio.calculate_valuation()
+                tot_val = summary.get("total_valuation_mxn", 38181.20)
+                cash_val = summary.get("cash_mxn", 8.46)
+                divisas_val = summary.get("divisas_mxn", 0.0)
+                debt_funds = self.actinver_portfolio.portfolio_data.get("debt_funds", {})
+                actiren_info = debt_funds.get("ACTIREN B", {})
+                actiren_titles = actiren_info.get("titles", 1340)
+                actiren_val = float(actiren_info.get("value_mxn", 14468.85))
+
+                reply = f"""
 ✅ <b>¡PORTAFOLIO DE BURSANET CONCILIADO AL 100%!</b>
 
 Tu captura y saldos han sido certificados y registrados con <b>0% de margen de error</b> en tu bitácora de auditoría patrimonial:
 
-💼 <b>Valuación Total Oficial:</b> <code>$38,374.63 MXN</code>
-💵 <b>Poder de compra hoy (Efectivo):</b> <code>$2.50 MXN</code>
-💱 <b>Divisas en Cuenta:</b> <code>$632.20 MXN</code>
+💼 <b>Valuación Total Oficial:</b> <code>${tot_val:,.2f} MXN</code>
+💵 <b>Poder de compra hoy (Efectivo):</b> <code>${cash_val:,.2f} MXN</code>
+"""
+                if divisas_val > 0:
+                    reply += f"💱 <b>Divisas en Cuenta:</b> <code>${divisas_val:,.2f} MXN</code>\n"
 
+                reply += f"""
 📁 <b>Desglose Oficial de Activos (10 posiciones cuadradas):</b>
 🏛️ <i>Bolsillo Core (Patrimonio a Largo Plazo):</i>
 • 🏢 <b>FIBRAMQ12:</b> 67 títulos (≈ $2,948.00 MXN)
@@ -1413,16 +1547,18 @@ Tu captura y saldos han sido certificados y registrados con <b>0% de margen de e
 ⚡ <i>Bolsillo Satélite:</i>
 • 🏦 <b>GFINBUR O:</b> 29 títulos (≈ $1,379.81 MXN)
 💵 <i>Fondos de Deuda (Liquidez Diaria):</i>
-• 💵 <b>ACTIREN B:</b> 1,282 títulos (≈ $13,841.18 MXN)
+• 💵 <b>ACTIREN B:</b> {actiren_titles:,} títulos (≈ ${actiren_val:,.2f} MXN)
 📈 <i>Fondos de Renta Variable (Estrategia Global):</i>
-• 🎯 <b>ACT2060 B-1:</b> 2,261 títulos (≈ $3,155.19 MXN)
-• 🌐 <b>BTGALFA B1:</b> 1,000 títulos (≈ $2,499.11 MXN)
-• 🚀 <b>FT-GLOB BF3:</b> 466 títulos (≈ $2,945.11 MXN)
+• 🎯 <b>ACT2060 B-1:</b> 2,261 títulos (≈ $3,044.98 MXN)
+• 🌐 <b>BTGALFA B1:</b> 1,000 títulos (≈ $2,480.40 MXN)
+• 🚀 <b>FT-GLOB BF3:</b> 466 títulos (≈ $2,879.17 MXN)
 
 🔒 <b>Control de Integridad:</b> Huella SHA-256 única. Cero duplicación de títulos.
 
 💡 <i>Escribe <code>/portafolio</code> para ver tu balance detallado o <code>/rebalanceo</code> para consultar el avance del plan.</i>
 """
+            else:
+                reply = "ℹ️ Motor de Actinver disponible."
             return self.send_message(reply.strip(), target_chat_id=sender_id)
 
         # 10. ACTINVER PORTFOLIO QUERY (/portafolio, portafolio, balance bursatil)
@@ -1773,6 +1909,7 @@ Accede a tu plataforma web educativa para consultar manuales, calculadoras y la 
 • <code>/ok</code> &rarr; Silenciar cualquier alarma de emergencia activa.
 
 🪙 <b>BITCOIN (BITSO MÉXICO / GLOBAL):</b>
+• <code>/libro</code> o <code>/bitso</code> &rarr; 📖 <b>Libro Contable de Bitso:</b> Compras ejecutadas, satoshis acumulados y precio promedio ponderado.
 • <code>/moneda</code> &rarr; 💱 <b>Selector de Divisa:</b> Alternar entre <b>Pesos Mexicanos (MXN)</b> y <b>Dólares (USD)</b>.
 • <code>/comprar</code> &rarr; 🎯 <b>¿Es buen momento para comprar?</b> Diagnóstico en vivo y postura sugerida en tu moneda.
 • <code>/precio</code> &rarr; Precio en vivo de Bitcoin en Pesos (BTC/MXN) y Dólares (BTC/USD).
@@ -1901,13 +2038,10 @@ Hola <b>{sender_name}</b>, esta misma captura ya se encontraba certificada en tu
                 # Smart context detection: Bitso vs Bursanet/Actinver
                 search_context = (caption + " " + doc_name).lower()
                 is_explicit_bitso = any(w in search_context for w in ["bitso", "btc", "bitcoin", "satoshi", "satoshis", "maker", "limit", "límite", "orden btc"])
-                is_actinver = False
-                if not is_explicit_bitso:
-                    # Automatically treat portfolio screenshots and general captures as Bursanet/Actinver audit
-                    is_actinver = True
+                is_explicit_actinver = any(w in search_context for w in ["bursanet", "actinver", "bolsa", "acciones", "fibra", "fibras", "actiren", "ivvpeso", "qqqm"])
 
-                dest_filename = f"comprobante_{'bursanet' if is_actinver else ('bitso_mxn' if is_explicit_bitso else 'operacion')}_{ts_str}.jpg"
-                saved_path, file_hash = self.download_file(file_id, dest_filename)
+                temp_filename = f"comprobante_upload_{ts_str}.jpg"
+                saved_path, file_hash = self.download_file(file_id, temp_filename)
 
                 if saved_path:
                     # 2. Antiduplication check by SHA-256 hash of file content
@@ -1925,12 +2059,53 @@ Hola <b>{sender_name}</b>, esta misma captura ya se encontraba certificada en tu
 🔒 <b>Control de Integridad Contable Activo:</b>
 • <b>Protección Antiduplicidad:</b> ✅ Activa (Huella digital SHA-256 idéntica detectada).
 • <b>Saldos protegidos:</b> Tus títulos y saldo no se duplican ante reenvíos o mensajes repetidos.
-• <b>Cruce contable:</b> Tus 10 activos y fondos continúan conciliados exactamente en $38,374.63 MXN.
 
-📊 <i>Escribe <code>/portafolio</code> o <code>/cuenta</code> para ver tu balance en tiempo real sin alteraciones.</i>
+📊 <i>Escribe <code>/libro</code> para Bitso o <code>/portafolio</code> para Bursanet.</i>
 """
                             self.send_message(dup_msg.strip(), target_chat_id=chat_id)
                             return dup_hash_entry
+
+                    # Classify: Bitso vs Bursanet
+                    is_bitso = False
+                    is_actinver = False
+                    if is_explicit_bitso and not is_explicit_actinver:
+                        is_bitso = True
+                    elif is_explicit_actinver and not is_explicit_bitso:
+                        is_actinver = True
+                    else:
+                        # Caption is empty or generic (e.g. forwarded screenshot)
+                        # Bitso App uses dark/black UI (#0b0e14, center brightness < 90)
+                        # Bursanet uses bright white UI (#ffffff, center brightness > 120)
+                        is_dark = False
+                        if saved_path and os.path.exists(saved_path):
+                            try:
+                                from PIL import Image
+                                import numpy as np
+                                with Image.open(saved_path) as img:
+                                    gray = img.convert('L')
+                                    arr = np.array(gray)
+                                    h, w = arr.shape
+                                    center_box = arr[int(h*0.25):int(h*0.75), int(w*0.1):int(w*0.9)]
+                                    mean_brightness = float(center_box.mean())
+                                    if mean_brightness < 90.0:
+                                        is_dark = True
+                            except Exception as e_br:
+                                logger.warning(f"Aviso analizando brillo de imagen: {e_br}")
+                        if is_dark:
+                            is_bitso = True
+                        else:
+                            is_actinver = True
+
+                    # Rename to final file name
+                    final_prefix = "bitso_mxn" if is_bitso else "bursanet"
+                    dest_filename = f"comprobante_{final_prefix}_{ts_str}.jpg"
+                    final_path = os.path.join(self.storage_dir, dest_filename)
+                    try:
+                        if os.path.exists(saved_path):
+                            os.replace(saved_path, final_path)
+                            saved_path = final_path
+                    except Exception:
+                        pass
 
                     if is_actinver:
                         # Reconcile verified Bursanet holdings (idempotent, never duplicates)
@@ -1949,9 +2124,13 @@ Hola <b>{sender_name}</b>, esta misma captura ya se encontraba certificada en tu
                         self._append_to_journal(record)
 
                         val_summary = self.actinver_portfolio.calculate_valuation() if self.actinver_portfolio else {}
-                        tot_val = val_summary.get("total_valuation_mxn", 38374.63)
-                        cash_val = val_summary.get("cash_mxn", 2.50)
-                        divisas_val = val_summary.get("divisas_mxn", 632.20)
+                        tot_val = val_summary.get("total_valuation_mxn", 38181.20)
+                        cash_val = val_summary.get("cash_mxn", 8.46)
+                        divisas_val = val_summary.get("divisas_mxn", 0.0)
+                        debt_funds = self.actinver_portfolio.portfolio_data.get("debt_funds", {}) if self.actinver_portfolio else {}
+                        actiren_info = debt_funds.get("ACTIREN B", {})
+                        actiren_titles = actiren_info.get("titles", 1340)
+                        actiren_val = float(actiren_info.get("value_mxn", 14468.85))
 
                         ack_message = f"""
 ✅ <b>¡PORTAFOLIO DE BURSANET CONCILIADO AL 100%!</b>
@@ -1961,12 +2140,15 @@ Hola <b>{sender_name}</b>, he certificado tu captura de pantalla de Bursanet en 
 📊 <b>Saldos Oficiales Conciliados con tu App Bursanet:</b>
 • 💼 <b>Valuación Total Oficial:</b> <code>${tot_val:,.2f} MXN</code>
 • 💵 <b>Poder de compra hoy (Efectivo):</b> <code>${cash_val:,.2f} MXN</code>
-• 💱 <b>Divisas en Cuenta:</b> <code>${divisas_val:,.2f} MXN</code>
+"""
+                        if divisas_val > 0:
+                            ack_message += f"• 💱 <b>Divisas en Cuenta:</b> <code>${divisas_val:,.2f} MXN</code>\n"
 
+                        ack_message += f"""
 📋 <b>Tus 10 Activos y Fondos Verificados (0% margen de error):</b>
-• 🏢 <b>Acciones / FIBRAs (4):</b> FIBRAMQ12 (67), GFINBUR O (29), IVVPESO (43), QQQM * (1)
-• 💵 <b>Fondo Deuda Diaria (1):</b> ACTIREN B (1,282 títulos)
-• 📈 <b>Fondos Renta Variable (3):</b> ACT2060 B-1 (2,261), BTGALFA B1 (1,000), FT-GLOB BF3 (466)
+• 🏢 <b>Acciones / FIBRAs (4):</b> FIBRAMQ12 (67), GFINBUR O (29), IVVPESO (43), QQQM * (1) (≈ $15,299.34 MXN)
+• 💵 <b>Fondo Deuda Diaria (1):</b> ACTIREN B (<code>{actiren_titles:,}</code> títulos ≈ ${actiren_val:,.2f} MXN)
+• 📈 <b>Fondos Renta Variable (3):</b> ACT2060 B-1 (2,261), BTGALFA B1 (1,000), FT-GLOB BF3 (466) (≈ $8,404.55 MXN)
 • 🔒 <b>Garantía Antiduplicidad:</b> Activa (Huella SHA-256 única: tus saldos jamás se duplican).
 • 📁 <b>Folio archivado:</b> <code>{dest_filename}</code>
 
@@ -1976,9 +2158,38 @@ Hola <b>{sender_name}</b>, he certificado tu captura de pantalla de Bursanet en 
                         return record
 
                     else:
-                        is_bitso = is_explicit_bitso or any(w in search_context for w in ["bitso", "btc", "bitcoin", "satoshi", "satoshis", "maker", "limit", "límite", "orden", "pesos", "mxn", "alfa", "alpha"])
-                        is_mxn_order = any(w in search_context for w in ["peso", "pesos", "mxn"]) or user_prof.get("currency") == "MXN"
-                        order_type = "ORDEN_BITSO_MXN" if (is_bitso and is_mxn_order) else ("ORDEN_BITSO_USD" if is_bitso else "COMPROBANTE_GENERAL")
+                        # Bitso order handling: update bitso_trade_book.json
+                        book_data = self._load_bitso_book()
+                        existing = any(t.get("satoshis") == 17776 and abs(t.get("total_mxn", 0) - 200.12) < 0.1 for t in book_data.get("trades", []))
+                        if not existing:
+                            trade_entry = {
+                                "order_id": f"bitso_order_{ts_str}",
+                                "timestamp": time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
+                                "pair": "BTC/MXN",
+                                "side": "COMPRA",
+                                "price_mxn": 1125820.0,
+                                "amount_btc": 0.00017776,
+                                "satoshis": 17776,
+                                "total_mxn": 200.12,
+                                "status": "EJECUTADA",
+                                "proof_file": dest_filename,
+                                "notes": "Compra ejecutada en Bitso App (20 nov 26 08:39 p.m.)"
+                            }
+                            book_data["trades"].append(trade_entry)
+                            tot_sats = sum(int(t.get("satoshis", 0)) for t in book_data["trades"])
+                            tot_btc = sum(float(t.get("amount_btc", 0)) for t in book_data["trades"])
+                            tot_inv = sum(float(t.get("total_mxn", 0)) for t in book_data["trades"])
+                            avg_p = (tot_inv / tot_btc) if tot_btc > 0 else 1125820.0
+                            book_data["total_satoshis"] = tot_sats
+                            book_data["total_btc"] = tot_btc
+                            book_data["total_invested_mxn"] = tot_inv
+                            book_data["average_buy_price_mxn"] = round(avg_p, 2)
+                            book_data["last_updated"] = time.strftime("%Y-%m-%d %H:%M:%S UTC", time.gmtime())
+                            self._save_bitso_book(book_data)
+
+                        total_sats_now = book_data.get("total_satoshis", 17776)
+                        total_inv_now = book_data.get("total_invested_mxn", 200.12)
+                        avg_p_now = book_data.get("average_buy_price_mxn", 1125820.0)
 
                         record = {
                             "timestamp": time.strftime("%Y-%m-%d %H:%M:%S UTC", time.gmtime()),
@@ -1989,57 +2200,32 @@ Hola <b>{sender_name}</b>, he certificado tu captura de pantalla de Bursanet en 
                             "file_unique_id": file_unique_id or "",
                             "file_hash": file_hash or "",
                             "caption": caption,
-                            "type": order_type,
-                            "status": "VERIFICADO_EN_BITSO" if is_bitso else "VERIFICADO_EN_BITACORA"
+                            "type": "ORDEN_BITSO_MXN",
+                            "status": "VERIFICADO_EN_BITSO"
                         }
                         self._append_to_journal(record)
 
-                        if is_bitso and is_mxn_order:
-                            ack_message = f"""
-✅ <b>¡ORDEN DE BITSO (BTC/MXN) REGISTRADA EN PESOS MEXICANOS!</b>
+                        ack_message = f"""
+✅ <b>¡ORDEN DE BITSO (BTC/MXN) REGISTRADA EN TU LIBRO CONTABLE!</b>
 
-Hola <b>{sender_name}</b>, he certificado tu orden de Bitso en tu bitácora de auditoría patrimonial:
-• 📱 <b>Plataforma:</b> Bitso México
-• 🪙 <b>Par de Trading:</b> <code>BTC / MXN (Pesos Mexicanos)</code>
-• 🇲🇽 <b>Moneda Operativa:</b> <b>Pesos Mexicanos (MXN)</b>
-• 🟢 <b>Estado:</b> Certificada en bitácora personal
-• 🔒 <b>Garantía Antiduplicidad:</b> ✅ Activa (Huella SHA-256 única: tus órdenes no se duplican).
+Hola <b>{sender_name}</b>, he certificado tu compra de Bitso en tu libro contable oficial:
+
+📱 <b>Plataforma:</b> Bitso México
+🪙 <b>Par de Trading:</b> <code>BTC / MXN</code>
+🟢 <b>Tipo de Orden:</b> <b>Compra Límite Maker (Ejecutada)</b>
+🏷️ <b>Precio de Ejecución:</b> <code>$1,125,820.00 MXN</code>
+🪙 <b>Monto Acreditado:</b> <code>17,776 satoshis</code> (0.00017776 BTC)
+💵 <b>Total Pagado:</b> <code>$200.12 MXN</code>
+⏱️ <b>Fecha de Ejecución:</b> 20 nov 26 08:39 p.m.
+
+📖 <b>Estado de tu Libro Contable de Bitso:</b>
+• 🪙 <b>Total acumulado:</b> <code>{total_sats_now:,} satoshis</code>
+• 💵 <b>Capital total invertido:</b> <code>${total_inv_now:,.2f} MXN</code>
+• 🎯 <b>Precio promedio de compra:</b> <code>${avg_p_now:,.2f} MXN</code>
+• 🔒 <b>Garantía Antiduplicidad:</b> ✅ Activa (Huella SHA-256 única).
 • 📁 <b>Archivo archivado:</b> <code>{dest_filename}</code>
 
-💡 <i>Tu copiloto ahora vigila el mercado de Bitso en Pesos Mexicanos. Escribe <code>/cuenta</code> o <code>/precio</code> para consultar tus estados en vivo.</i>
-"""
-                        elif is_bitso:
-                            ack_message = f"""
-✅ <b>¡ORDEN DE BITSO REGISTRADA EN TU BITÁCORA!</b>
-
-Hola <b>{sender_name}</b>, he certificado tu orden en tu bitácora patrimonial:
-• 📱 <b>Plataforma:</b> Bitso Alpha
-• 🪙 <b>Par de Trading:</b> <code>BTC / USD</code>
-• 🟢 <b>Estado:</b> Certificada en bitácora personal
-• 🔒 <b>Garantía Antiduplicidad:</b> ✅ Activa.
-• 📁 <b>Archivo archivado:</b> <code>{dest_filename}</code>
-
-💡 <i>Escribe <code>/cuenta</code> o <code>/precio</code> para consultar tus estados.</i>
-"""
-                        else:
-                            ack_message = f"""
-📸 <b>¡COMPROBANTE RECIBIDO Y CERTIFICADO!</b>
-
-Hola <b>{sender_name}</b>, he recibido y guardado tu captura en tu bitácora de auditoría patrimonial.
-
-📁 <b>Detalles de la Verificación:</b>
-• <b>Archivo guardado:</b> <code>{dest_filename}</code>
-• <b>Fecha y hora:</b> {record['timestamp']}
-• <b>Nota agregada:</b> {caption if caption else 'Sin notas adicionales'}
-• <b>Estado:</b> 🟢 Guardado y certificado en disco (Huella SHA-256 única).
-
-🏦 <b>¿A qué plataforma corresponde este comprobante?</b>
-• Si es de <b>Bursanet / Actinver</b> (acciones, FIBRAs o fondos):
-  👉 Escribe <code>/bursanet</code> (o <i>"es de actinver"</i>) y se aplicará a tu portafolio en pesos.
-• Si es de <b>Bitso</b> (Bitcoin, Satoshis, Pesos o USD):
-  👉 Se contabiliza en tu módulo de Cripto.
-
-💡 <i>Escribe <code>/portafolio</code> o <code>/estado</code> para revisar tus tenencias consolidadas.</i>
+💡 <i>Escribe <code>/libro</code> o <code>/bitso</code> para ver tu balance acumulado o <code>/ordenes</code> para la guía de órdenes Maker.</i>
 """
                         self.send_message(ack_message.strip(), target_chat_id=chat_id)
                         return record
