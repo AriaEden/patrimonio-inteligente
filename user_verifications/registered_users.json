@@ -18,19 +18,5 @@
     "bitso_satoshis": 17776,
     "bitso_invested_mxn": 200.12,
     "average_buy_price_mxn": 1125820.0
-  },
-  {
-    "chat_id": "123456",
-    "name": "Administrador",
-    "username": "",
-    "lot_size_usdc": 10.0,
-    "timeframe_mode": "4H",
-    "role": "ADMIN",
-    "registered_at": "2026-11-20 19:20:02 UTC",
-    "status": "ACTIVO",
-    "subscription_plan": "ADMIN_LIFETIME",
-    "subscription_status": "ACTIVA",
-    "expires_at": "2099-12-31",
-    "payment_reference": "VITALICIO"
   }
 ]
