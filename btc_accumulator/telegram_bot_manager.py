@@ -1237,40 +1237,134 @@ Bitcoin se encuentra en zona de fortaleza macro. El bot tiene prohibido vender p
 """
             return self.send_message(reply.strip(), target_chat_id=sender_id)
 
-        # 3.1. SELL TIMING & PROFIT-TAKING ALERT QUERY (/cuando_vender, /alerta_venta, /vender, cuando vender, alerta de venta, punto para vender)
+        # 3.1. SELL SIMULATION, NET PAYOUT & PROFIT INVENTORY (/simular_venta, /vender_ahora, /ganancia, vendo ahora, si vendo, cuanto valen mis satoshis, con cuanto me quedaria, /cuando_vender)
         elif any(term in q for term in [
-            "/cuando_vender", "/alerta_venta", "/vender", "cuando vender", "alerta de venta",
-            "alerta venta", "punto para vender", "buen punto para vender", "cuando vendo",
-            "como vendo", "toma de ganancias", "avisar para vender", "alerta para vender"
+            "/simular_venta", "/vender_ahora", "/ganancia", "/cuando_vender", "/alerta_venta", "/vender",
+            "vendo ahora", "si vendo", "vendo en este momento", "cuanto valen mis satoshis", "cuánto valen mis satoshis",
+            "con cuanto me quedaria", "con cuanto me quedaría", "con cuánto me quedaría", "simular venta", "cuanto gano",
+            "cuánto gano", "vender ahorita", "vender ahora", "cuando vender", "cuándo vender", "cuando vendo", "toma de ganancias", "vendo"
         ]):
             book_data = self._load_bitso_book()
             total_sats = int(book_data.get("total_satoshis", 17776))
             total_inv_mxn = float(book_data.get("total_invested_mxn", 200.12))
             avg_price_mxn = float(book_data.get("average_buy_price_mxn", 1125820.0))
 
+            ticker_mxn = self.fetch_live_bitso_ticker("btc_mxn")
+            ticker_usd = self.fetch_live_bitso_ticker("btc_usd")
+            bid_mxn = float(ticker_mxn.get("bid", 1154170.0)) if ticker_mxn else 1154170.0
+            last_mxn = float(ticker_mxn.get("last", bid_mxn)) if ticker_mxn else bid_mxn
+            last_usd = float(ticker_usd.get("last", 60231.0)) if ticker_usd else 60231.0
+            rsi_val, adx_val, dev_val, is_bull = self.fetch_latest_market_indicators()
+
+            # Live liquidation calculation
+            valor_bruto_mxn = round((total_sats / 1e8) * bid_mxn, 2)
+            fee_maker = round(valor_bruto_mxn * 0.0030, 2)  # Bitso Alpha Limit Order (0.30%)
+            fee_taker = round(valor_bruto_mxn * 0.0036, 2)  # Bitso Market Quick Sell (0.36%)
+            neto_maker = round(valor_bruto_mxn - fee_maker, 2)
+            neto_taker = round(valor_bruto_mxn - fee_taker, 2)
+
+            ganancia_neta_maker = round(neto_maker - total_inv_mxn, 2)
+            ganancia_pct_maker = round((ganancia_neta_maker / total_inv_mxn) * 100, 2) if total_inv_mxn > 0 else 0.0
+            ganancia_neta_taker = round(neto_taker - total_inv_mxn, 2)
+            ganancia_pct_taker = round((ganancia_neta_taker / total_inv_mxn) * 100, 2) if total_inv_mxn > 0 else 0.0
+
+            # Viceversa: Reinvestment / Buyback Simulation on dip (6.5% projected pullback to support)
+            dip_price_mxn = round(bid_mxn * 0.935, 0)
+            sats_buyback = int(round((neto_maker * (1 - 0.0030) / dip_price_mxn) * 1e8))
+            sats_ganados_ciclo = sats_buyback - total_sats
+
+            # Algorithmic verdict
+            if rsi_val >= 65.0:
+                veredicto_header = "🟢 <b>VEREDICTO TÁCTICO: ZONA CALIENTE DE VENTA (RSI ≥ 65.0)</b>"
+                veredicto_cuerpo = "El mercado está en sobrecompra técnica. Es un <b>excelente momento</b> para ejecutar la toma de ganancias."
+            else:
+                veredicto_header = "✋ <b>VEREDICTO TÁCTICO: ESPERAR (NO VENDER TODAVÍA)</b>"
+                veredicto_cuerpo = f"Aunque ya vas ganando (<b>{ganancia_pct_maker:+.2f}%</b> neto), el RSI 4H está en <b>{rsi_val:.1f}</b> (en impulso alcista saludable). Vender ahorita sería precipitarse y cortar ganancias antes del techo del swing. El bot te mandará la alerta en cuanto toquemos zona caliente."
+
             reply = f"""
-🔔 <b>ESTRATEGIA Y ALERTA AUTOMÁTICA DE VENTA (TOMA DE GANANCIAS)</b>
+💰 <b>SIMULACIÓN EN VIVO: ¿CUÁNTO VALEN TUS SATOSHIS Y CON CUÁNTO TE QUEDARÍAS?</b>
 
-Hola <b>{sender_name}</b>, el bot tiene registrada tu postura y vigila el mercado 24/7:
+Hola <b>{sender_name}</b>, aquí tienes el desglose financiero exacto con los precios de Bitso en este instante:
 
-🏷️ <b>Tu Precio de Entrada Certificado:</b> <code>${avg_price_mxn:,.2f} MXN</code>
-🪙 <b>Satoshis Acumulados:</b> <code>{total_sats:,} sats</code> (${total_inv_mxn:,.2f} MXN)
+🏷️ <b>1. TU COMPRA ORIGINAL CERTIFICADA:</b>
+• <b>Satoshis acumulados:</b> <code>{total_sats:,} sats</code> (0.00017776 BTC)
+• <b>Precio al que compraste:</b> <code>${avg_price_mxn:,.2f} MXN</code>
+• <b>Inversión inicial:</b> <code>${total_inv_mxn:,.2f} MXN</code>
 
-🎯 <b>¿Cuándo y cómo te avisará el bot para vender?</b>
-1️⃣ <b>Toma de Ganancias Táctica (Swing en Velas 4H):</b>
-   • <b>Condición del algoritmo:</b> Cuando el indicador <b>RSI en velas de 4 horas supere los 65.0 - 70.0 puntos</b> (zona caliente de sobrecompra técnica).
-   • <b>Aviso automático:</b> Recibirás una notificación prioritaria en este chat indicándote colocar una orden <b>LÍMITE Maker</b> con tu precio objetivo para vender tu lote en pesos y asegurar ganancias.
-   • <b>Recompra con Interés Compuesto:</b> Una vez tomada la ganancia, el bot esperará el enfriamiento del mercado hacia soporte (RSI &lt; 38) para indicarte recomprar una mayor cantidad de satoshis.
+📊 <b>2. SI VENDIERAS EN ESTE MOMENTO (Cotización en Vivo):</b>
+• <b>Precio actual de venta (Bitso Bid):</b> <code>${bid_mxn:,.2f} MXN</code> (≈ ${last_usd:,.2f} USD)
+• 💵 <b>Valor Bruto de tus satoshis:</b> <code>${valor_bruto_mxn:,.2f} MXN</code>
 
-2️⃣ <b>Cosecha Macro de Ciclo Bull Run:</b>
-   • <b>Condición del algoritmo:</b> Si Bitcoin alcanza la zona de euforia macro de ciclo (<b>$1,800,000+ MXN / $95,000+ USD</b>).
-   • <b>Aviso automático:</b> Alerta de cosecha del 50% de plusvalías hacia Actinver para fondear FIBRAs inmobiliarias generadoras de rentas mensuales en efectivo.
+💳 <b>3. LIQUIDACIÓN NETA (DESPUÉS DE COMISIONES BITSO):</b>
+• 🟢 <b>Opción A (Orden Límite Maker en Bitso Alpha - Recomendada):</b>
+  - Comisión Bitso (0.30%): <code>-${fee_maker:,.2f} MXN</code>
+  - <b>Con cuánto te quedarías en cuenta:</b> <b><code>${neto_maker:,.2f} MXN</code></b>
+  - <b>Ganancia Neta en tu bolsillo:</b> <b><code>+{ganancia_neta_maker:,.2f} MXN</code></b> (<code>{ganancia_pct_maker:+.2f}%</code>)
 
-3️⃣ <b>Freno Protector de Emergencia (Cisne Negro):</b>
-   • Si ocurre una anomalía extrema o desplome abrupto, el bot te avisará al instante para proteger tu patrimonio.
+• ⚪ <b>Opción B (Venta Rápida / Botón Mercado en App Bitso):</b>
+  - Comisión Bitso (0.36%): <code>-${fee_taker:,.2f} MXN</code>
+  - <b>Con cuánto te quedarías en cuenta:</b> <b><code>${neto_taker:,.2f} MXN</code></b>
+  - <b>Ganancia Neta:</b> <b><code>+{ganancia_neta_taker:,.2f} MXN</code></b> (<code>{ganancia_pct_taker:+.2f}%</code>)
 
-🟢 <b>Estado del Monitor:</b> <b>VIGILANCIA ACTIVA 24/7</b>
-No necesitas estar pendiente de la gráfica: en cuanto el mercado toque el punto de venta, tu teléfono sonará con la alerta.
+🔄 <b>4. Y VICEVERSA (CICLO DE RECOMPRA CON INTERÉS COMPUESTO):</b>
+• Si vendes en la cima con <code>${neto_maker:,.2f} MXN</code> y esperas la alerta del bot para recomprar en el siguiente piso/soporte (ej. a <code>${dip_price_mxn:,.0f} MXN</code>):
+• <b>Satoshis que recomprarías:</b> <b><code>{sats_buyback:,} satoshis</code></b>
+• 🪙 <b>Ganancia en Satoshis del ciclo:</b> <b><code>+{sats_ganados_ciclo:,} satoshis GRATIS</code></b> acumulados en tu patrimonio sin meter dinero extra.
+
+🧭 <b>5. RECOMENDACIÓN DEL CENTINELA:</b>
+{veredicto_header}
+{veredicto_cuerpo}
+
+💡 <i>Escribe <code>/comisiones</code> para ver cómo ahorrar fees o <code>/cuenta</code> para tu resumen general.</i>
+"""
+            return self.send_message(reply.strip(), target_chat_id=sender_id)
+
+        # 3.2. COMMISSIONS & FEES AUDITING (/comisiones, /neto, /fees, comisiones, despues de comisiones)
+        elif any(term in q for term in ["/comisiones", "/comision", "/neto", "/fees", "comisiones", "comision", "despues de comisiones", "después de comisiones", "cuanto cobra bitso", "cuánto cobra bitso"]):
+            parts = q.split()
+            custom_amount = None
+            for p in parts:
+                clean_p = p.replace("$", "").replace(",", "")
+                try:
+                    val = float(clean_p)
+                    if val > 0:
+                        custom_amount = val
+                        break
+                except ValueError:
+                    continue
+
+            calc_amount = custom_amount if custom_amount else 200.12
+
+            fee_maker = round(calc_amount * 0.0030, 2)
+            fee_taker = round(calc_amount * 0.0036, 2)
+            neto_maker = round(calc_amount - fee_maker, 2)
+            neto_taker = round(calc_amount - fee_taker, 2)
+            ahorro = round(fee_taker - fee_maker, 2)
+
+            reply = f"""
+💳 <b>ESTRUCTURA DE COMISIONES Y VALOR NETO (BITSO MÉXICO)</b>
+
+Hola <b>{sender_name}</b>, aquí tienes la auditoría oficial de tarifas para que nunca regales comisiones:
+
+🏷️ <b>1. TARIFAS OFICIALES EN BITSO:</b>
+• 🟢 <b>Orden LÍMITE (Maker):</b> <b>0.30%</b>
+  <i>(Cuando colocas una postura fijando tu precio en Bitso Alpha y esperas que alguien te la tome. Es la que siempre usa este bot).</i>
+• 🔴 <b>Orden MERCADO (Taker):</b> <b>0.36%</b>
+  <i>(Cuando le das al botón de comprar/vender instantáneo en la app móvil de Bitso).</i>
+
+📊 <b>2. CÁLCULO NETO PARA UN MONTO DE <code>${calc_amount:,.2f} MXN</code>:</b>
+• <b>Con Orden Límite Maker (0.30%):</b>
+  - Comisión Bitso: <code>-${fee_maker:,.2f} MXN</code>
+  - <b>Valor neto recibido:</b> <b><code>${neto_maker:,.2f} MXN</code></b>
+• <b>Con Orden de Mercado Taker (0.36%):</b>
+  - Comisión Bitso: <code>-${fee_taker:,.2f} MXN</code>
+  - <b>Valor neto recibido:</b> <b><code>${neto_taker:,.2f} MXN</code></b>
+• 💎 <b>Ahorro usando Maker:</b> <code>${ahorro:,.2f} MXN</code> que se quedan en tu bolsa.
+
+🪙 <b>3. EN TU OPERACIÓN REAL CERTIFICADA:</b>
+• En tu compra de <b>17,776 satoshis por $200.12 MXN</b> pagaste únicamente <b>~$0.60 MXN de comisión</b>, recibiendo tus satoshis íntegros a precio de entrada de <b>$1,125,820.00 MXN</b>.
+
+💡 <i>Puedes calcular cualquier otro monto escribiendo por ejemplo: <code>/comisiones 500</code> o <code>/comisiones 1000</code>.</i>
 """
             return self.send_message(reply.strip(), target_chat_id=sender_id)
 
@@ -2100,6 +2194,8 @@ Accede a tu plataforma web educativa para consultar manuales, calculadoras y la 
 • <code>/ok</code> &rarr; Silenciar cualquier alarma de emergencia activa.
 
 🪙 <b>BITCOIN (BITSO MÉXICO / GLOBAL):</b>
+• <code>/simular_venta</code> &rarr; 💰 <b>¿Cuánto valen hoy mis satoshis y cuánto me quedaría neto?</b> (y viceversa con interés compuesto).
+• <code>/comisiones</code> &rarr; 💳 <b>Calculadora de Comisiones Bitso:</b> Desglose neto Maker (0.30%) vs Taker (0.36%).
 • <code>/libro</code> o <code>/bitso</code> &rarr; 📖 <b>Libro Contable de Bitso:</b> Compras ejecutadas, satoshis acumulados y precio promedio ponderado.
 • <code>/moneda</code> &rarr; 💱 <b>Selector de Divisa:</b> Alternar entre <b>Pesos Mexicanos (MXN)</b> y <b>Dólares (USD)</b>.
 • <code>/comprar</code> &rarr; 🎯 <b>¿Es buen momento para comprar?</b> Diagnóstico en vivo y postura sugerida en tu moneda.
