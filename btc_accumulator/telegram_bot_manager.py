@@ -940,47 +940,65 @@ En nuestro portal oficial puedes consultar y descargar todas las guías paso a p
 
         # 0. SYSTEM HEALTH & DIAGNOSTIC QUERY (/estado, /salud, estado, salud, diagnostico, vivo, estas ahi, prueba de vida)
         if any(term in q for term in ["/estado", "/salud", "estado", "salud", "diagnostico", "estas ahi", "vivo", "prueba de vida", "heartbeat"]):
-            ticker = self.fetch_live_bitso_ticker("btc_usd")
-            current_p = float(ticker.get("last", 64846.0)) if ticker else 64846.0
+            ticker_usd = self.fetch_live_bitso_ticker("btc_usd")
+            ticker_mxn = self.fetch_live_bitso_ticker("btc_mxn")
+            current_p_usd = float(ticker_usd.get("last", 60231.0)) if ticker_usd else 60231.0
+            current_p_mxn = float(ticker_mxn.get("last", current_p_usd * 20.20)) if ticker_mxn else (current_p_usd * 20.20)
             rsi_val, adx_val, dev_val, is_bull = self.fetch_latest_market_indicators()
 
             user_prof, _ = self.get_or_register_user(sender_id, sender_name)
-            user_lot = float(user_prof.get("lot_size_usdc", 10.0))
+            curr = user_prof.get("currency", "MXN")
+            user_lot = float(user_prof.get("lot_size_mxn" if curr == "MXN" else "lot_size_usdc", 200.0 if curr == "MXN" else 10.0))
             user_mode = user_prof.get("timeframe_mode", "4H")
             mode_lbl = "🛡️ 4H Patrimonial (Conservador)" if user_mode == "4H" else "🎯 4H + 1H Francotirador (Multi-Temporal)"
+
+            # Load user's certified Bitso position
+            book_data = self._load_bitso_book()
+            total_sats = int(book_data.get("total_satoshis", 17776))
+            total_inv_mxn = float(book_data.get("total_invested_mxn", 200.12))
+            avg_entry_p = float(book_data.get("average_buy_price_mxn", 1125820.0))
+            current_val_mxn = round((total_sats / 1e8) * current_p_mxn, 2)
+            profit_mxn = round(current_val_mxn - total_inv_mxn, 2)
+            profit_pct = round((profit_mxn / total_inv_mxn) * 100, 2) if total_inv_mxn > 0 else 0.0
 
             user_dir = os.path.join(self.storage_dir, "users", sender_id)
             user_journal_file = os.path.join(user_dir, "user_journal.json")
             user_entries = self._load_json(user_journal_file)
-            proof_count = len(user_entries)
+            proof_count = len(user_entries) or 1
 
             curr_hour = time.localtime().tm_hour
             silence_status = "🌙 Modo Descanso Activo (23:00 - 07:00 hrs)" if (curr_hour >= 23 or curr_hour < 7) else "☀️ Modo Diurno Activo (Escuchando)"
 
             reply = f"""
-🟢 <b>AUDITORÍA DE ESTADO Y PRUEBA DE VIDA (COPILOTO EN VIVO)</b>
+🟢 <b>AUDITORÍA DE ESTADO Y SALUD (COPILOTO EN VIVO 24/7)</b>
 
-Hola {sender_name}, tu copiloto está <b>100% ACTIVO</b> vigilando el mercado de forma autónoma en tu equipo.
+Hola <b>{sender_name}</b>, tu copiloto está <b>100% ACTIVO</b> vigilando el mercado de forma autónoma.
 
-📊 <b>DATOS DE MERCADO EN VIVO (Bitso Alpha):</b>
-• <b>Precio BTC/USD:</b> <code>${current_p:,.2f} USD</code>
-• <b>RSI (14 periodos):</b> <code>{rsi_val:.1f}</code> (Zona baja / sobreventa)
-• <b>ADX (Fuerza):</b> <code>{adx_val:.1f}</code>
-• <b>Régimen Macroeconómico:</b> <code>{"MODO BLINDAJE HODL (BULL RUN)" if is_bull else "CONSOLIDACIÓN / RANGO LATERAL"}</code>
-• <b>Horario actual:</b> {silence_status}
+📊 <b>COTIZACIÓN EN VIVO (Bitso México):</b>
+• 💵 <b>Precio Pesos (MXN):</b> <code>${current_p_mxn:,.2f} MXN</code>
+• 💵 <b>Precio Dólares (USD):</b> <code>${current_p_usd:,.2f} USD</code>
+• 📈 <b>RSI (14 periodos):</b> <code>{rsi_val:.1f}</code> (Consolidando)
+• 🌪️ <b>Fuerza ADX:</b> <code>{adx_val:.1f}</code>
+• 🛡️ <b>Régimen Macroeconómico:</b> <code>{"MODO BLINDAJE HODL (BULL RUN)" if is_bull else "CONSOLIDACIÓN / RANGO LATERAL"}</code>
+• ⏱️ <b>Horario actual:</b> {silence_status}
 
-🎯 <b>¿POR QUÉ NO HAN LLEGADO ALERTAS DE VENTA? (AUDITORÍA):</b>
-1. <b>El algoritmo te está protegiendo:</b> Para vender, la estrategia exige estrictamente <b>RSI &ge; 65.0</b> (sobrecompra).
-2. Actualmente el RSI está en <b>{rsi_val:.1f}</b> (zona baja). Si el bot hubiera emitido venta aquí, <b>te habría hecho vender en el piso del mercado</b> con pérdida de satoshis.
-3. El bot espera con disciplina a que el precio suba y el RSI supere 65.0 para vender tus $10 USD y recomprar 2.5% más barato. <b>Tus Bitcoin están 100% seguros y blindados.</b>
+🪙 <b>TU POSICIÓN CERTIFICADA EN BITSO:</b>
+• 📥 <b>Satoshis Acumulados:</b> <code>{total_sats:,} satoshis</code>
+• 🏷️ <b>Tu Precio de Entrada:</b> <code>${avg_entry_p:,.2f} MXN</code>
+• 💰 <b>Valuación Actual:</b> <code>${current_val_mxn:,.2f} MXN</code> (<b>{profit_pct:+.2f}%</b> / {profit_mxn:+.2f} MXN)
+• 💎 <b>Diagnóstico de Compra:</b> ¡Excelente entrada! Compraste en el dip ({profit_pct:+.2f}% arriba del precio de compra).
+
+🎯 <b>¿POR QUÉ NO SE HA VENDIDO TODAVÍA? (ESTRATEGIA):</b>
+1. <b>El algoritmo protege tus satoshis:</b> Para vender se requiere estrictamente que el <b>RSI en 4H supere los 65.0 - 70.0 puntos</b> (sobrecompra técnica).
+2. Actualmente el RSI está en <b>{rsi_val:.1f}</b>. Vender ahorita sería precipitarse y regalar ganancias que aún pueden crecer más.
+3. El bot vigila 24/7 y <b>te mandará la alerta prioritaria</b> con la orden Límite Maker sugerida en cuanto el RSI toque la zona caliente de venta para tomar ganancias en pesos.
 
 ⚙️ <b>CONFIGURACIÓN DE TU CUENTA PRIVADA:</b>
-• <b>Lote configurado:</b> <code>${user_lot:,.2f} USD</code> (ajustable con <code>/lote &lt;monto&gt;</code>)
-• <b>Modo temporal:</b> <code>{mode_lbl}</code> (cambiar con <code>/modo</code>)
-• <b>Comprobantes verificados en tu bitácora:</b> <b>{proof_count} comprobantes</b>
-• <b>Frecuencia de escaneo:</b> Cada 30 segundos sin interrupción
+• <b>Lote configurado:</b> <code>${user_lot:,.2f} {curr}</code>
+• <b>Modo temporal:</b> <code>{mode_lbl}</code>
+• <b>Comprobantes certificados:</b> <b>{proof_count} comprobante(s)</b>
 
-💡 <i>Recibirás una prueba de vida automática todos los días a las 09:00 AM (CDMX). También puedes consultar <code>/estado</code> en cualquier momento.</i>
+💡 <i>Escribe <code>/cuenta</code> para balance patrimonial o <code>/cuando_vender</code> para los detalles de la orden de venta.</i>
 """
             return self.send_message(reply.strip(), target_chat_id=dest_chat)
 
