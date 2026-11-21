@@ -1,0 +1,68 @@
+[
+  {
+    "timestamp": "2026-11-18 19:10:11 UTC",
+    "action": "BUY",
+    "symbol": "FIBRAMQ12",
+    "titles": 37,
+    "price_mxn": 43.35,
+    "total_mxn": 1603.95,
+    "realized_profit_mxn": 0.0,
+    "proof_filename": "comprobante_bursanet_20261118_190035.jpg",
+    "notes": "Compra Fase 1 Rebalanceo Bursanet confirmada por usuario",
+    "status": "EJECUTADO_Y_AUDITADO"
+  },
+  {
+    "timestamp": "2026-11-18 19:10:11 UTC",
+    "action": "BUY",
+    "symbol": "IVVPESO ISHRS",
+    "titles": 7,
+    "price_mxn": 153.0,
+    "total_mxn": 1071.0,
+    "realized_profit_mxn": 0.0,
+    "proof_filename": "comprobante_bursanet_20261118_190108.jpg",
+    "notes": "Compra Fase 1 Rebalanceo Bursanet confirmada por usuario",
+    "status": "EJECUTADO_Y_AUDITADO"
+  },
+  {
+    "timestamp": "2026-11-19 18:41:59 UTC",
+    "action": "SELL",
+    "symbol": "INDA *",
+    "titles": 3,
+    "price_mxn": 900.0,
+    "total_mxn": 2700.0,
+    "realized_profit_mxn": 19.91999999999996,
+    "proof_filename": null,
+    "notes": "Poda de concentración ejecutada en Bursanet",
+    "status": "EJECUTADO_Y_AUDITADO"
+  },
+  {
+    "timestamp": "2026-11-19 18:41:59 UTC",
+    "action": "SELL",
+    "symbol": "CEMEX CPO",
+    "titles": 50,
+    "price_mxn": 20.09,
+    "total_net_mxn": 1004.5,
+    "realized_profit_mxn": 375.0,
+    "order_type": "Limitada por precio",
+    "settlement_days": "T+2 (48 hrs hábiles)",
+    "notes": "Toma de ganancia parcial +60% MtM ejecutada en Bursanet",
+    "status": "EJECUTADO_Y_AUDITADO"
+  },
+  {
+    "timestamp": "2026-11-19 18:46:07 UTC",
+    "action": "SELL",
+    "symbol": "INDA *",
+    "titles": 6,
+    "price_mxn": 987.16,
+    "commission_mxn": 14.8,
+    "iva_mxn": 2.36,
+    "total_net_mxn": 5905.8,
+    "realized_profit_mxn": 545.64,
+    "folio_bursanet": "138017476",
+    "order_type": "Limitada por precio",
+    "settlement_days": "T+2 (48 hrs hábiles)",
+    "proof_filename": "comprobante_bursanet_inda_folio_138017476.jpg",
+    "notes": "Venta parcial de 6 títulos INDA * ejecutada y verificada con comprobante oficial de Bursanet",
+    "status": "EJECUTADO_Y_AUDITADO"
+  }
+]

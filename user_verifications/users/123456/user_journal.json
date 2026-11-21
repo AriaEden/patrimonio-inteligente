@@ -1,0 +1,14 @@
+[
+  {
+    "timestamp": "2026-11-21 01:20:56 UTC",
+    "sender_id": "123456",
+    "sender_name": "TestUser",
+    "filename": "comprobante_bursanet_20261120_192056.jpg",
+    "local_path": "C:/fake_path/comprobante_bursanet_20261120_192056.jpg",
+    "file_unique_id": "uid_123",
+    "file_hash": "test_hash_unique_12345",
+    "caption": "",
+    "type": "PORTAFOLIO_SNAPSHOT",
+    "status": "VERIFICADO_EN_BURSANET"
+  }
+]

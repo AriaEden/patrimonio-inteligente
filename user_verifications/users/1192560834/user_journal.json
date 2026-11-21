@@ -1,0 +1,44 @@
+[
+  {
+    "timestamp": "2026-11-20 21:55:37 UTC",
+    "sender_id": "1192560834",
+    "sender_name": "B",
+    "filename": "comprobante_bursanet_20261120_155537.jpg",
+    "local_path": "mock_path.jpg",
+    "caption": "Screenshot Bursanet",
+    "status": "VERIFICADO_EN_BURSANET"
+  },
+  {
+    "timestamp": "2026-11-20 22:08:49 UTC",
+    "sender_id": "1192560834",
+    "sender_name": "Administrador",
+    "filename": "comprobante_bursanet_20261120_160849.jpg",
+    "local_path": "C:\\Users\\belem\\.gemini\\antigravity\\scratch\\subir_a_github\\user_verifications\\comprobante_bursanet_20261120_160849.jpg",
+    "caption": "Screenshot Bursanet",
+    "status": "VERIFICADO_EN_BURSANET"
+  },
+  {
+    "timestamp": "2026-11-20 22:37:24 UTC",
+    "sender_id": "1192560834",
+    "sender_name": "Administrador",
+    "filename": "comprobante_bursanet_20261120_163724.jpg",
+    "local_path": "C:\\Users\\belem\\.gemini\\antigravity\\scratch\\subir_a_github\\user_verifications\\comprobante_bursanet_20261120_163724.jpg",
+    "file_unique_id": "unique_id_xyz789",
+    "file_hash": "fake_sha256_hash_abc123",
+    "caption": "Screenshot Bursanet",
+    "type": "PORTAFOLIO_SNAPSHOT",
+    "status": "VERIFICADO_EN_BURSANET"
+  },
+  {
+    "timestamp": "2026-11-21 00:48:10 UTC",
+    "sender_id": "1192560834",
+    "sender_name": "Admin",
+    "filename": "comprobante_bitso_mxn_20261120_184810.jpg",
+    "local_path": "/tmp/comprobante_bitso_mxn_20261120_184810.jpg",
+    "file_unique_id": "u_test_123",
+    "file_hash": "hash_test_123",
+    "caption": "Orden límite en pesos en Bitso",
+    "type": "ORDEN_BITSO_MXN",
+    "status": "VERIFICADO_EN_BITSO"
+  }
+]

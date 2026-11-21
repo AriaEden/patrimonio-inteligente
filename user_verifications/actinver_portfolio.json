@@ -1,0 +1,61 @@
+{
+  "cash_mxn": 2.50,
+  "divisas_mxn": 632.20,
+  "stocks_etfs": {
+    "FIBRAMQ12": {
+      "titles": 67,
+      "entry_price": 44.07,
+      "current_price": 44.0,
+      "pocket": "CORE"
+    },
+    "GFINBUR O": {
+      "titles": 29,
+      "entry_price": 44.44,
+      "current_price": 47.579655,
+      "pocket": "SATELLITE"
+    },
+    "IVVPESO ISHRS": {
+      "titles": 43,
+      "entry_price": 152.82,
+      "current_price": 141.0,
+      "pocket": "CORE"
+    },
+    "QQQM *": {
+      "titles": 1,
+      "entry_price": 4998.96,
+      "current_price": 4908.53,
+      "pocket": "CORE"
+    }
+  },
+  "debt_funds": {
+    "ACTIREN B": {
+      "titles": 1282,
+      "price": 10.796558,
+      "value_mxn": 13841.18,
+      "pocket": "DEFENSIVE"
+    }
+  },
+  "equity_funds": {
+    "ACT2060 B-1": {
+      "titles": 2261,
+      "price": 1.395486,
+      "value_mxn": 3155.19,
+      "pocket": "CORE"
+    },
+    "BTGALFA B1": {
+      "titles": 1000,
+      "price": 2.499116,
+      "value_mxn": 2499.11,
+      "pocket": "CORE"
+    },
+    "FT-GLOB BF3": {
+      "titles": 466,
+      "price": 6.319986,
+      "value_mxn": 2945.11,
+      "pocket": "CORE"
+    }
+  },
+  "total_realized_profit_mxn": 1295.64,
+  "total_dividends_collected_mxn": 0.0,
+  "last_updated": "2026-11-21 01:15:00 UTC"
+}
