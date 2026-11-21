@@ -1,0 +1,115 @@
+{
+  "version": "2.0.0",
+  "last_updated": "2026-11-21 13:50:00 UTC",
+  "description": "Base de conocimiento dinámico adaptativo para clasificación invariante de comprobantes",
+  "platforms": {
+    "BITSO": {
+      "name": "Bitso Crypto Exchange",
+      "asset_keywords": [
+        "btc",
+        "bitcoin",
+        "satoshi",
+        "satoshis",
+        "eth",
+        "ethereum",
+        "usdt",
+        "usdc",
+        "xrp",
+        "sol",
+        "btc/mxn",
+        "btc/usd",
+        "eth/mxn"
+      ],
+      "transaction_keywords": [
+        "órdenes",
+        "ordenes",
+        "pasadas",
+        "activas",
+        "compra",
+        "venta",
+        "buy",
+        "sell",
+        "monto",
+        "precio",
+        "total",
+        "ejecutada",
+        "limit",
+        "maker",
+        "taker",
+        "trading",
+        "bitso",
+        "ver toda la actividad"
+      ],
+      "arithmetic_invariant_required": true,
+      "typical_asset_decimals": 8,
+      "card_layout_expected": true,
+      "learned_signatures": [
+        {
+          "timestamp": "2026-11-21 13:50:00 UTC",
+          "mean_brightness": 52.7,
+          "r_mean": 46.7,
+          "g_mean": 52.8,
+          "b_mean": 67.4,
+          "theme_mode": "dark",
+          "aspect_ratio": 2.926,
+          "reason": "Captura oficial Bitso App (Compra BTC/MXN $200.12 MXN)"
+        }
+      ]
+    },
+    "BURSANET": {
+      "name": "Bursanet / Actinver Casa de Bolsa",
+      "asset_keywords": [
+        "fibramq",
+        "fibramq12",
+        "funo",
+        "actiren",
+        "actiren b",
+        "ivvpeso",
+        "qqqm",
+        "gfinbur",
+        "act2060",
+        "btgalfa",
+        "ft-glob",
+        "ipc",
+        "voo",
+        "vt"
+      ],
+      "transaction_keywords": [
+        "portafolio",
+        "posiciones",
+        "desglose",
+        "valuación total",
+        "valuacion total",
+        "fondos de deuda",
+        "fondos de renta variable",
+        "divisas",
+        "emisora",
+        "títulos",
+        "titulos",
+        "precio actual",
+        "plus/min",
+        "var. diaria",
+        "var. acum.",
+        "bursanet",
+        "actinver",
+        "traspasar",
+        "historial"
+      ],
+      "arithmetic_invariant_required": false,
+      "card_layout_expected": false,
+      "learned_signatures": [
+        {
+          "timestamp": "2026-11-21 13:50:00 UTC",
+          "mean_brightness": 96.6,
+          "r_mean": 91.0,
+          "g_mean": 97.1,
+          "b_mean": 109.0,
+          "theme_mode": "light",
+          "aspect_ratio": 2.599,
+          "reason": "Captura oficial Bursanet App Portafolio"
+        }
+      ]
+    }
+  },
+  "correction_history": []
+}
