@@ -1,0 +1,23 @@
+{
+  "currency": "MXN",
+  "trades": [
+    {
+      "order_id": "bitso_order_20261120_203900",
+      "timestamp": "2026-11-20 20:39:00",
+      "pair": "BTC/MXN",
+      "side": "COMPRA",
+      "price_mxn": 1125820.0,
+      "amount_btc": 0.00017776,
+      "satoshis": 17776,
+      "total_mxn": 200.12,
+      "status": "EJECUTADA",
+      "proof_file": "comprobante_bitso_mxn_20261121_111044.jpg",
+      "notes": "Compra ejecutada en Bitso App (20 nov 26 08:39 p.m.)"
+    }
+  ],
+  "total_satoshis": 17776,
+  "total_btc": 0.00017776,
+  "total_invested_mxn": 200.12,
+  "average_buy_price_mxn": 1125820.0,
+  "last_updated": "2026-11-21 12:30:00 UTC"
+}

@@ -1,6 +1,6 @@
 {
-  "cash_mxn": 2.50,
-  "divisas_mxn": 632.20,
+  "cash_mxn": 8.46,
+  "divisas_mxn": 0.0,
   "stocks_etfs": {
     "FIBRAMQ12": {
       "titles": 67,
@@ -29,33 +29,33 @@
   },
   "debt_funds": {
     "ACTIREN B": {
-      "titles": 1282,
-      "price": 10.796558,
-      "value_mxn": 13841.18,
+      "titles": 1340,
+      "price": 10.797654,
+      "value_mxn": 14468.85,
       "pocket": "DEFENSIVE"
     }
   },
   "equity_funds": {
     "ACT2060 B-1": {
       "titles": 2261,
-      "price": 1.395486,
-      "value_mxn": 3155.19,
+      "price": 1.346746,
+      "value_mxn": 3044.98,
       "pocket": "CORE"
     },
     "BTGALFA B1": {
       "titles": 1000,
-      "price": 2.499116,
-      "value_mxn": 2499.11,
+      "price": 2.480410,
+      "value_mxn": 2480.40,
       "pocket": "CORE"
     },
     "FT-GLOB BF3": {
       "titles": 466,
-      "price": 6.319986,
-      "value_mxn": 2945.11,
+      "price": 6.178479,
+      "value_mxn": 2879.17,
       "pocket": "CORE"
     }
   },
   "total_realized_profit_mxn": 1295.64,
   "total_dividends_collected_mxn": 0.0,
-  "last_updated": "2026-11-21 01:15:00 UTC"
+  "last_updated": "2026-11-21 12:15:00 UTC"
 }
