@@ -109,5 +109,27 @@
     "caption": "",
     "type": "PORTAFOLIO_SNAPSHOT",
     "status": "VERIFICADO_EN_BURSANET"
+  },
+  {
+    "timestamp": "2026-11-21 12:18:39 UTC",
+    "sender_id": "123456",
+    "sender_name": "B",
+    "filename": "comprobante_bursanet_20261121_061839.jpg",
+    "local_path": "C:/fake_path/comprobante_bursanet_20261121_061839.jpg",
+    "file_unique_id": "uid_today",
+    "file_hash": "hash_test_today_20261121",
+    "caption": "",
+    "type": "PORTAFOLIO_SNAPSHOT",
+    "status": "VERIFICADO_EN_BURSANET"
+  },
+  {
+    "timestamp": "2026-11-21 11:10:46 UTC",
+    "sender_id": "1192560834",
+    "sender_name": "B",
+    "filename": "comprobante_bitso_mxn_20261121_111044.jpg",
+    "local_path": "user_verifications/comprobante_bitso_mxn_20261121_111044.jpg",
+    "caption": "Compra ejecutada en Bitso BTC/MXN $200.12 MXN",
+    "type": "ORDEN_BITSO_MXN",
+    "status": "VERIFICADO_EN_BITSO"
   }
 ]
